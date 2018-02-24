@@ -37,16 +37,17 @@ Url: `/user/<id\>/history?mode=<game_mode>?page=<page_number>/`
 * game_mode == **SINGLEPLAYER**:
 ```
 [
-// game
-{
-    date,
-    score,
-},
-...
+    // game
+    {
+        date,
+        score,
+    },
+    ...
 ]
 ```
 
-### GET SCOREBOARD:     /scoreboard/?mode=<game_mode>?user=<id>?page=<page_number>/
+### GET SCOREBOARD:     
+Url: `/scoreboard/?mode=<game_mode>?user=<id>?page=<page_number>/`
 * game_mode == **MULTIPLAYER**:
 ```
 {
@@ -72,7 +73,7 @@ Url: `/user/<id\>/history?mode=<game_mode>?page=<page_number>/`
     ]
 }
 ```
-* game_mode == **SINGLAPLAYER**:
+* game_mode == **SINGLEPLAYER**:
 ```
 {
     me: {
@@ -90,14 +91,16 @@ Url: `/user/<id\>/history?mode=<game_mode>?page=<page_number>/`
 }
 ```
 
-### POST LOGIN          /login/
+### POST LOGIN          
+Url: `/login/`
 ```
 {
     email,
     password
 }
 ```
-### POST REGISTER       /register/
+### POST REGISTER       
+Url: `/register/`
 ```
 {
     email,
@@ -105,7 +108,8 @@ Url: `/user/<id\>/history?mode=<game_mode>?page=<page_number>/`
     password
 }
 ```
-### GET ABOUT           /about/
+### GET ABOUT           
+Url: `/about/`
 ```
 [
     {
@@ -114,7 +118,8 @@ Url: `/user/<id\>/history?mode=<game_mode>?page=<page_number>/`
     ...
 ]
 ```
-### GET RULES           /rules/
+### GET RULES           
+Url: `/rules/`
 ```
 [
     {
@@ -124,7 +129,8 @@ Url: `/user/<id\>/history?mode=<game_mode>?page=<page_number>/`
     ...
 ]
 ```
-### POST EDIT USER      /user/<id>?field=<field_type>/
+### POST EDIT USER      
+Url: `/user/<id>?field=<field_type>/`
 * field_type == **EMAIL**
 ```
 {
