@@ -4,7 +4,8 @@
 
 ## API:
 
-### GET USER:           /user/<id>/
+### GET USER:           
+Url: `/user/<id>/`
 ```
 {
     id,
@@ -16,8 +17,8 @@
 }
 ```
 
-### GET USER HISTORY:   /user/<id>/history?mode=<game_mode>?page=<page_number>/
-  
+### GET USER'S HISTORY:   
+Url: `/user/<id\>/history?mode=<game_mode>?page=<page_number>/`
 * game_mode == **MULTIPLAYER**:
 ```  
 [
@@ -33,7 +34,7 @@
     ...
 ]
 ```
-* game_mode == **SINGLAPLAYER**:
+* game_mode == **SINGLEPLAYER**:
 ```
 [
 // game
