@@ -1,0 +1,24 @@
+{
+  "name": "2018_1_technokek",
+  "version": "1.0.0",
+  "description": "Frontend",
+  "main": "server/index.js",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TehnoKek/2018_1_Technokek.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TehnoKek/2018_1_Technokek/issues"
+  },
+  "homepage": "https://github.com/TehnoKek/2018_1_Technokek#readme"
+}
