@@ -1,0 +1,80 @@
+div(class='screen main-screen')
+    ul(class='header main-screen')
+        li(class='header-item')
+            |About
+        li(class='header-item')
+            |Volume        
+
+    div(class='site-center')
+        h1(class='logo')
+            |StalinGRAPH
+
+        div(class='site-center-sections')
+            div(class='site-center-column sigleplay-section')
+                img(src='/img/play_btn.png' class='play-btn')
+
+            form(class='site-center-column login-section')
+
+                h2(class='column-title')
+                    |Login
+                
+                label(for='signin-email')
+                    |Email
+
+                input(type='email' name='email' id='login-email')
+                
+                label(for='signin-password')
+                    |Password
+
+                input(type='password' name='password' id='signin-password')
+            
+                div(class='form-submit-subsection')
+                    input(type='submit' value='Login!')
+                    a(href='#')
+                        |Register
+
+            form(class='site-center-column register-section')
+
+                h2(class='column-title')
+                    |Register
+                
+                label(for='signup-nickname')
+                    |Nickname
+
+                input(type='text' name='nickname' id='signup-nickname')
+
+                label(for='signup-email')
+                    |Email
+
+                input(type='email' name='email' id='login-email')
+                
+                label(for='signup-password')
+                    |Password
+
+                input(type='password' name='password' id='signup-password')
+            
+                label(for='signup-password-repeat')
+                    |Repeat password
+
+                input(type='password' name='password' id='signup-password-repeat')
+
+                div(class='form-submit-subsection')
+                    input(type='submit' value='Register!')
+                    a(href='#')
+                        |Login
+
+    ul(class='tabbar row-flex-menu')
+        li(class='tabbar-item active')
+            a(href='#')
+                |Vitaly Cherkov
+
+        li(class='tabbar-item')
+            a(href='#')
+                |Riles
+        
+        li(class='tabbar-item')
+            a(href='#')
+                |Scoreboard
+
+div(class="screen")
+    |lol  
