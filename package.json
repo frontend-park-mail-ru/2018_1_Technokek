@@ -13,7 +13,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pug -c -w --name-after-file -o public/js/modules public/js/modules",
     "start": "DEBUG=* node server/index.js"
+
   },
   "repository": {
     "type": "git",

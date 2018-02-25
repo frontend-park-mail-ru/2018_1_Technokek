@@ -1,8 +1,7 @@
 'use strict';
 
-const pug = require('pug');
-
-export default class Init {
+// const template = require('.init.tmpl.js');
+class Init {
     constructor(selector = 'body') {
         this._el = document.querySelector(selector);
     }
@@ -12,9 +11,8 @@ export default class Init {
     }
 
     render() {
-        const compiledFunction = pug.compileFile('init.tmpl.pug');
-        _el.innerHTML = compiledFunction();   
+        this._el.innerHTML = window.initTmplTemplate();
     }
-
-
 }
+
+export default Init;
