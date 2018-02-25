@@ -1,6 +1,6 @@
 'use strict';
 
-// const template = require('.init.tmpl.js');
+import Mainscreen from '../mainscreen/mainscreen.js';
 class Init {
     constructor(selector = 'body') {
         this._el = document.querySelector(selector);
@@ -12,6 +12,8 @@ class Init {
 
     render() {
         this._el.innerHTML = window.initTmplTemplate();
+        this._mainscreen = new Mainscreen('.main-screen');
+        this._mainscreen.render();
     }
 }
 
