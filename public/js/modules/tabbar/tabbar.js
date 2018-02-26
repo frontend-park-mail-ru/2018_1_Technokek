@@ -2,11 +2,8 @@
 
 const getLinkedSection = function(tabElement) {
     const linkedSection = tabElement.dataset.section;
-    console.log(linkedSection);
-    
-    const el = document.getElementsByClassName(linkedSection)[0];
-    console.log(el);
-    return el;
+    const el = window.document.getElementsByClassName(linkedSection);
+    return el[0];
 };
 
 class Tabbar {
@@ -21,12 +18,7 @@ class Tabbar {
             };
         });
     
-        if(this._tabs) {
-            this._tabs[0].active = true;
-            // getLinkedSection(this._currentTab).hidden = false;
-        }
-    
-        let _listenersCreated = false;
+        this._currentTab = null;
     }
 
     render() {
@@ -34,14 +26,16 @@ class Tabbar {
             tabs: this._tabs
         });
 
-        this._tabElements = this._el.querySelectorAll('.tabbar-item');
-        for(let tabElement of this._tabElements) {
-            if(tabElement.classList.contains('active'))
-                this._currentTab = tabElement;
-        }
+        if(!this._tabElements)
+            this._elementizeTabs();
+    }
 
-        if(!this._listenersCreated)
-            this._createListeners();
+    _elementizeTabs() {
+        this._tabElements = this._el.querySelectorAll('.tabbar-item');
+        console.log('OK: ', this._tabElements, this._tabElements[0]);
+
+        this._createListeners();
+        this._updateTabElement(this._tabElements[0]);
     }
 
     _createListeners() {
@@ -50,17 +44,21 @@ class Tabbar {
                 this._tabClickedHandler(evt, tabElement);
             });
         }   
-
-        this._listenersCreated = true;
     }
 
     _tabClickedHandler(evt, tabElement) {
         evt.preventDefault();
-        this._currentTab.classList.remove('active');
-        tabElement.classList.add('active');
+        this._updateTabElement(tabElement);
+    }
 
-        getLinkedSection(this._currentTab).hidden = true;
+    _updateTabElement(tabElement) {
+        if(Boolean(this._currentTab)){
+            this._currentTab.classList.remove('active');        
+            getLinkedSection(this._currentTab).hidden = true;
+        }
+
         getLinkedSection(tabElement).hidden = false;
+        tabElement.classList.add('active');
 
         this._currentTab = tabElement;
     }

@@ -15,11 +15,11 @@ class Init {
     render() {
         this._el.innerHTML = window.initTmplTemplate();
         
-        this._mainscreen = new Mainscreen('.js-main-screen');
-        this._mainscreen.render();
-
         this._downscreen = new Downscreen('.js-down-screen');
         this._downscreen.render();
+
+        this._mainscreen = new Mainscreen('.js-main-screen');
+        this._mainscreen.render();
     }
 }
 
