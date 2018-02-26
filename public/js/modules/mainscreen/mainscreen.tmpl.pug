@@ -12,55 +12,56 @@ div(class='site-center')
         div(class='site-center-column sigleplay-section')
             img(src='/img/play_btn.png' class='play-btn')
 
-        form(class='site-center-column login-section')
+        div(class='site-center-column js-login-register-section')
+            div(class='login-section')
+                form
+                    h2(class='column-title')
+                        |Login
+                    
+                    label(for='signin-email')
+                        |Email
 
-            h2(class='column-title')
-                |Login
+                    input(type='email' name='email' id='login-email')
+                    
+                    label(for='signin-password')
+                        |Password
+
+                    input(type='password' name='password' id='signin-password')
+                
+                    div(class='form-submit-subsection')
+                        input(type='submit' value='Login!')
+                        a(href='#')
+                            |Register
             
-            label(for='signin-email')
-                |Email
+            div(class='register-section')
+                form
+                    h2(class='column-title')
+                        |Register
+                    
+                    label(for='signup-nickname')
+                        |Nickname
 
-            input(type='email' name='email' id='login-email')
-            
-            label(for='signin-password')
-                |Password
+                    input(type='text' name='nickname' id='signup-nickname')
 
-            input(type='password' name='password' id='signin-password')
-        
-            div(class='form-submit-subsection')
-                input(type='submit' value='Login!')
-                a(href='#')
-                    |Register
+                    label(for='signup-email')
+                        |Email
 
-        form(class='site-center-column register-section')
+                    input(type='email' name='email' id='login-email')
+                    
+                    label(for='signup-password')
+                        |Password
 
-            h2(class='column-title')
-                |Register
-            
-            label(for='signup-nickname')
-                |Nickname
+                    input(type='password' name='password' id='signup-password')
+                
+                    label(for='signup-password-repeat')
+                        |Repeat password
 
-            input(type='text' name='nickname' id='signup-nickname')
+                    input(type='password' name='password' id='signup-password-repeat')
 
-            label(for='signup-email')
-                |Email
-
-            input(type='email' name='email' id='login-email')
-            
-            label(for='signup-password')
-                |Password
-
-            input(type='password' name='password' id='signup-password')
-        
-            label(for='signup-password-repeat')
-                |Repeat password
-
-            input(type='password' name='password' id='signup-password-repeat')
-
-            div(class='form-submit-subsection')
-                input(type='submit' value='Register!')
-                a(href='#')
-                    |Login
+                    div(class='form-submit-subsection')
+                        input(type='submit' value='Register!')
+                        a(href='#')
+                            |Login
 
 ul(class='tabbar row-flex-menu')
     li(class='tabbar-item active')
