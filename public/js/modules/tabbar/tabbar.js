@@ -4,17 +4,18 @@ class Tabbar {
     constructor({selector = '', tabs = []} = {}) {
         this._el = document.querySelector(selector);
         this._tabs = tabs.map((tab) => {
+            let {title, jsClass, _} = tab;
             return {
-                title: tab,
-                active: ''
+                title,
+                jsClass,
+                active: false
             };
         });
         if(this._tabs)
-            this._tabs[0].active = 'active';
+            this._tabs[0].active = true;
     }
 
     render() {
-        console.log(this._tabs);
         this._el.innerHTML = window.tabbarTmplTemplate({
             tabs: this._tabs
         });

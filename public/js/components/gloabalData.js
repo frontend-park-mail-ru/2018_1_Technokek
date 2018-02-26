@@ -1,14 +1,31 @@
 'use strict';
 
+import Rules from '../modules/downsections/rules/rules.js';
+import Profile from '../modules/downsections/profile/profile.js';
+import Scoreboard from '../modules/downsections/scoreboard/scoreboard.js';
+
 class GlobalValues {
     get initialTabs() {
         return [
-            'Rules',
-            'Scoreboard'
+            {
+                title: 'Vilaly Cherkov',
+                jsClass: 'js-profile-section',
+                sectionSelect: Profile
+            },
+            {
+                title: 'Rules',
+                jsClass: 'js-rules-section',
+                sectionSelect: Rules
+            },
+            {
+                title: 'Scoreboard',
+                jsClass: 'js-scoreboard-section',
+                sectionSelect: Scoreboard
+            }
         ];
     }
 }
 
-window.GlobalValues = new GlobalValues();
+const globalValues = new GlobalValues();
 
-export default GlobalValues;
+export default globalValues;
