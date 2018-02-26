@@ -1,6 +1,6 @@
 'use strict';
 
-import LoginRegistrationForm from '../loginRegistrationForms/loginRegistrationForms.js';
+import AuthSignup from '../authSignup/authSignup.js';
 
 class Mainscreen {
     constructor(selector) {
@@ -23,7 +23,7 @@ class Mainscreen {
 
     _createInners() {
         this._inners = [
-            new LoginRegistrationForm('.js-login-register-section')
+            new AuthSignup('.js-login-register-section')
         ];
     }
 

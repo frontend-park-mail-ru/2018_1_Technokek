@@ -41,7 +41,7 @@ class AbstractForm {
     }
 }
 
-class LoginRegistrationForm {
+class AuthSignup {
 
     constructor(selector) {
         this._el = document.querySelector(selector);
@@ -52,7 +52,7 @@ class LoginRegistrationForm {
     }
 
     render() {
-        this._el.innerHTML = window.loginregistrationformsTmplTemplate();
+        this._el.innerHTML = window.authsignupTmplTemplate();
 
         if(!this._forms) {
             this._createForms();
@@ -75,7 +75,7 @@ class LoginRegistrationForm {
         this._forms = [
             new AbstractForm({
                 selector: '.register-section', 
-                templateFunction: window.registrationformTmplTemplate,
+                templateFunction: window.signupformTmplTemplate,
                 hidden: true,
                 changeFormSlot: () => {
                     this.changeForms();
@@ -83,7 +83,7 @@ class LoginRegistrationForm {
             }),
             new AbstractForm({
                 selector: '.login-section', 
-                templateFunction: window.loginformTmplTemplate,
+                templateFunction: window.authformTmplTemplate,
                 hidden: false,
                 changeFormSlot: () => {
                     this.changeForms();
@@ -93,4 +93,4 @@ class LoginRegistrationForm {
     }
 }
 
-export default LoginRegistrationForm;
+export default AuthSignup;
