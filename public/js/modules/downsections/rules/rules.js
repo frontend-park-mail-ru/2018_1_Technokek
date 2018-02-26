@@ -1,19 +1,8 @@
 'use strict';
 
-class Rules {
-    constructor(selector) {
-        this._el = document.querySelector(selector);
-        this._el.hidden = true;
-    }
+import AbstractSection from '../abstractSection.js';
 
-    get hidden() {
-        return this.el._hidden;
-    }
-
-    set hidden(val) {
-        this._el.hidden = Boolean(val);
-    }
-
+class Rules extends AbstractSection {
     render() {
         this._el.innerHTML = window.rulesTmplTemplate();
     }

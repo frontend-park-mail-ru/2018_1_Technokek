@@ -1,19 +1,8 @@
 'use strict';
 
-class Scoreboard {
-    constructor(selector) {
-        this._el = document.querySelector(selector);
-        this._el.hidden = true;
-    }
+import AbstractSection from '../abstractSection.js';
 
-    get hidden() {
-        return this.el._hidden;
-    }
-
-    set hidden(val) {
-        this._el.hidden = Boolean(val);
-    }
-
+class Scoreboard extends AbstractSection{
     render() {
         this._el.innerHTML = window.scoreboardTmplTemplate();
     }
