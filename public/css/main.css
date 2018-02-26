@@ -38,7 +38,7 @@ a:visited {
 
 .screen {
     width: 100%;
-    min-height: 100%;
+    min-height: 80%;
 }
 
 .main-screen {
@@ -58,7 +58,6 @@ a:visited {
     /* background-color: lightcoral; */
 }
 
- 
 .header {
     align-items: center;
     align-content: space-between;

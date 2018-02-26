@@ -1,6 +1,8 @@
 'use strict';
 
 import AuthSignup from '../authSignup/authSignup.js';
+import Tabbar from '../tabbar/tabbar.js';
+import GlobalValues from '../../components/gloabalData.js';
 
 class Mainscreen {
     constructor(selector) {
@@ -22,8 +24,13 @@ class Mainscreen {
     }
 
     _createInners() {
+        console.log(GlobalValues.initialTabs);
         this._inners = [
-            new AuthSignup('.js-login-register-section')
+            new AuthSignup('.js-login-register-section'),
+            new Tabbar({
+                selector: '.js-tabbar',
+                tabs: window.GlobalValues.initialTabs
+            })
         ];
     }
 
