@@ -1,0 +1,22 @@
+.profile-inner {
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profile-sidebar {
+    height: 300px;
+    min-width: 300px;
+    background-color: lightcoral;
+}
+
+.profile-center {
+    height: 300px;
+    width: 100%;
+    flex-grow: unset;
+    /* max-width: 600px; */
+    background-color: lightblue;
+}

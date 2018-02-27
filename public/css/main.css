@@ -1,4 +1,5 @@
 @import url("./system-font.css");
+@import url("../js/modules/downsections/profile/profile.css");
 
 html, body {
     width: 100%;
