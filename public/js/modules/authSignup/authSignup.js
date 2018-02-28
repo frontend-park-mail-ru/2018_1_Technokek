@@ -6,25 +6,29 @@ class AbstractForm {
     constructor({selector = 'body', templateFunction = noop, hidden = false, changeFormSlot = noop} = {}) {
         this._el = document.querySelector(selector);
         this._templateFunction = templateFunction;
-        this._hidden = hidden;
-        this._updateHidden();
+        this._el.hidden = hidden;
         this._changeFormSlot = changeFormSlot;
         this._listenersCreated = false;
     }
 
     get hidden() {
-        return this._hidden;
+        return this._el.hidden;
     }
 
     set hidden(val) {
-        this._hidden = Boolean(val);
-        this._updateHidden();
+        this._el.hidden = Boolean(val);
     }
 
     render() {
         this._el.innerHTML = this._templateFunction();
-        if(!this._listenersCreated)
-            this._createEventListeners();
+        
+        if(!this._listenersCreated) {
+            this._createEventListeners(); 
+        }
+    }
+
+    toggle() {
+        this._el.hidden = !this._el.hidden;
     }
 
     _createEventListeners() {
@@ -32,19 +36,27 @@ class AbstractForm {
         formChanger.addEventListener('click', this._changeFormSlot);
         this._listenersCreated = true;
     }
-
-    _updateHidden() {
-        if(this._hidden)
-            this._el.setAttribute('hidden', '');
-        else
-            this._el.removeAttribute('hidden');
-    }
 }
 
 class AuthSignup {
 
     constructor(selector) {
         this._el = document.querySelector(selector);
+
+        this._formsOprions = [
+            {
+                selector: '.register-section', 
+                templateFunction: window.signupformTmplTemplate,
+                hidden: true,
+                changeFormSlot: this.changeForms.bind(this)
+            },
+            {
+                selector: '.login-section', 
+                templateFunction: window.authformTmplTemplate,
+                hidden: false,
+                changeFormSlot: this.changeForms.bind(this)
+            }
+        ];
     }
 
     clear() {
@@ -66,30 +78,13 @@ class AuthSignup {
     changeForms() {
         if(this._forms) {
             for(let form of this._forms) {
-                form.hidden = !form.hidden;
+                form.toggle();
             }
         }
     }
 
     _createForms() {
-        this._forms = [
-            new AbstractForm({
-                selector: '.register-section', 
-                templateFunction: window.signupformTmplTemplate,
-                hidden: true,
-                changeFormSlot: () => {
-                    this.changeForms();
-                }
-            }),
-            new AbstractForm({
-                selector: '.login-section', 
-                templateFunction: window.authformTmplTemplate,
-                hidden: false,
-                changeFormSlot: () => {
-                    this.changeForms();
-                }
-            })
-        ];
+        this._forms = this._formsOprions.map(option => new AbstractForm(option)); 
     }
 }
 

@@ -10,14 +10,14 @@ class Tabbar {
     constructor({selector = '', tabs = []} = {}) {
         this._el = document.querySelector(selector);
         this._tabs = tabs.map((tab) => {
-            let {title, jsClass, _} = tab;
+            const {title, jsClass, _} = tab;
             return {
                 title,
                 jsClass,
                 active: false
             };
         });
-    
+
         this._currentTab = null;
     }
 
@@ -26,14 +26,13 @@ class Tabbar {
             tabs: this._tabs
         });
 
-        if(!this._tabElements)
-            this._elementizeTabs();
+        if(!this._tabElements) {
+            this._elementizeTabs(); 
+        }
     }
 
     _elementizeTabs() {
         this._tabElements = this._el.querySelectorAll('.tabbar-item');
-        console.log('OK: ', this._tabElements, this._tabElements[0]);
-
         this._createListeners();
         this._updateTabElement(this._tabElements[0]);
     }
@@ -41,18 +40,18 @@ class Tabbar {
     _createListeners() {
         for(let tabElement of this._tabElements) {
             tabElement.addEventListener('click', (evt) => {
-                this._tabClickedHandler(evt, tabElement);
+                this._handleTabClick(evt, tabElement);
             });
         }   
     }
 
-    _tabClickedHandler(evt, tabElement) {
+    _handleTabClick(evt, tabElement) {
         evt.preventDefault();
         this._updateTabElement(tabElement);
     }
 
     _updateTabElement(tabElement) {
-        if(Boolean(this._currentTab)){
+        if(this._currentTab){
             this._currentTab.classList.remove('active');        
             getLinkedSection(this._currentTab).hidden = true;
         }

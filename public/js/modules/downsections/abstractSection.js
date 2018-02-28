@@ -13,6 +13,10 @@ class AbstractSection {
     set hidden(val) {
         this._el.hidden = Boolean(val);
     }
+
+    toggle() {
+        this._el.toggle = !this._el.hidden;
+    }
 }
 
 export default AbstractSection;
