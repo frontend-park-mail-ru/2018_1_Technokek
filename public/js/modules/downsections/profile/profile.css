@@ -1,20 +1,68 @@
 .profile-inner {
-    display: grid;
-    grid-template-columns: 300px auto;
-    grid-column-gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    max-width: 1000px;
+    align-items: flex-start;
+    align-content: flex-start;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .profile-sidebar {
-    grid-column-start: 1;
     height: 300px;
-    background-color: lightcoral;
+    min-width: 300px;
+    flex-shrink: 0;
+    flex-grow: 1;
+    /* background-color: lightcoral; */
 }
 
 .profile-center {
-    grid-column-start: 2;
     height: 300px;
-    min-width: 300px;
+    min-width: 320px;
+    flex-grow: 3;
+    flex-shrink: 1;
     background-color: lightblue;
+}
+
+.personal-info {
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.personal-photo {
+    width: 200px;
+    margin: 5px;
+    height: 200px;
+    background-size: 200px;
+    background-image: url('/img/avatar.jpg');
+    background-color: lightpink;
+    background-repeat: no-repeat;
+    background-position: center; 
+    border-radius: 5px;
+}
+
+.edit-profile-link {
+    width: 200px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    font-size: 18px;
+    font-family: 'ProximaNovaRegular';
+    font-weight: normal;
+    font-style: normal;
+
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }

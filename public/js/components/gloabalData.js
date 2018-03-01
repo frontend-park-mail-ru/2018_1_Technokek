@@ -24,6 +24,14 @@ class GlobalValues {
             }
         ];
     }
+
+    get inputTypes() {
+        return {
+            email: 'email',
+            password: 'password',
+            text: 'text'
+        };
+    }
 }
 
 const globalValues = new GlobalValues();

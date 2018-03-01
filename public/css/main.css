@@ -1,5 +1,6 @@
 @import url("./system-font.css");
 @import url("../js/modules/downsections/profile/profile.css");
+@import url("../js/modules/tools/tools.css");
 
 html, body {
     width: 100%;
@@ -178,7 +179,6 @@ input[type=submit]:hover {
 .form-submit-subsection {
     display: flex;
     flex-direction: row;
-    /* flex-wrap: wrap; */
     justify-content: flex-start;
     align-items: center;
     align-content: center;
