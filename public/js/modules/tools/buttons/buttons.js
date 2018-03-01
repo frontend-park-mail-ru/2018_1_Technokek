@@ -13,14 +13,18 @@ class AbstractButton {
         this._createListeners(events);
     }
 
+    get element() {
+        return this._el;
+    }
+
+    addListeners(events) {
+        this._createListeners(events);
+    }
+
     _createListeners(events) {
         for(let event of events) {
             this._el.addEventListener(event.name, event.handler);
         }
-    }
-
-    get element() {
-        return this._el;
     }
 }
 

@@ -32,6 +32,80 @@ class GlobalValues {
             text: 'text'
         };
     }
+
+    get formsOptions() {
+        return {
+            authForm: {
+                formTitle: 'Login',
+                fields: [
+                    {
+                        label: 'Email',
+                        type: globalValues.inputTypes.email,
+                        placeholder: 'Email',
+                        id: 'auth-email',
+                        name: 'email'
+                    },
+                    {
+                        label: 'Password',
+                        type: globalValues.inputTypes.password,
+                        placeholder: 'Password',
+                        id: 'auth-password',
+                        name: 'password'
+                    }
+                ],
+                buttons: {
+                    submit: {
+                        text: 'Login!'
+                    },
+                    changeForm: {
+                        text: 'Registration'
+                    }
+                }
+            },
+
+            signupForm: {
+                formTitle: 'Registration',
+                fields: [
+                    {
+                        label: 'Nickname',
+                        type: globalValues.inputTypes.text,
+                        placeholder: 'Nickname',
+                        id: 'signup-nickname',
+                        name: 'nickname'
+                    },
+                    {
+                        label: 'Email',
+                        type: globalValues.inputTypes.email,
+                        placeholder: 'Email',
+                        id: 'signup-email',
+                        name: 'email'
+                    },
+                    {
+                        label: 'Password',
+                        type: globalValues.inputTypes.password,
+                        placeholder: 'Password',
+                        id: 'signup-password',
+                        name: 'password'
+                    },
+                    {
+                        label: 'Repeat рassword',
+                        type: globalValues.inputTypes.password,
+                        placeholder: 'Repeat password',
+                        id: 'signup-repeat-password',
+                        name: 'repeat-password'
+                    }
+                ],
+                buttons: {
+                    submit: {
+                        text: 'Register!'
+                    },
+                    changeForm: {
+                        text: 'Login'
+                    }
+                }
+            }
+        };
+    }
 }
 
 const globalValues = new GlobalValues();
