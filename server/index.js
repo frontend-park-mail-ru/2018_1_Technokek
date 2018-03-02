@@ -42,17 +42,21 @@ const ids = {};
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
 	const email = req.body.email;
-	const age = +req.body.age;
+	const nickname = req.body.nickname;
 	if (
 		!password || !email || !age ||
 		!password.match(/^\S{4,}$/) ||
-		!email.match(/@/) ||
-		!(typeof age === 'number' && age > 10 && age < 100)
+		!email.match(/@/)
 	) {
 		return res.status(400).json({error: 'Не валидные данные пользователя'});
 	}
 	if (users[email]) {
 		return res.status(400).json({error: 'Пользователь уже существует'});
+	}
+	for (let user of users) {
+		if (user.nickname === nickname) {
+			return res.status(400).json({error: 'Такой никнейм уже занят'});
+		}
 	}
 
 	const id = uuid();
@@ -65,6 +69,7 @@ app.post('/signup', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
+
 	const password = req.body.password;
 	const email = req.body.email;
 	if (!password || !email) {
@@ -82,6 +87,7 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/me', function (req, res) {
+
 	const id = req.cookies['frontend'];
 	const email = ids[id];
 	if (!email || !users[email]) {
@@ -100,7 +106,7 @@ app.get('/users', function (req, res) {
 			return {
 				email: user.email,
 				age: user.age,
-				score: user.score
+				rating: user.rating
 			};
 		});
 

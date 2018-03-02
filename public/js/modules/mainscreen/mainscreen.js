@@ -16,11 +16,11 @@ class Mainscreen {
     render() {
         this._el.innerHTML = window.mainscreenTmplTemplate();
         
-        if(!this._inners) {
+        if (!this._inners) {
             this._createInners();
         }
 
-        for(let inner of this._inners) {
+        for (let inner of this._inners) {
             inner.render();
         }
     }

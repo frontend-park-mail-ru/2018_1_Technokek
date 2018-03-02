@@ -26,7 +26,7 @@ class Tabbar {
             tabs: this._tabs
         });
 
-        if(!this._tabElements) {
+        if (!this._tabElements) {
             this._elementizeTabs(); 
         }
     }
@@ -38,7 +38,7 @@ class Tabbar {
     }
 
     _createListeners() {
-        for(let tabElement of this._tabElements) {
+        for (let tabElement of this._tabElements) {
             tabElement.addEventListener('click', (evt) => {
                 this._handleTabClick(evt, tabElement);
             });
@@ -51,7 +51,7 @@ class Tabbar {
     }
 
     _updateTabElement(tabElement) {
-        if(this._currentTab){
+        if (this._currentTab){
             this._currentTab.classList.remove('active');        
             getLinkedSection(this._currentTab).hidden = true;
         }

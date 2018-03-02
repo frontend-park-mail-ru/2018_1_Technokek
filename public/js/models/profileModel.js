@@ -1,24 +1,50 @@
 'use strict';
 
+import globalValues from '../components/gloabalData.js';
 import httpRequester from '../components/http.js';
+import { listeners } from 'cluster';
 
 class ProfileHistory {
     constructor() {
-
     }
 }
 
 class ProfileModel {
-    constructor( { profileModule = {} } = {} ) {
+    constructor( { profileModule = {}, authForm = {}, signupForm = {} } = {} ) {
+        this._isAuthinticated = false;
+        this._profileModule = profileModule;
+        this._authForm = authForm;
+        this._signupForm = signupForm;
+        this._authListeners = [];
+        this._deauthListeners = [];
     }
 
     checkAuth() {
         console.log('checkAuth');
-        return true;
+        
+        httpRequester.doGet({
+            url: globalValues.apiUrls.GET.ME,
+            callback: (err, resp) => {
+                if (err) {
+                    this._deauthenticate();
+                }
+                else {
+                    this._authenticate(resp);
+                }
+            }
+        });
     }
 
     auth(authData) {
         console.log('auth', authData);
+
+        httpRequester.doPost({
+            url: globalValues.apiUrls.POST.AUTH,
+            callback: (err, resp) => {
+                this.checkAuth();
+            },
+            data: authData
+        });   
     }
 
     signup(signupData) {
@@ -63,6 +89,36 @@ class ProfileModel {
     get history() {
         console.log('[get] history');
         return true;
+    }
+
+    get authenticated() {
+        return this._isAuthinticated;
+    }
+
+    addAuthListener(listener) {
+        this._authListeners.push(listener);
+    }
+
+    addDeauthListener(listener) {
+        this._deauthListeners.push(listeners);
+    }
+
+    _deauthenticate() {
+        console.log('deauthenticate');
+        this._isAuthinticated = false;
+        
+        for (let listener of this._deauthListeners) {
+            listener();
+        }
+    }
+
+    _authenticate(resp) {
+        console.log('authenticate', resp);
+        this._isAuthinticated = true;
+
+        for(let listener of this._authListeners) {
+            listener();
+        }
     }
 }
 

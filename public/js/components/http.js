@@ -22,7 +22,6 @@ class HttpRequester {
                     const response = JSON.parse(responseText);
                     callback(null, response);
                 } catch (err) {
-                    console.error(`do${method} error: `, err);
                     callback(err);
                 }
             } else {

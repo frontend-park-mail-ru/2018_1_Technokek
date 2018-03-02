@@ -4,24 +4,29 @@ import Rules from '../modules/downsections/rules/rules.js';
 import Profile from '../modules/downsections/profile/profile.js';
 import Scoreboard from '../modules/downsections/scoreboard/scoreboard.js';
 
-const apiUrls = {
-    GET: {
-        USER: '/user',
-        HISTORY: '/history',
-        SCOREBOARD: '/scoreboard',
-        ABOUT: '/about',
-        RULES: '/rules'
-    },
 
-    POST: {
-        AUTH: '/login',
-        SIGNUP: '/register',
-        LOGOUT: '/logout',
-        EDIT_USER: '/user'
-    }
-}
 
 class GlobalValues {
+    constructor() {
+        this._apiUrls = {
+            GET: {
+                USER: '/user',
+                HISTORY: '/history',
+                SCOREBOARD: '/scoreboard',
+                ABOUT: '/about',
+                RULES: '/rules',
+                ME: '/me'
+            },
+        
+            POST: {
+                AUTH: '/login',
+                SIGNUP: '/register',
+                LOGOUT: '/logout',
+                EDIT_USER: '/user'
+            }
+        }
+    }
+
     get initialTabs() {
         return [
             {
@@ -122,6 +127,10 @@ class GlobalValues {
                 }
             }
         };
+    }
+
+    get apiUrls() {
+        return this._apiUrls;
     }
 }
 

@@ -22,7 +22,7 @@ class AbstractButton {
     }
 
     _createListeners(events) {
-        for(let event of events) {
+        for (let event of events) {
             this._el.addEventListener(event.name, event.handler);
         }
     }

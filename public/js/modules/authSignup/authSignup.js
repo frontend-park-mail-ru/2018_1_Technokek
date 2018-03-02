@@ -23,7 +23,10 @@ class AuthForm extends AbstractForm {
         this._downButtons[0].addListeners([
             {
                 name: 'click',
-                handler: () => this.ejectData(profileModel.auth)
+                handler: (evt) => {
+                    evt.preventDefault();
+                    this.ejectData(profileModel.auth.bind(profileModel));
+                }
             }
         ]);
     }
@@ -45,7 +48,10 @@ class SignupForm extends AbstractForm {
         this._downButtons[0].addListeners([
             {
                 name: 'click',
-                handler: () => this.ejectData(profileModel.signup)
+                handler: (evt) => {
+                    evt.preventDefault();
+                    this.ejectData(profileModel.signup);
+                }
             }
         ]);
     }
@@ -93,7 +99,7 @@ class AuthSignup extends Toggling.AbstractToggler {
     render() {
         this._el.innerHTML = window.authsignupTmplTemplate();
 
-        if(!this._togglingItems) {
+        if (!this._togglingItems) {
             this._createForms();
         }
     }

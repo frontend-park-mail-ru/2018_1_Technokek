@@ -8,7 +8,7 @@ class AbstractToggler {
     }
     
     changeItems() {
-        for(let item of this._togglingItems)
+        for (let item of this._togglingItems)
             item.toggle();
     }
 }
@@ -26,7 +26,7 @@ class AbstractTogglingItem {
     }
 
     render() {
-        if(this._child.render) {
+        if (this._child.render) {
             this._child.render();
         }
     }

@@ -13,11 +13,11 @@ class DownScreen {
             sections: globalData.initialTabs
         });
 
-        if(!this._sectionsCreated) {
+        if (!this._sectionsCreated) {
             this._createSections(globalData.initialTabs);
         }
 
-        for(let section of this._sections) {
+        for (let section of this._sections) {
             section.render();
         }
     }
