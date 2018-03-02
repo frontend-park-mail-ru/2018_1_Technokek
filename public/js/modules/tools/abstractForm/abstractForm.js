@@ -46,7 +46,9 @@ class AbstractForm {
         }, {});
 
         this.reset();
-        callback(formdata);
+        callback({
+            data: formdata 
+        });
     }
 
     _insertDownButtons(downButtons) {

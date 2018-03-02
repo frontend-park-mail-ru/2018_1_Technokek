@@ -37,20 +37,20 @@ class ProfileModel {
         });
     }
 
-    auth(authData) {
-        console.log('auth', authData);
+    auth({ data = {}, callback = utiles.noop } = {}) {
+        console.log('auth', data);
 
         httpRequester.doPost({
             url: globalValues.apiUrls.POST.AUTH,
             callback: (err, resp) => {
                 this.checkAuth();
             },
-            data: authData
+            data
         });   
     }
 
-    signup(signupData) {
-        console.log('signup', signupData);
+    signup({ data = {}, callback = utiles.noop } = {}) {
+        console.log('signup', data);
     }
 
     logout() {
