@@ -60,7 +60,7 @@ app.post('/signup', function (req, res) {
 	}
 
 	const id = uuid();
-	const user = {password, email, age, score: 0};
+	const user = {password, email, age, rating: 0};
 	ids[id] = email;
 	users[email] = user;
 
@@ -94,14 +94,14 @@ app.get('/me', function (req, res) {
 		return res.status(401).end();
 	}
 
-	users[email].score += 1;
+	users[email].rating += 1;
 
 	res.json(users[email]);
 });
 
 app.get('/users', function (req, res) {
 	const scorelist = Object.values(users)
-		.sort((l, r) => r.score - l.score)
+		.sort((l, r) => r.rating - l.rating)
 		.map(user => {
 			return {
 				email: user.email,

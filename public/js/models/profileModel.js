@@ -2,7 +2,7 @@
 
 import globalValues from '../components/gloabalData.js';
 import httpRequester from '../components/http.js';
-import { listeners } from 'cluster';
+import utiles from '../components/utiles.js';
 
 class ProfileHistory {
     constructor() {
@@ -10,14 +10,16 @@ class ProfileHistory {
 }
 
 class ProfileModel {
-    constructor( { profileModule = {}, authForm = {}, signupForm = {} } = {} ) {
-        this._isAuthinticated = false;
-        this._profileModule = profileModule;
-        this._authForm = authForm;
-        this._signupForm = signupForm;
+    constructor() {
+        this._isAuthinticated = false;    
         this._authListeners = [];
         this._deauthListeners = [];
+        this._dataChangedListeners = [];
     }
+
+// ---------------------------------------------------------------------------------
+// responces
+// ---------------------------------------------------------------------------------
 
     checkAuth() {
         console.log('checkAuth');
@@ -53,11 +55,12 @@ class ProfileModel {
 
     logout() {
         console.log('logut');
+        this._deauthenticate();
     }
 
-    setProfileModule(value) {
-        console.log('setProfileModule');
-    }
+// ---------------------------------------------------------------------------------
+// getters
+// ---------------------------------------------------------------------------------
 
     get data() {
         console.log('[get] data');
@@ -69,21 +72,38 @@ class ProfileModel {
         return true;
     }
 
-    set email(value) {
-        console.log('[set] email');
-    }
-
     get nickname() {
         console.log('[get] nickname');
         return true;
     }
 
-    set nickname(value) {
-        console.log('[set] nickname');
+    get score() {
+        console.log('[get] score');
+        return true;
     }
 
-    changePassword({ oldPassword = '', newPassword = '' } = {}) {
+    get games() {
+        console.log('[get] games');
+        return true;
+    }
+
+// ---------------------------------------------------------------------------------
+// setters
+// ---------------------------------------------------------------------------------
+
+    changeEmail({ value = '', callback = utiles.noop } = {}) {
+        console.log('[set] email');
+        this._dataChanged();
+    }
+
+    changeNickname({ value = '', callback = utiles.noop } = {}) {
+        console.log('[set] nickname');
+        this._dataChanged();
+    }
+
+    changePassword({ oldPassword = '', newPassword = '', callback = utiles.noop } = {}) {
         console.log('changePassword');
+        this._dataChanged();
     }
 
     get history() {
@@ -95,17 +115,30 @@ class ProfileModel {
         return this._isAuthinticated;
     }
 
+// ---------------------------------------------------------------------------------
+// work with listeners
+// ---------------------------------------------------------------------------------
+
     addAuthListener(listener) {
         this._authListeners.push(listener);
     }
 
     addDeauthListener(listener) {
-        this._deauthListeners.push(listeners);
+        this._deauthListeners.push(listener);
     }
+
+    addDataChangedListener(listener) {
+        this._dataChangedListeners.push(listener);
+    }
+
+// ---------------------------------------------------------------------------------
+// private signals
+// ---------------------------------------------------------------------------------
 
     _deauthenticate() {
         console.log('deauthenticate');
         this._isAuthinticated = false;
+        this._data = null;
         
         for (let listener of this._deauthListeners) {
             listener();
@@ -115,8 +148,15 @@ class ProfileModel {
     _authenticate(resp) {
         console.log('authenticate', resp);
         this._isAuthinticated = true;
+        this._data = resp;
 
         for(let listener of this._authListeners) {
+            listener();
+        }
+    }
+
+    _dataChanged() {
+        for (let listener of this._dataChangedListeners) {
             listener();
         }
     }
