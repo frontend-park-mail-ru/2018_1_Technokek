@@ -19,10 +19,8 @@ class AbstractTogglingItem {
         childElement = null,
         hidden = true,
     }) {
-        console.log(selector, childElement.element, hidden);
         this._el = document.querySelector(selector);
         this._child = childElement;
-        console.log(this._el);
         this._el.appendChild(this._child.element);
         this._el.hidden = hidden;
     }

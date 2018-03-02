@@ -6,16 +6,15 @@ class AbstractForm {
     constructor({
         formTitle = '',
         fields = [],
-        url = '/',
-        method = 'POST',
         downButtons = []
     } = {}) {
         const elHtml = window.abstractformTmplTemplate({
-            formElements: {formTitle, fields, url, method, downButtons}
+            formElements: {formTitle, fields, downButtons}
         });
 
         this._el = utiles.htmlToElements(elHtml)[0];
         this._fields = fields;
+        console.log(this._fields);
         this._downButtons = downButtons;
         this._insertDownButtons();
     }
@@ -39,6 +38,18 @@ class AbstractForm {
             const input = this._el.querySelector(`input[type='${val.name}']`);
             input.value = val.value;
         }
+    }
+
+    ejectData(callback = utiles.noop) {
+        console.log(this._fields);        
+        const formdata = this._fields.reduce((allFields, field) => {
+            allFields[field.name] = this._el.elements[field.name].value;
+            return allFields;
+        }, {});
+
+        this.reset();
+        console.log(formdata);
+        callback(formdata);
     }
 
     _insertDownButtons(downButtons) {

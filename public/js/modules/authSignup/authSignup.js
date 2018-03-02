@@ -5,6 +5,7 @@ import globalValues from '../../components/gloabalData.js';
 import AbstractForm from '../tools/abstractForm/abstractForm.js';
 import * as Buttons from '../tools/buttons/buttons.js';
 import * as Toggling from '../tools/toggling/toggling.js';
+import profileModel from '../../models/profileModel.js';
 
 class AuthForm extends AbstractForm {
     constructor() {      
@@ -18,6 +19,13 @@ class AuthForm extends AbstractForm {
                 new Buttons.PassiveButton(authFormOptions.buttons.changeForm)
             ]
         });
+
+        this._downButtons[0].addListeners([
+            {
+                name: 'click',
+                handler: () => this.ejectData(profileModel.auth)
+            }
+        ]);
     }
 }
 
@@ -33,6 +41,13 @@ class SignupForm extends AbstractForm {
                 new Buttons.PassiveButton(signupFormOptions.buttons.changeForm)
             ]
         });
+
+        this._downButtons[0].addListeners([
+            {
+                name: 'click',
+                handler: () => this.ejectData(profileModel.signup)
+            }
+        ]);
     }
 }
 
@@ -60,8 +75,6 @@ class SignupFormContainer extends Toggling.AbstractTogglingItem {
             childElement: new SignupForm(),
             hidden: true,
         });
-
-        console.log(this._child.buttons.changeForm);
 
         this._child.buttons[1].addListeners([
             {

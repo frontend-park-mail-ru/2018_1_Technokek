@@ -3,7 +3,10 @@
 import AbstractSection from '../abstractSection.js';
 
 class Profile extends AbstractSection {
-    render() {
+    render({
+        profileData = {},
+        historyW
+    } = {}) {
         this._el.innerHTML = window.profileTmplTemplate();
     }
 }

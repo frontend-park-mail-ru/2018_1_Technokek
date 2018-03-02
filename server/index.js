@@ -18,36 +18,24 @@ app.use(body.json());
 app.use(cookie());
 
 const users = {
-	'a.ostapenko@corp.mail.ru': {
-		email: 'a.ostapenko@corp.mail.ru',
+	'vv-ch0@bk.ru': {
+		email: 'vv-ch0@bk.ru',
 		password: 'password',
-		age: 20,
-		score: 72
+		games: 20,
+		rating: 72
 	},
-	'd.dorofeev@corp.mail.ru': {
-		email: 'd.dorofeev@corp.mail.ru',
+	'vv-ch1@bk.ru': {
+		email: 'vv-ch1@bk.ru',
 		password: 'password',
-		age: 20,
-		score: 100500
+		games: 21,
+		rating: 172
 	},
-	'a.udalov@corp.mail.ru': {
-		email: 'a.udalov@corp.mail.ru',
+	'vv-ch2@bk.ru': {
+		email: 'vv-ch2@bk.ru',
 		password: 'password',
-		age: 20,
-		score: 72
+		games: 22,
+		rating: 272
 	},
-	'marina.titova@corp.mail.ru': {
-		email: 'marina.titova@corp.mail.ru',
-		password: 'password',
-		age: 20,
-		score: 72
-	},
-	'a.tyuldyukov@corp.mail.ru': {
-		email: 'a.tyuldyukov@corp.mail.ru',
-		password: 'password',
-		age: 20,
-		score: 72
-	}
 };
 const ids = {};
 

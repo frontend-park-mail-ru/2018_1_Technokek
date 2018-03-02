@@ -4,6 +4,23 @@ import Rules from '../modules/downsections/rules/rules.js';
 import Profile from '../modules/downsections/profile/profile.js';
 import Scoreboard from '../modules/downsections/scoreboard/scoreboard.js';
 
+const apiUrls = {
+    GET: {
+        USER: '/user',
+        HISTORY: '/history',
+        SCOREBOARD: '/scoreboard',
+        ABOUT: '/about',
+        RULES: '/rules'
+    },
+
+    POST: {
+        AUTH: '/login',
+        SIGNUP: '/register',
+        LOGOUT: '/logout',
+        EDIT_USER: '/user'
+    }
+}
+
 class GlobalValues {
     get initialTabs() {
         return [
