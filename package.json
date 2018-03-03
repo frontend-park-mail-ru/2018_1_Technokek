@@ -14,7 +14,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pug -c --name-after-file -o public/js/modules public/js/modules",
-    "start": "npm run build && DEBUG=* node server/index.js"
+    "start": "npm run build && DEBUG=* node server"
 
   },
   "repository": {
