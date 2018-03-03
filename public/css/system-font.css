@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'ProximaNovaExCn';
+    font-weight: normal;
+    font-style: normal;
+    src: url('/fonts/ProximaNova/ProximaNovaExCn-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+    src: url('/fonts/ProximaNova/ProximaNova-Light.ttf');
+}
+
+@font-face {
+    font-family: 'ProximaNovaRegular';
+    font-weight: normal;
+    font-style: normal;
+    src: url('/fonts/ProximaNova/ProximaNova-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'ProximaNovaLt';
+    font-weight: 600;
+    font-style: normal;
+    src: url('/fonts/ProximaNova/ProximaNova-Semibold.ttf');
+}
+
+@font-face {
+    font-family: 'Bree';
+    font-weight: 900;
+    font-style: bold;
+    src: url('/fonts/BreeBold/BreeBold.otf');
+}

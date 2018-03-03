@@ -1,0 +1,30 @@
+{
+  "name": "2018_1_technokek",
+  "version": "1.0.0",
+  "description": "Frontend",
+  "main": "server/index.js",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "pug": "^2.0.0-rc.4",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pug -c -w --name-after-file -o public/js/modules public/js/modules",
+    "start": "DEBUG=* node server/index.js"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TehnoKek/2018_1_Technokek.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TehnoKek/2018_1_Technokek/issues"
+  },
+  "homepage": "https://github.com/TehnoKek/2018_1_Technokek#readme"
+}

@@ -1,0 +1,32 @@
+.active-button, .passive-button {
+    padding: 12px 20px;
+    margin: 8px 0;
+    text-align: center;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    font-size: 18px;
+    font-family: 'ProximaNovaRegular';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.active-button {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #ccc;
+}
+
+.active-button:hover {
+    background-color: #45a049;
+}
+
+.passive-button {
+    color: black;
+}
+
+.passive-button:hover {
+    background-color: #E0E0E0;
+}

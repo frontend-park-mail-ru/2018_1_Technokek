@@ -1,0 +1,11 @@
+form
+    h2(class='column-title')
+        |#{formElements.formTitle}
+
+    each field in formElements.fields
+        label(for=field.id)
+            |#{field.label}
+        
+        input(type=field.type name=field.name id=field.id placeholder=field.placeholder value=field.value)
+    
+    div(class='js-form-sumbit-section form-submit-subsection')

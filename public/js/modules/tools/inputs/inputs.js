@@ -1,0 +1,5 @@
+'use stict';
+
+class AbstractInput {
+    
+}

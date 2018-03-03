@@ -1,0 +1,199 @@
+@import url("./system-font.css");
+@import url("../js/modules/downsections/profile/profile.css");
+@import url("../js/modules/tools/tools.css");
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    font-size: 18px;
+    font-family: 'ProximaNovaRegular';
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: 18px;
+    font-family: 'ProximaNovaRegular';
+    font-weight: normal;
+    font-style: normal;
+    color: #000;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+.screen {
+    width: 100%;
+    min-height: 100%;
+}
+
+.main-screen {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: lightgreen; */
+}
+
+.row-flex-menu {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    width: 100%;
+    /* background-color: lightcoral; */
+}
+
+.header {
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.header-item {
+    margin: 10px 20px 5px 20px;
+    color: #424242;
+    font-size: 20px;
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+}
+
+.header-item:hover {
+    color: #000;
+}
+
+.tabbar {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.tabbar-item {
+    margin: 5px 20px 10px 20px;
+}
+
+.tabbar-item a {
+    font-size: 30px;
+    text-decoration: none;
+    color: #424242;
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+}
+
+.active > a, .active {
+    font-family: 'ProximaNovaLt';
+    font-weight: 600;
+    font-style: normal;
+}
+
+
+/*---------------------------------------------
+SITE-CENTER
+---------------------------------------------*/
+
+.site-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: lightblue; */
+}
+
+.logo {
+    font-size: 50px;
+    font-family: 'Bree';
+    font-weight: 900;
+    font-style: bold;
+}
+
+.site-center-sections {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.site-center-column {
+    width: 300px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.play-btn {
+    margin: auto;
+    width: 50%;
+}
+
+/*---------------------------------------------
+LOGIN-FORM
+---------------------------------------------*/
+input, select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    font-size: 18px;
+    font-family: 'ProximaNovaRegular';
+    font-weight: normal;
+    font-style: normal;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.form-submit-subsection {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.form-submit-subsection a {
+    margin: 0 0 0 10px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.form-submit-subsection a:hover {
+    color: #45a049;
+}
+
+.site-center-column > .column-title {
+    margin-bottom: 8px;
+}
