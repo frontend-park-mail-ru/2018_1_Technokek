@@ -140,9 +140,7 @@ class ProfileModel {
         this._isAuthinticated = false;
         this._data = null;
         
-        for (let listener of this._deauthListeners) {
-            listener();
-        }
+        this._callListenersArray(this._deauthListeners);
     }
 
     _authenticate(resp) {
@@ -150,15 +148,17 @@ class ProfileModel {
         this._isAuthinticated = true;
         this._data = resp;
 
-        for(let listener of this._authListeners) {
-            listener();
-        }
+        this._callListenersArray(this._authListeners);
     }
 
     _dataChanged() {
-        for (let listener of this._dataChangedListeners) {
+        this._callListenersArray(this._dataChangedListeners);
+    }
+
+    _callListenersArray(listeners) {
+        for (let listener of listeners) {
             listener();
-        }
+        }       
     }
 }
 

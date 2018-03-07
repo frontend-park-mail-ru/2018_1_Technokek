@@ -30,7 +30,7 @@ class GlobalValues {
     get initialTabs() {
         return [
             {
-                title: 'Vilaly Cherkov',
+                title: 'Profile',
                 jsClass: 'js-profile-section',
                 sectionSelect: Profile
             },
@@ -45,6 +45,29 @@ class GlobalValues {
                 sectionSelect: Scoreboard
             }
         ];
+    }
+
+    get tabsOptions() {
+        return [
+            {
+                name: 'profile',
+                title: 'Profile',
+                avaliable: true,
+                active: false 
+            },
+            {
+                name: 'rules',
+                title: 'Rules',
+                avaliable: true,
+                active: false 
+            },
+            {
+                name: 'scoreboard',
+                title: 'Scoreboard',
+                avaliable: true,
+                active: false 
+            },
+        ]
     }
 
     get inputTypes() {

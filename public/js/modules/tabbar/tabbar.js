@@ -1,10 +1,25 @@
 'use strict';
 
+import tabsModels from '../../models/tabsModels.js';
+
 const getLinkedSection = function(tabElement) {
     const linkedSection = tabElement.dataset.section;
     const el = window.document.getElementsByClassName(linkedSection);
     return el[0];
 };
+
+class TabDelegate {
+    constructor(tabModel) {
+        this._tabModel = tabModel;
+        this._el = window.tabTemplTemplate({
+            tab: tabModel
+        });
+
+        if (this._tabModel.avaliable) {
+            this._el.hidden = true;
+        }
+    }
+}
 
 class Tabbar {
     constructor({selector = '', tabs = []} = {}) {
@@ -19,6 +34,10 @@ class Tabbar {
         });
 
         this._currentTab = null;
+
+        this._tabsDelegates = tabsModels.map((tabModel) => {
+            return new TabDelegate(tabModel);
+        });
     }
 
     render() {
@@ -27,7 +46,7 @@ class Tabbar {
         });
 
         if (!this._tabElements) {
-            this._elementizeTabs(); 
+            this._elementizeTabs();
         }
     }
 
