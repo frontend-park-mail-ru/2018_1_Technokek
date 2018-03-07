@@ -1,6 +1,7 @@
 'use strict';
 
 import globalData from '../../components/gloabalData.js';
+import tabsModels from '../../models/tabsModels.js';
 
 class DownScreen {
     constructor(selector) {
@@ -10,11 +11,11 @@ class DownScreen {
 
     render() {
         this._el.innerHTML = window.downscreenTmplTemplate({
-            sections: globalData.initialTabs
+            sections: tabsModels
         });
 
         if (!this._sectionsCreated) {
-            this._createSections(globalData.initialTabs);
+            this._createSections(tabsModels);
         }
 
         for (let section of this._sections) {
@@ -23,8 +24,9 @@ class DownScreen {
     }
 
     _createSections(sections) {
-        this._sections = globalData.initialTabs.map((section) => {
-            return new section.sectionSelect(`.${section.jsClass}`);
+        this._sections = sections.map((section) => {
+            console.log(section);
+            return new section.sectionType(section);
         });
 
         this._sectionsCreated = true;

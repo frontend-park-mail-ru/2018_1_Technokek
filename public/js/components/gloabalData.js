@@ -53,19 +53,22 @@ class GlobalValues {
                 name: 'profile',
                 title: 'Profile',
                 avaliable: true,
-                active: false 
+                active: false,
+                sectionType: Profile
             },
             {
                 name: 'rules',
                 title: 'Rules',
                 avaliable: true,
-                active: false 
+                active: false,
+                sectionType: Rules
             },
             {
                 name: 'scoreboard',
                 title: 'Scoreboard',
                 avaliable: true,
-                active: false 
+                active: false,
+                sectionType: Scoreboard
             },
         ]
     }

@@ -3,12 +3,13 @@
 import globalValues from '../components/gloabalData.js';
 
 class TabModel {
-    constructor ({ name = '', title = '', active = false, avaliable = true } = {}) {
+    constructor ({ name = '', title = '', active = false, avaliable = true, sectionType = Object } = {}) {
         this._name = name;
         this._title = title;
         this._active = active;
         this._avaliable = avaliable;
         this._jsClass = `js-${this._name}-section`;
+        this._sectionType = sectionType;
     }
 
 // ---------------------------------------------------------------------------------
@@ -33,6 +34,10 @@ class TabModel {
 
     get jsClass() {
         return this._jsClass;
+    }
+
+    get sectionType() {
+        return this._sectionType;
     }
 
 // ---------------------------------------------------------------------------------

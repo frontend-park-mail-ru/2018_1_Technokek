@@ -1,5 +1,6 @@
 'use strict';
 
+import utiles from '../../components/utiles.js';
 import tabsModels from '../../models/tabsModels.js';
 
 const getLinkedSection = function(tabElement) {
@@ -9,14 +10,49 @@ const getLinkedSection = function(tabElement) {
 };
 
 class TabDelegate {
-    constructor(tabModel) {
+    constructor({
+        tabModel = {},
+        clickListener = utiles.noop
+    } = {}) {
         this._tabModel = tabModel;
-        this._el = window.tabTemplTemplate({
+        this._el = utiles.htmlToElements(window.tabTmplTemplate({
             tab: tabModel
+        }))[0];
+
+        if (!this._tabModel.avaliable) {
+            this._el.hidden = true;
+        }
+
+        this._el.addEventListener('click', (evt) => {
+            clickListener(evt, this);
         });
 
-        if (this._tabModel.avaliable) {
-            this._el.hidden = true;
+        this._tabModel.addActiveListener(this.onActiveChanged.bind(this));
+        this._tabModel.addAvaliableListener(this.onAvaliableChanged.bind(this));
+    }
+
+    get element() {
+        return this._el;
+    }
+
+    deactivate() {
+        this._tabModel.active = false;
+    }
+
+    activate() {
+        this._tabModel.active = true;
+    }
+
+    onAvaliableChanged() {
+        this._el.hidden = !this._tabModel.avaliable;
+    }
+
+    onActiveChanged() {
+        if (!this._tabModel.active) {
+            this._el.classList.remove('active');
+        }
+        else {
+            this._el.classList.add('active');
         }
     }
 }
@@ -24,62 +60,34 @@ class TabDelegate {
 class Tabbar {
     constructor({selector = '', tabs = []} = {}) {
         this._el = document.querySelector(selector);
-        this._tabs = tabs.map((tab) => {
-            const {title, jsClass, _} = tab;
-            return {
-                title,
-                jsClass,
-                active: false
-            };
-        });
-
-        this._currentTab = null;
 
         this._tabsDelegates = tabsModels.map((tabModel) => {
-            return new TabDelegate(tabModel);
-        });
-    }
-
-    render() {
-        this._el.innerHTML = window.tabbarTmplTemplate({
-            tabs: this._tabs
-        });
-
-        if (!this._tabElements) {
-            this._elementizeTabs();
-        }
-    }
-
-    _elementizeTabs() {
-        this._tabElements = this._el.querySelectorAll('.tabbar-item');
-        this._createListeners();
-        this._updateTabElement(this._tabElements[0]);
-    }
-
-    _createListeners() {
-        for (let tabElement of this._tabElements) {
-            tabElement.addEventListener('click', (evt) => {
-                this._handleTabClick(evt, tabElement);
+            return new TabDelegate({
+                tabModel, 
+                clickListener: this._handleClick.bind(this)
             });
-        }   
-    }
+        });
 
-    _handleTabClick(evt, tabElement) {
-        evt.preventDefault();
-        this._updateTabElement(tabElement);
-    }
-
-    _updateTabElement(tabElement) {
-        if (this._currentTab){
-            this._currentTab.classList.remove('active');        
-            getLinkedSection(this._currentTab).hidden = true;
+        for(let tabDelegate of this._tabsDelegates) {
+            this._el.appendChild(tabDelegate.element);
         }
 
-        getLinkedSection(tabElement).hidden = false;
-        tabElement.classList.add('active');
+        this._current = this._tabsDelegates[0];
+        this._current.activate();
 
-        this._currentTab = tabElement;
     }
+
+    _handleClick(evt, tabDelegate) {
+        evt.preventDefault();
+
+        if(tabDelegate != this._current) {
+            this._current.deactivate();
+            tabDelegate.activate();
+            this._current = tabDelegate;
+        } 
+    }
+
+    render() { }
 }
 
 export default Tabbar;

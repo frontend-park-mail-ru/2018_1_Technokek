@@ -1,22 +1,23 @@
 'use strict';
 
 class AbstractSection {
-    constructor(selector) {
-        this._el = document.querySelector(selector);
-        this._el.hidden = true;
+    constructor(tabModel = {}) {
+        this._tabModel = tabModel;
+        this._el = document.querySelector(`.${tabModel.jsClass}`);
+        console.log(tabModel);
+        console.log(this._el);
+        this._tabModel.addAvaliableListener(this.onHiddenChanged.bind(this));
+        this._tabModel.addActiveListener(this.onHiddenChanged.bind(this));
+        
+
+        this.onHiddenChanged();
     }
 
-    get hidden() {
-        return this.el._hidden;
+    onHiddenChanged() {
+        this._el.hidden = !this._tabModel.active || !this._tabModel.avaliable;
     }
 
-    set hidden(val) {
-        this._el.hidden = Boolean(val);
-    }
 
-    toggle() {
-        this._el.toggle = !this._el.hidden;
-    }
 }
 
 export default AbstractSection;
