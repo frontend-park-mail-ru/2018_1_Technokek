@@ -1,21 +1,34 @@
 'use strict';
 
+import * as Buttons from '../buttons/buttons.js';
 import utiles from '../../../components/utiles.js';
 
 class AbstractForm {
     constructor({
         formTitle = '',
         fields = [],
+        submitBtnText = 'Submit',
+        reciverCallback = utiles.noop,
         downButtons = []
     } = {}) {
+        this._submitBtn = new Buttons.SubmitInput({
+            text: submitBtnText,
+            events: [{
+                name: 'click',
+                handler: this._processSubmit.bind(this)
+            }]
+        });
+
         const elHtml = window.abstractformTmplTemplate({
-            formElements: {formTitle, fields, downButtons}
+            formElements: {formTitle, fields}
         });
 
         this._el = utiles.htmlToElements(elHtml)[0];
         this._fields = fields;
         this._downButtons = downButtons;
         this._insertDownButtons();
+
+        this._reciverCallback = reciverCallback;
     }
 
     get element() {
@@ -28,6 +41,7 @@ class AbstractForm {
 
     reset() {
         this._el.reset();
+        this._resetErrors();
     }
 
     setValues(values) {
@@ -47,16 +61,35 @@ class AbstractForm {
 
         this.reset();
         callback({
-            data: formdata 
+            data: formdata,
+            callback: this._outputErrors.bind(this)
         });
     }
 
     _insertDownButtons(downButtons) {
         const downButtonsContainer = this._el.querySelector('.js-form-sumbit-section');
         
+        downButtonsContainer.appendChild(this._submitBtn.element);
+
         for (let button of this._downButtons) {
             downButtonsContainer.appendChild(button.element);
         }
+    }
+
+    _outputErrors(err) {
+        const errorContainer = this._el.querySelector('.js-common-errors');
+        errorContainer.innerHtml = '';
+        errorContainer.textContent = err.error;
+    }
+
+    _resetErrors() {
+        const errorContainer = this._el.querySelector('.js-common-errors');
+        errorContainer.innerHtml = '';
+    }
+
+    _processSubmit(evt) {
+        evt.preventDefault();
+        this.ejectData(this._reciverCallback);
     }
 }
 

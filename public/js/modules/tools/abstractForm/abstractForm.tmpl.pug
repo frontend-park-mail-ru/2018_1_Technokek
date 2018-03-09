@@ -1,6 +1,8 @@
 form
-    h2(class='column-title')
+    h2(class='form-title')
         |#{formElements.formTitle}
+
+    p(class='js-common-errors form-error')
 
     each field in formElements.fields
         label(for=field.id)

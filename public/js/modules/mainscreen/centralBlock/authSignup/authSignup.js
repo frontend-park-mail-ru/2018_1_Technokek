@@ -8,82 +8,47 @@ import * as Toggling from '../../../tools/toggling/toggling.js';
 import profileModel from '../../../../models/profileModel.js';
 import utiles from '../../../../components/utiles.js';
 
-class AuthForm extends AbstractForm {
+class BaseAuthSignupForm extends AbstractForm {
+    constructor({formOptions = {}, reciverCallback = utiles.noop} = {}) {
+        super({
+            formTitle: formOptions.formTitle,
+            fields: formOptions.fields,
+            submitBtnText: formOptions.submitBtnText,
+            reciverCallback,
+            downButtons: [
+                new Buttons.PassiveButton(formOptions.changeFormBtn)
+            ]
+        });
+    }
+}
+
+class AuthForm extends BaseAuthSignupForm {
     constructor() {      
-        const authFormOptions = globalValues.formsOptions.authForm;
-        
         super({
-            formTitle: authFormOptions.formTitle,
-            fields: authFormOptions.fields,
-            downButtons: [
-                new Buttons.SubmitInput(authFormOptions.buttons.submit),
-                new Buttons.PassiveButton(authFormOptions.buttons.changeForm)
-            ]
+            formOptions: globalValues.formsOptions.authForm, 
+            reciverCallback: profileModel.auth.bind(profileModel)
         });
-
-        this._downButtons[0].addListeners([
-            {
-                name: 'click',
-                handler: (evt) => {
-                    evt.preventDefault();
-                    this.ejectData(profileModel.auth.bind(profileModel));
-                }
-            }
-        ]);
     }
 }
 
-class SignupForm extends AbstractForm {
-    constructor() {
-        const signupFormOptions = globalValues.formsOptions.signupForm;
-        
+class SignupForm extends BaseAuthSignupForm {
+    constructor() {      
         super({
-            formTitle: signupFormOptions.formTitle,
-            fields: signupFormOptions.fields,
-            downButtons: [
-                new Buttons.SubmitInput(signupFormOptions.buttons.submit),
-                new Buttons.PassiveButton(signupFormOptions.buttons.changeForm)
-            ]
+            formOptions: globalValues.formsOptions.signupForm, 
+            reciverCallback: profileModel.signup.bind(profileModel)
         });
-
-        this._downButtons[0].addListeners([
-            {
-                name: 'click',
-                handler: (evt) => {
-                    evt.preventDefault();
-                    this.ejectData(profileModel.signup);
-                }
-            }
-        ]);
     }
 }
 
-class AuthFormContainer extends Toggling.AbstractTogglingItem {
-    constructor({selector = '', togglingHandler = utils.noop} = {}) {
+class AuthSignupFormContainer extends Toggling.AbstractTogglingItem {
+    constructor({selector = '', togglingHandler = utils.noop, childFormClass = Object, hidden = true} = {}) {
         super({
             selector,
-            childElement: new AuthForm(),
-            hidden: false,
+            childElement: new childFormClass(),
+            hidden,
         });
 
-        this._child.buttons[1].addListeners([
-            {
-                name: 'click',
-                handler: togglingHandler
-            }
-        ]);
-    }
-}
-
-class SignupFormContainer extends Toggling.AbstractTogglingItem {
-    constructor({selector = '', togglingHandler = utils.noop} = {}) {
-        super({
-            selector,
-            childElement: new SignupForm(),
-            hidden: true,
-        });
-
-        this._child.buttons[1].addListeners([
+        this._child.buttons[0].addListeners([
             {
                 name: 'click',
                 handler: togglingHandler
@@ -121,14 +86,18 @@ class AuthSignup extends Toggling.AbstractToggler {
 
     _createForms() {
         this._togglingItems = [
-            new AuthFormContainer({
+            new AuthSignupFormContainer({
                 selector: '.js-auth-section',
-                togglingHandler: this.changeItems.bind(this)
+                togglingHandler: this.changeItems.bind(this),
+                childFormClass: AuthForm,
+                hidden: false
             }),
 
-            new SignupFormContainer({
+            new AuthSignupFormContainer({
                 selector: '.js-signup-section',
-                togglingHandler: this.changeItems.bind(this)
+                togglingHandler: this.changeItems.bind(this),
+                childFormClass: SignupForm,
+                hidden: true
             })
         ];
     }

@@ -45,10 +45,15 @@ class ProfileModel {
         httpRequester.doPost({
             url: globalValues.apiUrls.POST.AUTH,
             callback: (err, resp) => {
+                if(err) {
+                    // callback from auth args
+                    callback(err);
+                }
+
                 this.checkAuth();
             },
             data
-        });   
+        });
     }
 
     signup({ data = {}, callback = utiles.noop } = {}) {

@@ -18,7 +18,6 @@ class Profile extends AbstractSection {
     }
 
     render() {
-        console.log('render');
         this._insertButtons();
     }
 
@@ -53,9 +52,7 @@ class Profile extends AbstractSection {
     }
 
     _updateTmplField(fieldName, value) {
-        console.log('field val: ', value);
         const field = this._el.querySelector(fieldName);
-        console.log(field);
         field.textContent = value;
     }
 

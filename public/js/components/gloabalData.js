@@ -84,13 +84,9 @@ class GlobalValues {
                         name: 'password'
                     }
                 ],
-                buttons: {
-                    submit: {
-                        text: 'Login!'
-                    },
-                    changeForm: {
-                        text: 'Registration'
-                    }
+                submitBtnText: 'Login!',
+                changeFormBtn: {
+                    text: 'Registration'
                 }
             },
 
@@ -126,13 +122,9 @@ class GlobalValues {
                         name: 'repeat-password'
                     }
                 ],
-                buttons: {
-                    submit: {
-                        text: 'Register!'
-                    },
-                    changeForm: {
-                        text: 'Login'
-                    }
+                submitBtnText: 'Register!',
+                changeFormBtn: {
+                    text: 'Login'
                 }
             }
         };
