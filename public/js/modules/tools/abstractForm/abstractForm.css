@@ -1,3 +1,7 @@
+form {
+    width: 100%;
+}
+
 input, select {
     width: 100%;
     padding: 12px 20px;
@@ -25,7 +29,14 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
+.fields-section, .field-input {
+    width: 100%;
+}
+
+.form-message, .form-error {
+    font-size: 14px;
+}
+
 .form-error {
     color: darkred;
-    font-size: 14px;
 }

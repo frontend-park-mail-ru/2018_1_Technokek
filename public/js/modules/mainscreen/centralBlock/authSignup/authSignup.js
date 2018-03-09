@@ -75,6 +75,10 @@ class AuthSignup extends Toggling.AbstractToggler {
             this._createForms();
         }
 
+        for (let item of this._togglingItems) {
+            item.render();
+        }
+
         profileModel.addDeauthListener((evt) => {
             this._el.hidden = false;
         });

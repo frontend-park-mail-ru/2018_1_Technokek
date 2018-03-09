@@ -133,6 +133,18 @@ class GlobalValues {
     get apiUrls() {
         return this._apiUrls;
     }
+
+    get errors() {
+        return {
+            input: {
+                required: 'This field is required',
+                length: (minLength) => 
+                    `The minimum length is ${minLength} symbols`,
+            }
+
+
+        };
+    }
 }
 
 const globalValues = new GlobalValues();

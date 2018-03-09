@@ -4,10 +4,11 @@ form
 
     p(class='js-common-errors form-error')
 
-    each field in formElements.fields
-        label(for=field.id)
-            |#{field.label}
+    div(class='js-fields-section fields-section')
+        //- each field in formElements.fields
+        //-     label(for=field.id)
+        //-         |#{field.label}
+            
+        //-     input(type=field.type name=field.name id=field.id placeholder=field.placeholder value=field.value)
         
-        input(type=field.type name=field.name id=field.id placeholder=field.placeholder value=field.value)
-    
     div(class='js-form-sumbit-section form-submit-subsection')
