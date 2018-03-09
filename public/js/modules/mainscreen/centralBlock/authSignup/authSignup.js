@@ -38,6 +38,33 @@ class SignupForm extends BaseAuthSignupForm {
             reciverCallback: profileModel.signup.bind(profileModel)
         });
     }
+
+    _isValid() {
+        const baseResult = super._isValid();
+        return this._comparePasswords() && baseResult; 
+    }
+
+    _comparePasswords() {
+        const password = this._getFieldByName('password');
+        const passwordRepeat = this._getFieldByName('repeat-password');
+
+        console.log(password, passwordRepeat);
+
+        if (password.value !== passwordRepeat.value) {
+            passwordRepeat.error = globalValues.errors.input.passwordsCmp;       
+            return false;
+        }
+
+        return true;
+    }
+
+    _getFieldByName(name) {
+        for (let field of this._fields) {
+            if (field.name === name) {
+                return field;
+            }
+        }
+    }
 }
 
 class AuthSignupFormContainer extends Toggling.AbstractTogglingItem {

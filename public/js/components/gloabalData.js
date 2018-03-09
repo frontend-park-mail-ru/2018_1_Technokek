@@ -138,11 +138,10 @@ class GlobalValues {
         return {
             input: {
                 required: 'This field is required',
-                length: (minLength) => 
+                minLength: (minLength) => 
                     `The minimum length is ${minLength} symbols`,
+                passwordsCmp: 'Passwords do not match'
             }
-
-
         };
     }
 }

@@ -5,6 +5,7 @@ import utiles from '../../../components/utiles.js';
 import globalValues from '../../../components/gloabalData.js';
 
 class Field {
+    
     constructor({
         type = '',
         id = '',
@@ -149,7 +150,6 @@ class AbstractForm {
         let valid = true;
         
         for (let field of this._fields) {
-            console.log('validate:', field.value);
             const res = field.validate();
             valid = valid && res;
         }
