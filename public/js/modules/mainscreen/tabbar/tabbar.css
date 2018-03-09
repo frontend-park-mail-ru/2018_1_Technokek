@@ -1,0 +1,24 @@
+.tabbar {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.tabbar-item {
+    margin: 5px 20px 10px 20px;
+}
+
+.tabbar-item a {
+    font-size: 30px;
+    text-decoration: none;
+    color: #424242;
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+}
+
+.active > a, .active {
+    font-family: 'ProximaNovaLt';
+    font-weight: 600;
+    font-style: normal;
+}

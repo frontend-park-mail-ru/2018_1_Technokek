@@ -87,6 +87,13 @@ app.post('/login', function (req, res) {
 	res.status(201).json({id});
 });
 
+app.post('/logout', function (req, res) {
+	const id = req.cookies['frontend'];
+	delete ids[id];
+
+	res.status(200).end();
+});
+
 app.get('/me', function (req, res) {
 
 	const id = req.cookies['frontend'];

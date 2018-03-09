@@ -6,10 +6,16 @@ class AbstractButton {
     constructor({
             text = '',
             events = [],
-            templateFunction = utiles.noop
+            templateFunction = utiles.noop,
+            wide = false
     } = {}) {
         const elHtml = templateFunction({ text });
         this._el = utiles.htmlToElements(elHtml)[0];
+
+        if (wide) {
+            this._el.style.width = '100%';
+        }
+
         this._createListeners(events);
     }
 
@@ -29,31 +35,34 @@ class AbstractButton {
 }
 
 class ActiveButton extends AbstractButton {
-    constructor({text = '', events = []} = {}) {
+    constructor({text = '', events = [], wide = false} = {}) {
         super({ 
             text, 
             events,
-            templateFunction: window.activebuttonTmplTemplate
+            templateFunction: window.activebuttonTmplTemplate,
+            wide
         });
     }
 }
 
 class PassiveButton extends AbstractButton {
-    constructor({text = '', events = []} = {}) {
+    constructor({text = '', events = [], wide = false} = {}) {
         super({ 
             text, 
             events,
-            templateFunction: window.passivebuttonTmplTemplate
+            templateFunction: window.passivebuttonTmplTemplate,
+            wide
         });
     }
 }
 
 class SubmitInput extends AbstractButton {
-    constructor({text = 'Submit', events = []}) {
+    constructor({text = 'Submit', events = [], wide = false}) {
         super({
             text,
             events, 
-            templateFunction: window.submitinputTmplTemplate
+            templateFunction: window.submitinputTmplTemplate,
+            wide
         });
     }
 }

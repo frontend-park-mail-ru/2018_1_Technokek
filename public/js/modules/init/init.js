@@ -13,13 +13,24 @@ class Init {
     }
 
     render() {
-        this._el.innerHTML = window.initTmplTemplate();
-        
-        this._downscreen = new Downscreen('.js-down-screen');
-        this._downscreen.render();
+        if (!this._inners) {
+            this._createInners();
+        }
 
-        this._mainscreen = new Mainscreen('.js-main-screen');
-        this._mainscreen.render();
+        for (let inner of this._inners) {
+            inner.render();
+        }
+    }
+
+    _createInners() {
+        this._inners = [
+            new Mainscreen(),
+            new Downscreen()
+        ];
+
+        for (let inner of this._inners) {
+            this._el.appendChild(inner.element);
+        }
     }
 }
 

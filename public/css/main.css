@@ -1,6 +1,7 @@
 @import url("./system-font.css");
-@import url("../js/modules/downsections/profile/profile.css");
 @import url("../js/modules/tools/tools.css");
+@import url("../js/modules/downscreen/downsections/profile/profile.css");
+@import url("../js/modules/mainscreen/mainscreen.css");
 
 html, body {
     width: 100%;
@@ -12,6 +13,10 @@ html, body {
     font-family: 'ProximaNovaRegular';
     font-weight: normal;
     font-style: normal;
+}
+
+[hidden]{
+    display:none;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -43,15 +48,6 @@ a:visited {
     min-height: 100%;
 }
 
-.main-screen {
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    justify-content: space-between;
-    align-items: center;
-    /* background-color: lightgreen; */
-}
-
 .row-flex-menu {
     display: flex;
     flex-direction: row;
@@ -59,51 +55,6 @@ a:visited {
     width: 100%;
     /* background-color: lightcoral; */
 }
-
-.header {
-    align-items: center;
-    align-content: space-between;
-    justify-content: space-between;
-}
-
-.header-item {
-    margin: 10px 20px 5px 20px;
-    color: #424242;
-    font-size: 20px;
-    font-family: 'ProximaNovaLt';
-    font-weight: 300;
-    font-style: normal;
-}
-
-.header-item:hover {
-    color: #000;
-}
-
-.tabbar {
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-}
-
-.tabbar-item {
-    margin: 5px 20px 10px 20px;
-}
-
-.tabbar-item a {
-    font-size: 30px;
-    text-decoration: none;
-    color: #424242;
-    font-family: 'ProximaNovaLt';
-    font-weight: 300;
-    font-style: normal;
-}
-
-.active > a, .active {
-    font-family: 'ProximaNovaLt';
-    font-weight: 600;
-    font-style: normal;
-}
-
 
 /*---------------------------------------------
 SITE-CENTER
@@ -124,27 +75,7 @@ SITE-CENTER
     font-style: bold;
 }
 
-.site-center-sections {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
-}
 
-.site-center-column {
-    width: 300px;
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.play-btn {
-    margin: auto;
-    width: 50%;
-}
 
 /*---------------------------------------------
 LOGIN-FORM

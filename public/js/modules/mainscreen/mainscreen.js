@@ -1,12 +1,16 @@
 'use strict';
 
-import AuthSignup from '../authSignup/authSignup.js';
-import Tabbar from '../tabbar/tabbar.js';
 import globalValues from '../../components/gloabalData.js';
+import utiles from '../../components/utiles.js';
+
+import Header from './header/header.js';
+import CentralBlock from './centralBlock/centralBlock.js';
+import Tabbar from './tabbar/tabbar.js';
 
 class Mainscreen {
-    constructor(selector) {
-        this._el = document.querySelector(selector);
+    constructor() {
+        const template = window.mainscreenTmplTemplate();
+        this._el = utiles.htmlToElements(template)[0];
     }
 
     clear() {
@@ -14,8 +18,6 @@ class Mainscreen {
     }
 
     render() {
-        this._el.innerHTML = window.mainscreenTmplTemplate();
-        
         if (!this._inners) {
             this._createInners();
         }
@@ -25,14 +27,20 @@ class Mainscreen {
         }
     }
 
+    get element() {
+        return this._el;
+    }
+
     _createInners() {
         this._inners = [
-            new AuthSignup('.js-login-register-section'),
-            new Tabbar({
-                selector: '.js-tabbar',
-                tabs: globalValues.initialTabs
-            })
+            new Header(),
+            new CentralBlock(),
+            new Tabbar()
         ];
+
+        for(let inner of this._inners) {
+            this._el. appendChild(inner.element);
+        }
     }
 }
 

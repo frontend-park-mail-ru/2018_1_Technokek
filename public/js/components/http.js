@@ -1,11 +1,11 @@
-import utils from './utiles.js';
+import utiles from './utiles.js';
 
 class HttpRequester {
 
     _doRequest({
         method = 'GET',
         url = '/',
-        callback = utils.noop,
+        callback = utiles.noop,
         data = {}
     } = {}) {
         const xhr = new XMLHttpRequest();
@@ -35,13 +35,13 @@ class HttpRequester {
         xhr.send(JSON.stringify(data));      
     }
 
-    doGet({url = '/', callback = noop, data = {}} = {}) {
+    doGet({url = '/', callback = utiles.noop, data = {}} = {}) {
         this._doRequest({
             method: 'GET', url, callback, data 
         });
     }
 
-    doPost({url = '/', callback = noop, data = {}} = {}) {
+    doPost({url = '/', callback = utiles.noop, data = {}} = {}) {
         this._doRequest({
             method: 'POST', url, callback, data 
         });

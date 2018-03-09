@@ -1,0 +1,30 @@
+@import url("./centralBlock/centralBlock.css");
+@import url("./tabbar/tabbar.css");
+
+.header {
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.header-item {
+    margin: 10px 20px 5px 20px;
+    color: #424242;
+    font-size: 20px;
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+}
+
+.header-item:hover {
+    color: #000;
+}
+
+.main-screen {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: lightgreen; */
+}

@@ -1,15 +1,26 @@
 'use strict';
 
 import globalValues from '../components/gloabalData.js';
+import profileModel from './profileModel.js';
 
 class TabModel {
-    constructor ({ name = '', title = '', active = false, avaliable = true, sectionType = Object } = {}) {
+    constructor ({ name = '', title = '', active = false, avaliable = true, sectionType = Object, authDepends = false } = {}) {
         this._name = name;
         this._title = title;
         this._active = active;
         this._avaliable = avaliable;
         this._jsClass = `js-${this._name}-section`;
         this._sectionType = sectionType;
+
+        if (authDepends) {
+            profileModel.addAuthListener(() => {
+                this.avaliable = true;
+            });
+
+            profileModel.addDeauthListener(() => {
+                this.avaliable = false;
+            });
+        }
     }
 
 // ---------------------------------------------------------------------------------
@@ -45,7 +56,7 @@ class TabModel {
 // ---------------------------------------------------------------------------------
 
     set title(value) {
-        this._title = this.title;
+        this._title = value;
         this.titleChanged();
     }
 

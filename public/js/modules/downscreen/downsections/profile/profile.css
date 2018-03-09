@@ -45,25 +45,6 @@
     margin-bottom: 10px;
 }
 
-.edit-profile-link, .logout-link {
-    width: 200px;
-    padding: 12px 20px;
-    text-align: center;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #4CAF50;
-
-    font-size: 18px;
-    font-family: 'ProximaNovaRegular';
-    font-weight: normal;
-    font-style: normal;
-
-    color: white;
-    cursor: pointer;
-}
-
 .personal-statistics {
     display: flex;
     width: 100%;

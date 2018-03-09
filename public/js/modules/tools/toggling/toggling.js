@@ -4,12 +4,13 @@ import utils from '../../../components/utiles.js';
 
 class AbstractToggler {
     constructor(selector) {
-        this._el = document.querySelector(selector);
+        this._el = document.querySelector('.js-login-register-section');
     }
     
     changeItems() {
-        for (let item of this._togglingItems)
+        for (let item of this._togglingItems) {
             item.toggle();
+        }
     }
 }
 

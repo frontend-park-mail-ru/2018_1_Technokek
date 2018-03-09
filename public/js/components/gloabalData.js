@@ -1,8 +1,8 @@
 'use strict';
 
-import Rules from '../modules/downsections/rules/rules.js';
-import Profile from '../modules/downsections/profile/profile.js';
-import Scoreboard from '../modules/downsections/scoreboard/scoreboard.js';
+import Rules from '../modules/downscreen/downsections/rules/rules.js';
+import Profile from '../modules/downscreen/downsections/profile/profile.js';
+import Scoreboard from '../modules/downscreen/downsections/scoreboard/scoreboard.js';
 
 
 
@@ -27,48 +27,31 @@ class GlobalValues {
         }
     }
 
-    get initialTabs() {
-        return [
-            {
-                title: 'Profile',
-                jsClass: 'js-profile-section',
-                sectionSelect: Profile
-            },
-            {
-                title: 'Rules',
-                jsClass: 'js-rules-section',
-                sectionSelect: Rules
-            },
-            {
-                title: 'Scoreboard',
-                jsClass: 'js-scoreboard-section',
-                sectionSelect: Scoreboard
-            }
-        ];
-    }
-
     get tabsOptions() {
         return [
             {
                 name: 'profile',
                 title: 'Profile',
-                avaliable: true,
+                avaliable: false,
                 active: false,
-                sectionType: Profile
+                sectionType: Profile,
+                authDepends: true
             },
             {
                 name: 'rules',
                 title: 'Rules',
                 avaliable: true,
                 active: false,
-                sectionType: Rules
+                sectionType: Rules,
+                authDepends: false
             },
             {
                 name: 'scoreboard',
                 title: 'Scoreboard',
                 avaliable: true,
                 active: false,
-                sectionType: Scoreboard
+                sectionType: Scoreboard,
+                authDepends: false
             },
         ]
     }

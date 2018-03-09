@@ -1,11 +1,12 @@
 'use strict';
 
-import utils from '../../components/utiles.js';
-import globalValues from '../../components/gloabalData.js';
-import AbstractForm from '../tools/abstractForm/abstractForm.js';
-import * as Buttons from '../tools/buttons/buttons.js';
-import * as Toggling from '../tools/toggling/toggling.js';
-import profileModel from '../../models/profileModel.js';
+import utils from '../../../../components/utiles.js';
+import globalValues from '../../../../components/gloabalData.js';
+import AbstractForm from '../../../tools/abstractForm/abstractForm.js';
+import * as Buttons from '../../../tools/buttons/buttons.js';
+import * as Toggling from '../../../tools/toggling/toggling.js';
+import profileModel from '../../../../models/profileModel.js';
+import utiles from '../../../../components/utiles.js';
 
 class AuthForm extends AbstractForm {
     constructor() {      
@@ -63,7 +64,7 @@ class AuthFormContainer extends Toggling.AbstractTogglingItem {
             selector,
             childElement: new AuthForm(),
             hidden: false,
-        });;
+        });
 
         this._child.buttons[1].addListeners([
             {
@@ -92,16 +93,30 @@ class SignupFormContainer extends Toggling.AbstractTogglingItem {
 }
 
 class AuthSignup extends Toggling.AbstractToggler {
+   
     clear() {
         this._el.innerHTML = '';
     }
 
     render() {
-        this._el.innerHTML = window.authsignupTmplTemplate();
+        const template = window.authsignupTmplTemplate();        
+        const elements = utiles.htmlToElements(template);
+
+        while (elements.length) {
+            this._el.appendChild(elements[0]);
+        }
 
         if (!this._togglingItems) {
             this._createForms();
         }
+
+        profileModel.addDeauthListener((evt) => {
+            this._el.hidden = false;
+        });
+
+        profileModel.addAuthListener((evt) => {
+            this._el.hidden = true;
+        });
     }
 
     _createForms() {

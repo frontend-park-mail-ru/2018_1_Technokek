@@ -11,7 +11,7 @@ class ProfileHistory {
 
 class ProfileModel {
     constructor() {
-        this._isAuthinticated = false;    
+        this._isAuthinticated = false;
         this._authListeners = [];
         this._deauthListeners = [];
         this._dataChangedListeners = [];
@@ -35,6 +35,8 @@ class ProfileModel {
                 }
             }
         });
+
+
     }
 
     auth({ data = {}, callback = utiles.noop } = {}) {
@@ -55,7 +57,12 @@ class ProfileModel {
 
     logout() {
         console.log('logut');
-        this._deauthenticate();
+
+        httpRequester.doPost({
+            url: globalValues.apiUrls.POST.LOGOUT
+        });
+
+        this.checkAuth();
     }
 
 // ---------------------------------------------------------------------------------
@@ -69,22 +76,22 @@ class ProfileModel {
 
     get email() {
         console.log('[get] emial');
-        return true;
+        return this._data.email;
     }
 
     get nickname() {
         console.log('[get] nickname');
-        return true;
+        return this._data.nickname;
     }
 
     get score() {
         console.log('[get] score');
-        return true;
+        return this._data.rating;
     }
 
     get games() {
         console.log('[get] games');
-        return true;
+        return this._data.games;
     }
 
 // ---------------------------------------------------------------------------------

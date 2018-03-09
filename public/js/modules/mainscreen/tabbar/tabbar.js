@@ -1,7 +1,8 @@
 'use strict';
 
-import utiles from '../../components/utiles.js';
-import tabsModels from '../../models/tabsModels.js';
+import utiles from '../../../components/utiles.js';
+import tabsModels from '../../../models/tabsModels.js';
+import profileModel from '../../../models/profileModel.js';
 
 const getLinkedSection = function(tabElement) {
     const linkedSection = tabElement.dataset.section;
@@ -15,9 +16,12 @@ class TabDelegate {
         clickListener = utiles.noop
     } = {}) {
         this._tabModel = tabModel;
-        this._el = utiles.htmlToElements(window.tabTmplTemplate({
+
+        const template = window.tabTmplTemplate({
             tab: tabModel
-        }))[0];
+        });
+
+        this._el = utiles.htmlToElements(template)[0];
 
         if (!this._tabModel.avaliable) {
             this._el.hidden = true;
@@ -27,8 +31,8 @@ class TabDelegate {
             clickListener(evt, this);
         });
 
-        this._tabModel.addActiveListener(this.onActiveChanged.bind(this));
-        this._tabModel.addAvaliableListener(this.onAvaliableChanged.bind(this));
+        this._tabModel.addActiveListener(this._onActiveChanged.bind(this));
+        this._tabModel.addAvaliableListener(this._onAvaliableChanged.bind(this));
     }
 
     get element() {
@@ -43,11 +47,11 @@ class TabDelegate {
         this._tabModel.active = true;
     }
 
-    onAvaliableChanged() {
+    _onAvaliableChanged() {
         this._el.hidden = !this._tabModel.avaliable;
     }
 
-    onActiveChanged() {
+    _onActiveChanged() {
         if (!this._tabModel.active) {
             this._el.classList.remove('active');
         }
@@ -58,9 +62,19 @@ class TabDelegate {
 }
 
 class Tabbar {
-    constructor({selector = '', tabs = []} = {}) {
-        this._el = document.querySelector(selector);
+    constructor() {
+        const template = window.tabbarTmplTemplate();
+        this._el = utiles.htmlToElements(template)[0];
 
+        profileModel.addAuthListener(this._openFirstTab.bind(this));
+        profileModel.addDeauthListener(this._openFirstTab.bind(this));
+    }
+
+    get element() {
+        return this._el;
+    }
+
+    render() {
         this._tabsDelegates = tabsModels.map((tabModel) => {
             return new TabDelegate({
                 tabModel, 
@@ -71,23 +85,33 @@ class Tabbar {
         for(let tabDelegate of this._tabsDelegates) {
             this._el.appendChild(tabDelegate.element);
         }
-
-        this._current = this._tabsDelegates[0];
-        this._current.activate();
-
+    
+        this._openFirstTab();
     }
 
     _handleClick(evt, tabDelegate) {
         evt.preventDefault();
 
-        if(tabDelegate != this._current) {
+        if (!this._current) {
+            tabDelegate.activate();
+            this._current = tabDelegate;
+        }
+
+        else if (tabDelegate != this._current) {
             this._current.deactivate();
             tabDelegate.activate();
             this._current = tabDelegate;
         } 
     }
 
-    render() { }
+    _openFirstTab() {
+        for (let tabDelegate of this._tabsDelegates) {
+            if (!tabDelegate.element.hidden) {
+                tabDelegate.element.click();
+                break;
+            }
+        }
+    }
 }
 
 export default Tabbar;

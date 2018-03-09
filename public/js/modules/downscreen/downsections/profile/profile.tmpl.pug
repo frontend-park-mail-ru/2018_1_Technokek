@@ -2,27 +2,24 @@ div(class='profile-inner')
     div(class='profile-sidebar')
         div(class='personal-photo')
 
-        div(class='personal-info')
-            a(href='#' class='edit-profile-link')
-                |Edit profile
+        div(class='js-edit-btn-section')
 
-            p(class='personal-email')
+        div(class='personal-info')
+            p(class='js-email-field')
                 |vitaly@cher.kov
             
             div(class='personal-statistics')
                 div(class='personal-statistics-col')
                     p
-                        |Rating
-                    p
+                        |Score
+                    p(class='js-score-field')
                         |1587
                 div(class='personal-statistics-col')
                     p
                         |Games
-                    p
+                    p(class='js-games-field')
                         |30
 
-        div(class='logout-section')
-            a(class='logout-link')
-                |Logout
-            
+        div(class='js-logout-btn-section')
+
     div(class='profile-center')
