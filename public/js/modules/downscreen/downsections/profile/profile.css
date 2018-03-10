@@ -15,11 +15,9 @@
 }
 
 .profile-center {
-    height: 300px;
     min-width: 320px;
     flex-grow: 3;
     flex-shrink: 1;
-    background-color: lightblue;
 }
 
 .personal-photo {
@@ -59,4 +57,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;  
+}
+
+.profile-subsection {
+    margin: 0 15px;
+}
+
+.profile-subsection-title {
+    margin: 15px 0;
 }

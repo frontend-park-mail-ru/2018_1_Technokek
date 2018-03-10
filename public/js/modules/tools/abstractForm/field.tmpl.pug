@@ -3,8 +3,8 @@ div(class='js-field field-input')
         |#{field.label}
 
     p(class='form-error js-field-error')
-        |#{field.error}
+        |#{messages.error}
     p(class='form-message js-field-message')
-        |#{field.message}
+        |#{messages.message}
 
     input(type=field.type name=field.name id=field.id placeholder=field.placeholder value=field.value)

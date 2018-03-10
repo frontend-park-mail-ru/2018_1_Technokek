@@ -3,38 +3,52 @@
 import * as Buttons from '../buttons/buttons.js';
 import utiles from '../../../components/utiles.js';
 import globalValues from '../../../components/gloabalData.js';
+import * as constrs from '../../../components/constraints.js';
 
 class Field {
     
     constructor({
-        type = '',
-        id = '',
-        name = '',
-        label = '',
-        placeholder = '',
-        required = true,
-        minLength = 0,
-        value = '',
-        error = '',
-        message = ''
+        options = {
+            type: '',
+            id: '',
+            name: '',
+            label: '',
+            placeholder: '',
+            value: ''
+        },
+        messages = {
+            error: '',
+            message: '',
+        },
+        templateFunction = window.fieldTmplTemplate,
+        constraints = [ 
+            new constrs.Required() 
+        ]
     } = {}) {
-        this._name = name;
-        this._required = required;
-        this._minLength = minLength;
-        const template = window.fieldTmplTemplate({ field: arguments[0] });
-        this._el = utiles.htmlToElements(template)[0];
+        this._constraints = constraints;
+        this._options = options;
+        this._messages = messages;
+        this._templateFunction = templateFunction;
     }
 
 // ----------------------------------------------------------------------------
 // getters
 // ----------------------------------------------------------------------------
 
+    render() {
+        const template = this._templateFunction({ 
+            field: this._options,
+            messages: this._messages
+        });
+        this._el = utiles.htmlToElements(template)[0];
+    } 
+
     get element() {
         return this._el;
     }
 
     get name() {
-        return this._name;
+        return this._options.name;
     }
 
     get value() {
@@ -53,6 +67,10 @@ class Field {
 // setters
 // ----------------------------------------------------------------------------
 
+    set templateFunction(value) {
+        this._templateFunction = value;
+    }
+
     set value(val) {
         this._el.querySelector('input').value = val;
     }
@@ -65,27 +83,34 @@ class Field {
         this._setSelectorTextContent('.js-field-message', val);
     }
 
+    reset() {
+        this.value = '';
+        this.error = '';
+        this.message = '';
+    }
+
 // ----------------------------------------------------------------------------
 // validation
 // ----------------------------------------------------------------------------
     
     validate() {
         this.error = '';
-        return this._checkRequired();
+
+        let isValid = true;
+
+        for (let constraint of this._constraints) {
+            if (!constraint.check(this.value)) {
+                this.error = constraint.text;
+                isValid = false;
+            }
+        }
+
+        return isValid;
     }
 
 // ----------------------------------------------------------------------------
 // private
 // ----------------------------------------------------------------------------
-
-    _checkRequired() {
-        if (this._required && (this.value === '' || this.value == null)) {
-            this.error = globalValues.errors.input.required;
-            return false;
-        }
-
-        return true;
-    }
 
     _getSelectorTextContent(selector) {
         return this._el.querySelector(selector).textContent;
@@ -102,9 +127,11 @@ class AbstractForm {
         fields = [],
         submitBtnText = 'Submit',
         reciverCallback = utiles.noop,
-        downButtons = []
+        downButtons = [],
+        templateFunction = window.abstractformTmplTemplate,
+        fieldTemplateFunction = window.fieldTmplTemplate
     } = {}) {
-        const template = window.abstractformTmplTemplate({ formElements: formTitle });
+        const template = templateFunction({ formElements: formTitle });
         this._el = utiles.htmlToElements(template)[0];
 
         this._submitBtn = new Buttons.SubmitInput({
@@ -114,7 +141,11 @@ class AbstractForm {
                 handler: this._processSubmit.bind(this)
             }]
         });
-        this._fields = fields.map((field) => new Field(field));
+        this._fields = fields.map((option) => {
+            const field = new Field(option);
+            field.templateFunction = fieldTemplateFunction;
+            return field;
+        });
         this._downButtons = downButtons;
         this._reciverCallback = reciverCallback;
     }
@@ -134,6 +165,11 @@ class AbstractForm {
 
     reset() {
         this._el.reset();
+
+        for (let field of this._fields) {
+            field.reset();
+        }
+
         this._resetErrors();
     }
 
@@ -188,9 +224,8 @@ class AbstractForm {
         
         if (this._isValid()) {
             this._ejectData();
+            this.reset();
         }
-
-        this.reset();
     }
 
     _insertDownButtons() {
@@ -207,6 +242,7 @@ class AbstractForm {
         const fieldsSelector = this._el.querySelector('.js-fields-section');
 
         for (let field of this._fields) {
+            field.render();
             fieldsSelector.appendChild(field.element);
         }
     }

@@ -18,8 +18,8 @@ app.use(body.json());
 app.use(cookie());
 
 const users = {
-	'vv-ch0@bk.ru': {
-		email: 'vv-ch0@bk.ru',
+	'vv-ch@bk.ru': {
+		email: 'vv-ch@bk.ru',
 		password: 'password',
 		games: 20,
 		rating: 72

@@ -2,6 +2,7 @@
 
 import utils from '../../../../components/utiles.js';
 import globalValues from '../../../../components/gloabalData.js';
+import errors from '../../../../components/constraints.js';
 import AbstractForm from '../../../tools/abstractForm/abstractForm.js';
 import * as Buttons from '../../../tools/buttons/buttons.js';
 import * as Toggling from '../../../tools/toggling/toggling.js';
@@ -51,7 +52,7 @@ class SignupForm extends BaseAuthSignupForm {
         console.log(password, passwordRepeat);
 
         if (password.value !== passwordRepeat.value) {
-            passwordRepeat.error = globalValues.errors.input.passwordsCmp;       
+            passwordRepeat.error = errors.passwordsDontMatch;       
             return false;
         }
 
@@ -81,6 +82,13 @@ class AuthSignupFormContainer extends Toggling.AbstractTogglingItem {
                 handler: togglingHandler
             }
         ]);
+    }
+
+    toggle() {
+        super.toggle();
+        if (this._el.hidden) {
+            this._child.reset();
+        }
     }
 }
 

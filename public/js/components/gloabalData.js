@@ -70,18 +70,22 @@ class GlobalValues {
                 formTitle: 'Login',
                 fields: [
                     {
-                        label: 'Email',
-                        type: globalValues.inputTypes.email,
-                        placeholder: 'Email',
-                        id: 'auth-email',
-                        name: 'email'
+                        options: {
+                            id: 'auth-email',
+                            type: globalValues.inputTypes.email,
+                            label: 'Email',
+                            name: 'email',
+                            placeholder: 'Email'
+                        }
                     },
                     {
-                        label: 'Password',
-                        type: globalValues.inputTypes.password,
-                        placeholder: 'Password',
-                        id: 'auth-password',
-                        name: 'password'
+                        options: {
+                            id: 'auth-password',
+                            type: globalValues.inputTypes.password,
+                            label: 'Password',
+                            name: 'password',
+                            placeholder: 'Password'
+                        }
                     }
                 ],
                 submitBtnText: 'Login!',
@@ -94,32 +98,40 @@ class GlobalValues {
                 formTitle: 'Registration',
                 fields: [
                     {
-                        label: 'Nickname',
-                        type: globalValues.inputTypes.text,
-                        placeholder: 'Nickname',
-                        id: 'signup-nickname',
-                        name: 'nickname'
+                        options: {
+                            label: 'Nickname',
+                            type: globalValues.inputTypes.text,
+                            placeholder: 'Nickname',
+                            id: 'signup-nickname',
+                            name: 'nickname'
+                        }
                     },
                     {
-                        label: 'Email',
-                        type: globalValues.inputTypes.email,
-                        placeholder: 'Email',
-                        id: 'signup-email',
-                        name: 'email'
+                        options: {
+                            label: 'Email',
+                            type: globalValues.inputTypes.email,
+                            placeholder: 'Email',
+                            id: 'signup-email',
+                            name: 'email'
+                        }
                     },
                     {
-                        label: 'Password',
-                        type: globalValues.inputTypes.password,
-                        placeholder: 'Password',
-                        id: 'signup-password',
-                        name: 'password'
+                        options: {
+                            label: 'Password',
+                            type: globalValues.inputTypes.password,
+                            placeholder: 'Password',
+                            id: 'signup-password',
+                            name: 'password'
+                        }
                     },
                     {
-                        label: 'Repeat рassword',
-                        type: globalValues.inputTypes.password,
-                        placeholder: 'Repeat password',
-                        id: 'signup-repeat-password',
-                        name: 'repeat-password'
+                        options: {
+                            label: 'Repeat рassword',
+                            type: globalValues.inputTypes.password,
+                            placeholder: 'Repeat password',
+                            id: 'signup-repeat-password',
+                            name: 'repeat-password'
+                        }
                     }
                 ],
                 submitBtnText: 'Register!',
@@ -132,17 +144,6 @@ class GlobalValues {
 
     get apiUrls() {
         return this._apiUrls;
-    }
-
-    get errors() {
-        return {
-            input: {
-                required: 'This field is required',
-                minLength: (minLength) => 
-                    `The minimum length is ${minLength} symbols`,
-                passwordsCmp: 'Passwords do not match'
-            }
-        };
     }
 }
 
