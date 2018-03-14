@@ -18,7 +18,7 @@ class Field {
         },
         messages = {
             error: '',
-            message: '',
+            message: ''
         },
         templateFunction = window.fieldTmplTemplate,
         constraints = [ 
@@ -134,7 +134,7 @@ class AbstractForm {
         const template = templateFunction({ formElements: formTitle });
         this._el = utiles.htmlToElements(template)[0];
 
-        this._submitBtn = new Buttons.SubmitInput({
+        this._submitBtn = new Buttons.ActiveButton({
             text: submitBtnText,
             events: [{
                 name: 'click',
@@ -229,7 +229,7 @@ class AbstractForm {
     }
 
     _insertDownButtons() {
-        const downButtonsContainer = this._el.querySelector('.js-form-sumbit-section');
+        const downButtonsContainer = this._el.querySelector('.js-form-submit-section');
         
         downButtonsContainer.appendChild(this._submitBtn.element);
 

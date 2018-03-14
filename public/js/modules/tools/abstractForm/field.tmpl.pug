@@ -1,5 +1,5 @@
 div(class='js-field field-input')
-    label(for=field.id)
+    label(for=field.id class='default-form-el')
         |#{field.label}
 
     p(class='form-error js-field-error')
@@ -7,4 +7,4 @@ div(class='js-field field-input')
     p(class='form-message js-field-message')
         |#{messages.message}
 
-    input(type=field.type name=field.name id=field.id placeholder=field.placeholder value=field.value)
+    input(type=field.type name=field.name id=field.id placeholder=field.placeholder value=field.value class='default-form-el')

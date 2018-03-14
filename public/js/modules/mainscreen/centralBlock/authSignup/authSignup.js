@@ -49,8 +49,6 @@ class SignupForm extends BaseAuthSignupForm {
         const password = this._getFieldByName('password');
         const passwordRepeat = this._getFieldByName('repeat-password');
 
-        console.log(password, passwordRepeat);
-
         if (password.value !== passwordRepeat.value) {
             passwordRepeat.error = errors.passwordsDontMatch;       
             return false;

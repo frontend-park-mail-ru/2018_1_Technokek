@@ -1,60 +1,18 @@
 'use strict';
 
 import utiles from '../../../../components/utiles.js';
+import globalValues from '../../../../components/gloabalData.js';
 import profileModel from '../../../../models/profileModel.js';
 import * as Buttons from '../../../tools/buttons/buttons.js';
 import * as Toggling from '../../../tools/toggling/toggling.js';
+import AbstractForm from '../../../tools/abstractForm/abstractForm.js';
 import AbstractSection from '../abstractSection.js';
+import EditSection from './editSection/editSection.js';
 
 const modes = {
     SHOW: 0,
     EDIT: 1
 };
-
-// Поле редактирования в режиме отображения
-class EditFieldOnShow extends Toggling.AbstractTogglingItem {
-    constructor({
-        
-    }) {
-
-    }
-}
-
-// Поле редактирования в режиме формы
-class EditFieldOnForm extends Toggling.AbstractTogglingItem {
-
-}
-
-class EditFieldToggler extends Toggling.AbstractToggler {
-
-}
-
-class EditSection {
-    constructor() {
-        const template = window.editsectionTmplTemplate();
-        this._el = utiles.htmlToElements(template)[0];
-    }
-
-    render() {
-
-    }
-
-    get element() {
-        return this._el;
-    }
-
-    toggle() {
-        this._el.hidden = !this._el.hidden;
-    }
-
-    get hidden() {
-        return this._el.hidden;
-    }
-
-    set hidden(val) {
-        this._el.hidden = Boolean(val);
-    }
-}
 
 class Profile extends AbstractSection {
     constructor(tabModel = {}) {
@@ -167,6 +125,7 @@ class Profile extends AbstractSection {
         this._editSection = new EditSection();
         const container = this._el.querySelector('.js-profile-center');
         container.appendChild(this._editSection.element);
+        this._editSection.render();
     }
 
     _checkMode() {

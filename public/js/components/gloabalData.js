@@ -138,12 +138,92 @@ class GlobalValues {
                 changeFormBtn: {
                     text: 'Login'
                 }
+            },
+
+            nicknameForm: {
+                fields: [{
+                    options: {
+                        type: globalValues.inputTypes.text,
+                        id: 'edit-nickname',
+                        name: 'edit-nickname',
+                        label: 'Nickname',
+                        placeholder: 'Nickname',
+                    }
+                }], 
+                submitBtnText: 'Save'
+            },
+
+            emailForm: {
+                fields: [{
+                    options: {
+                        type: globalValues.inputTypes.email,
+                        id: 'edit-email',
+                        name: 'edit-email',
+                        label: 'Email',
+                        placeholder: 'Email'
+                    }
+                }],
+                submitBtnText: 'Save'
+            },
+
+            passwordForm: {
+                fields: [
+                    {
+                        options: {
+                            type: globalValues.inputTypes.password,
+                            id: 'edit-old-password',
+                            name: 'edit-old-password',
+                            label: 'Old password',
+                            placeholder: 'Old password'
+                        }
+                    },
+                    {
+                        options: {
+                            type: globalValues.inputTypes.password,
+                            id: 'edit-new-password',
+                            name: 'edit-new-password',
+                            label: 'New password',
+                            placeholder: 'New password'
+                        }
+                    },
+                    {
+                        options: {
+                            type: globalValues.inputTypes.password,
+                            id: 'edit-new-password-repeat',
+                            name: 'edit-new-password-repeat',
+                            label: 'Repeat password',
+                            placeholder: 'Repeat new password'
+                        }
+                    }
+                ],
+                submitBtnText: 'Save'
             }
         };
     }
 
     get apiUrls() {
         return this._apiUrls;
+    }
+
+    get tablesOptions() {
+        return {
+            scoreboard: {
+                singleplayer: [
+                    {
+                        title: '#',
+                        template: '60px'
+                    },
+                    {
+                        title: 'Nickname',
+                        template: 'auto'
+                    },
+                    {
+                        title: 'Score',
+                        template: '100px'
+                    }
+                ]
+            }
+        }
     }
 }
 

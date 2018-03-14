@@ -1,6 +1,6 @@
 @import url("./system-font.css");
 @import url("../js/modules/tools/tools.css");
-@import url("../js/modules/downscreen/downsections/profile/profile.css");
+@import url("../js/modules/downscreen/downsections/downsections.css");
 @import url("../js/modules/mainscreen/mainscreen.css");
 
 html, body {
@@ -80,51 +80,3 @@ SITE-CENTER
 /*---------------------------------------------
 LOGIN-FORM
 ---------------------------------------------*/
-input, select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-
-    font-size: 18px;
-    font-family: 'ProximaNovaRegular';
-    font-weight: normal;
-    font-style: normal;
-}
-
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type=submit]:hover {
-    background-color: #45a049;
-}
-
-.form-submit-subsection {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: center;
-}
-
-.form-submit-subsection a {
-    margin: 0 0 0 10px;
-    font-size: 18px;
-    text-decoration: none;
-}
-
-.form-submit-subsection a:hover {
-    color: #45a049;
-}
-
-.site-center-column > .column-title {
-    margin-bottom: 8px;
-}

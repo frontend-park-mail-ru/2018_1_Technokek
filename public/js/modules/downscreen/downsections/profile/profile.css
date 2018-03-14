@@ -66,3 +66,86 @@
 .profile-subsection-title {
     margin: 15px 0;
 }
+
+/*
+---------------------------------------------------------------------------------
+|   Редактирование
+---------------------------------------------------------------------------------
+*/
+
+.edit-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #EEEEEE;
+    background-color:  #FAFAFA;
+    /* background-color: lightgreen; */
+}
+
+.edit-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 3;
+    min-width: 300px;
+    
+    /* background-color: lightpink; */
+}
+
+.edit-col-messages, .edit-col-footer, .edit-row-messages {
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: flex-end;
+    padding: 5px 0;
+    /* background-color: lightskyblue; */
+}
+
+.edit-row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* background-color: lightgoldenrodyellow; */
+}
+
+.edit-row-content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0;
+    /* background-color: lightgreen; */
+}
+
+.edit-row-title {
+    min-width: 150px;
+    flex-grow: 1;
+    /* background-color: lightpink; */
+}
+
+.edit-row-data {
+    flex-grow: 3;
+    /* background-color: darkblue; */
+}
+
+.edit-params {
+    padding: 5px 0;
+    padding-left: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    align-self: flex-end;
+    align-items: flex-end;
+    text-align: right;
+    /* background-color: lightcyan; */
+}
+
+.edit-col-messages:empty {
+    display: none;
+}
