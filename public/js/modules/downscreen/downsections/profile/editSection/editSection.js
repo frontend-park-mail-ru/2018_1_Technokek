@@ -43,7 +43,6 @@ class EditFieldToggler extends Toggling.AbstractTogglingItem {
                 }
             }]
         });
-        console.log(this._changeBtn);
     }
 
     render() {
@@ -71,7 +70,6 @@ class EditFieldToggler extends Toggling.AbstractTogglingItem {
 // TODO: 
 class NicknameToggler extends Toggling.AbstractToggler {
     render() {
-        console.log(this._el);
 
         this._togglingItems = [
             new EditFieldToggler({

@@ -12,7 +12,7 @@ class GlobalValues {
             GET: {
                 USER: '/user',
                 HISTORY: '/history',
-                SCOREBOARD: '/scoreboard',
+                SCOREBOARD: ({mode, pageNumber}) => `/scoreboard/${mode}/page/${pageNumber}`,
                 ABOUT: '/about',
                 RULES: '/rules',
                 ME: '/me'

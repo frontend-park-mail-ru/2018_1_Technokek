@@ -121,7 +121,10 @@ app.get('/users', function (req, res) {
 	res.json(scorelist);
 });
 
+// -------------------------------------------------------------------------------------
 // SCOREBOARD
+// -------------------------------------------------------------------------------------
+
 const sbSingleplayer = [
 	{
 		index: 1,
@@ -428,9 +431,33 @@ const sbMultiplayer = [
 	}
 ];
 
+const scoreboardModes = {
+	SINGLEPLAYER: 'singleplayer',
+	MULTIPLAYER: 'multiplayer'
+};
 
-app.get('/scoreboard', function(req, res) {
+const PERPAGE = 10;
 
+app.get('/scoreboard/:mode/page/:pageNumber', function(req, res) {
+	
+	const mode = req.params.mode;
+	const pageNumber = req.params.pageNumber;
+	
+	if (mode === scoreboardModes.SINGLEPLAYER) {
+		const respData = sbSingleplayer.filter(item => 
+			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
+		);
+		res.json(respData);
+	}
+
+	if (mode === scoreboardModes.MULTIPLAYER) {
+		const respData = sbMultiplayer.filter(item => 
+			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
+		);
+		res.json('rwspData:\n',respData);
+	}
+
+	res.json({ });
 });
 
 const port = process.env.PORT || 3000;

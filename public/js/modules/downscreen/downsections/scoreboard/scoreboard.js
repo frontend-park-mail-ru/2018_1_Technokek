@@ -5,6 +5,10 @@ import Table from '../../../tools/table/table.js';
 import utiles from '../../../../components/utiles.js';
 import globalValues from '../../../../components/gloabalData.js';
 import httpRequester from '../../../../components/http.js';
+import scoreboardModel from '../../../../models/scoreboardModel.js';
+
+import * as Buttons from '../../../tools/buttons/buttons.js';
+
 
 const scoreboardExample = [
     {
@@ -50,27 +54,26 @@ class Scoreboard extends AbstractSection{
         this._scoreboardTable.render();
         this._scoreboardTable.extendRows(scoreboardExample);
 
-        const tableContainer = this._el.querySelector('.js-table-score-container');
-        console.log('SBT: ', this._scoreboardTable.element);
+        const tableContainer = this._el.querySelector('.js-singleplayer-scoreboard-container');
         tableContainer.appendChild(this._scoreboardTable.element);
+
+        this._renderButtons();
     }
 
-    _loadSingleplayerScoreboard({
-        mode = MODE.singleplayer,
-        page = 1, 
-        withClearing = false
-    }) {
-        if (withClearing) {
-            this._scoreboardTable.clear();
-        }
-
-        httpRequester.doGet({
-            url: globalValues.apiUrls.GET.SCOREBOARD,
-            callback: (err, responce) => {
-                console.log(err, responce);
-            },
-            data: { mode, page }
+    _renderButtons() {
+        this._singleplayerBtn = new Buttons.UnderliningButton({
+            text: 'Singleplayer',
+            isActive: true
         });
+
+        this._multiplayerBtn = new Buttons.UnderliningButton({
+            text: 'Multiplayer',
+            isActive: false
+        });
+
+        const container = this._el.querySelector('.js-scoreboard-buttons');
+        container.appendChild(this._singleplayerBtn.element);
+        container.appendChild(this._multiplayerBtn.element);
     }
 }
 

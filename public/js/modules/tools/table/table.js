@@ -7,7 +7,6 @@ class Table {
         columnsOptions = [],
         blocksCount = 1
     }) {
-        console.log(blocksCount);
         const template = window.tableTmplTemplate({ blocksCount });
         this._el = utiles.htmlToElements(template)[0];
         this._columns = columnsOptions;
@@ -72,8 +71,6 @@ class Table {
         const rows = this._el.querySelector(`.js-table-rows-${blcokNumber}`);
         const rowArray = this._columns.map(column => rowData[column.name]);
         
-        console.log(rowArray);
-        
         const template = tablerowTmplTemplate({ rowArray });
         const rowElement = utiles.htmlToElements(template)[0];
 
@@ -84,7 +81,5 @@ class Table {
         this._rowsCount++;
     }
 }
-
-
 
 export default Table;

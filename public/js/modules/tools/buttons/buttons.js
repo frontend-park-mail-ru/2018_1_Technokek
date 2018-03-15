@@ -10,6 +10,7 @@ class AbstractButton {
             wide = false
     } = {}) {
         const elHtml = templateFunction({ text });
+        console.log(elHtml);
         this._el = utiles.htmlToElements(elHtml)[0];
 
         if (wide) {
@@ -57,7 +58,7 @@ class PassiveButton extends AbstractButton {
 }
 
 class SubmitInput extends AbstractButton {
-    constructor({text = 'Submit', events = [], wide = false}) {
+    constructor ({text = 'Submit', events = [], wide = false}) {
         super({
             text,
             events, 
@@ -67,4 +68,45 @@ class SubmitInput extends AbstractButton {
     }
 }
 
-export {ActiveButton, PassiveButton, SubmitInput};
+class UnderliningButton extends AbstractButton {
+    constructor ({ text = 'Submit', events = [], wide = false, isActive = false } = {}) {
+        super({
+            text,
+            events,
+            templateFunction: window.underliningbuttonTmplTemplate,
+            wide,
+        });
+
+        this._setIsActive(isActive);
+
+        this.addListeners([{
+            name: 'click',
+            handler: (evt) => {
+                evt.preventDefault();
+                this._setIsActive(true);
+            }
+        }]);
+    }
+
+    get isActive() {
+        return this._isActive;
+    }
+
+    deactivate() {
+        this._setIsActive(false);
+    }
+
+    _setIsActive(isActive) {
+        this._isActive = isActive;
+
+        if (this._isActive) {
+            this._el.classList.add('active');
+        }
+
+        else {
+            this._el.classList.remove('active');
+        }
+    }
+}
+
+export {ActiveButton, PassiveButton, SubmitInput, UnderliningButton};

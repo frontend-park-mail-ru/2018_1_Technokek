@@ -31,3 +31,18 @@
 .passive-button:hover {
     background-color: #E0E0E0;
 }
+
+.underlining-button {
+    color: black;
+    text-decoration: none;
+}
+
+.underlining-button.active {
+    color: black;
+    text-decoration: underline;
+}
+
+.underlining-button:hover {
+    color: #424242;
+    text-decoration: underline #424242;
+}

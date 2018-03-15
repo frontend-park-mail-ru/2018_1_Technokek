@@ -1,7 +1,9 @@
 'use strict';
 
 import profileModel from './profileModel.js';
-import tabsModel from './tabsModels.js';
+// import tabsModel from './tabsModels.js';
+import httpRequester from '../components/http.js';
+import globalValues from '../components/gloabalData.js';
 
 const scoreboardMode = {
     SINGLEPLAYER: 'singleplayer',
@@ -11,29 +13,81 @@ const scoreboardMode = {
 class ScoreboardModel {
     constructor () {
         this._currentMode = scoreboardMode.SINGLEPLAYER;
-        this._currentPage = 0;
-        this._perPage = 10;
+        
+        this._data = {};
+        
+        this._data[scoreboardMode.SINGLEPLAYER] = {
+            rows: [],
+            currentPage: 0
+        };
+
+        this._data[scoreboardMode.MULTIPLAYER] = {
+            rows: [],
+            currentPage: 0
+        };
     }
 
     get mode() {
-
+        return this._currentMode;
     }
-
-
     
     toSingleplayerMode() {
-
+        if (this._currentMode === scoreboardMode.MULTIPLAYER) {
+            this._setMode(scoreboardMode.SINGLEPLAYER);
+            this._callSwitchToSingleplayerListeners();
+        }
     }
 
     toMultiplayerMode() {
-
+        if (this._currentMode === scoreboardMode.SINGLEPLAYER) {
+            this._setMode(scoreboardMode.MULTIPLAYER);
+            this._callSwitchToMultiplayerListeners();
+        }
     }
 
+    _setMode(mode) {
+        this._currentMode = mode;
+        this.clear();
+        this.loadNextPage();
+    }
 
+    clear() {
+        for (let key in this._data) {
+            const item = this._data[key];
+            item.rows.clear();
+            item.pageNumber = 0;
+        }
+
+        this._callDataClearedListeners();
+    }
 
     get data() {
-        
+        return this.data[this._currentMode].rows;
     }
+
+    loadNextPage() {
+        httpRequester.doGet({
+            url: globalValues.apiUrls.GET.SINGLEPLAYER({
+                mode: this._currentMode, 
+                pageNumber: this._data[this._currentMode].pageNumber + 1
+            }),
+            callback: (err, resp) => {
+                if (!err) {
+                    this._addNewData(resp);
+                }
+            }
+        });
+    }
+
+    _addNewData(data) {
+        this._data[this._currentMode].rows.concat(data);
+        this._data[this._currentMode].currentPage += 1;
+        this._callDataChangedListeners();
+    }
+
+// -------------------------------------------------------------------------------
+// Events
+// -------------------------------------------------------------------------------
 
     addSwitchToMultiplayerListener(listener) {
         if (!this._switchToMultiplayerListeners) {
