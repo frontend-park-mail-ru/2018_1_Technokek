@@ -121,8 +121,322 @@ app.get('/users', function (req, res) {
 	res.json(scorelist);
 });
 
+// SCOREBOARD
+const sbSingleplayer = [
+	{
+		index: 1,
+		nickname: 'TheKeker',
+		score: '3000'
+	},
+	{
+		index: 2,
+		nickname: 'TheLoler',
+		score: '2984'
+	},
+	{
+		index: 3,
+		nickname: 'Vitaly Cherkov',
+		score: '2876'
+	},
+	{
+		index: 4,
+		nickname: 'Martin K',
+		score: '2465'
+	},
+	{
+		index: 5,
+		nickname: 'Shporter',
+		score: '2311'
+	},{
+		index: 6,
+		nickname: 'Vladislav',
+		score: '2163'
+	},
+	{
+		index: 7,
+		nickname: 'TheKeker',
+		score: '2085'
+	},
+	{
+		index: 8,
+		nickname: 'TheKeker',
+		score: '1984'
+	},
+	{
+		index: 9,
+		nickname: 'TheLoler',
+		score: '1854'
+	},
+	{
+		index: 10,
+		nickname: 'Vitaly Cherkov',
+		score: '1765'
+	},
+	{
+		index: 11,
+		nickname: 'Martin K',
+		score: '1754'
+	},
+	{
+		index: 12,
+		nickname: 'Shporter',
+		score: '1654'
+	},{
+		index: 13,
+		nickname: 'Vladislav',
+		score: '1642'
+	},
+	{
+		index: 14,
+		nickname: 'TheKeker',
+		score: '1598'
+	},
+	{
+		index: 15,
+		nickname: 'TheKeker',
+		score: '1576'
+	},
+	{
+		index: 16,
+		nickname: 'TheLoler',
+		score: '1547'
+	},
+	{
+		index: 17,
+		nickname: 'Vitaly Cherkov',
+		score: '1467'
+	},
+	{
+		index: 18,
+		nickname: 'Martin K',
+		score: '1454'
+	},
+	{
+		index: 19,
+		nickname: 'Shporter',
+		score: '1420'
+	},{
+		index: 20,
+		nickname: 'Vladislav',
+		score: '1403'
+	},
+	{
+		index: 21,
+		nickname: 'TheKeker',
+		score: '1367'
+	},
+	{
+		index: 22,
+		nickname: 'TheKeker',
+		score: '1359'
+	},
+	{
+		index: 23,
+		nickname: 'TheLoler',
+		score: '1345'
+	},
+	{
+		index: 24,
+		nickname: 'Vitaly Cherkov',
+		score: '1154'
+	},
+	{
+		index: 25,
+		nickname: 'Martin K',
+		score: '1021'
+	},
+	{
+		index: 26,
+		nickname: 'Shporter',
+		score: '1002'
+	},{
+		index: 27,
+		nickname: 'Vladislav',
+		score: '1000'
+	},
+	{
+		index: 28,
+		nickname: 'TheKeker',
+		score: '988'
+	}
+];
+
+const sbMultiplayer = [
+	{
+		index: 1,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '3000'
+	},
+	{
+		index: 2,
+		nickname1: 'TheLoler',
+		nickname2: 'Vladimir putin',
+		score: '2984'
+	},
+	{
+		index: 3,
+		nickname1: 'Vitaly Cherkov',
+		nickname2: 'Vladimir putin',
+		score: '2876'
+	},
+	{
+		index: 4,
+		nickname1: 'Martin K',
+		nickname2: 'Vladimir putin',
+		score: '2465'
+	},
+	{
+		index: 5,
+		nickname1: 'Shporter',
+		nickname2: 'Vladimir putin',
+		score: '2311'
+	},{
+		index: 6,
+		nickname1: 'Vladislav',
+		nickname2: 'Vladimir putin',
+		score: '2163'
+	},
+	{
+		index: 7,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '2085'
+	},
+	{
+		index: 8,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '1984'
+	},
+	{
+		index: 9,
+		nickname1: 'TheLoler',
+		nickname2: 'Vladimir putin',
+		score: '1854'
+	},
+	{
+		index: 10,
+		nickname1: 'Vitaly Cherkov',
+		nickname2: 'Vladimir putin',
+		score: '1765'
+	},
+	{
+		index: 11,
+		nickname1: 'Martin K',
+		nickname2: 'Vladimir putin',
+		score: '1754'
+	},
+	{
+		index: 12,
+		nickname1: 'Shporter',
+		nickname2: 'Vladimir putin',
+		score: '1654'
+	},{
+		index: 13,
+		nickname1: 'Vladislav',
+		nickname2: 'Vladimir putin',
+		score: '1642'
+	},
+	{
+		index: 14,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '1598'
+	},
+	{
+		index: 15,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '1576'
+	},
+	{
+		index: 16,
+		nickname1: 'TheLoler',
+		nickname2: 'Vladimir putin',
+		score: '1547'
+	},
+	{
+		index: 17,
+		nickname1: 'Vitaly Cherkov',
+		nickname2: 'Vladimir putin',
+		score: '1467'
+	},
+	{
+		index: 18,
+		nickname1: 'Martin K',
+		nickname2: 'Vladimir putin',
+		score: '1454'
+	},
+	{
+		index: 19,
+		nickname1: 'Shporter',
+		nickname2: 'Vladimir putin',
+		score: '1420'
+	},{
+		index: 20,
+		nickname1: 'Vladislav',
+		nickname2: 'Vladimir putin',
+		score: '1403'
+	},
+	{
+		index: 21,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '1367'
+	},
+	{
+		index: 22,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '1359'
+	},
+	{
+		index: 23,
+		nickname1: 'TheLoler',
+		nickname2: 'Vladimir putin',
+		score: '1345'
+	},
+	{
+		index: 24,
+		nickname1: 'Vitaly Cherkov',
+		nickname2: 'Vladimir putin',
+		score: '1154'
+	},
+	{
+		index: 25,
+		nickname1: 'Martin K',
+		nickname2: 'Vladimir putin',
+		score: '1021'
+	},
+	{
+		index: 26,
+		nickname1: 'Shporter',
+		nickname2: 'Vladimir putin',
+		score: '1002'
+	},{
+		index: 27,
+		nickname1: 'Vladislav',
+		nickname2: 'Vladimir putin',
+		score: '1000'
+	},
+	{
+		index: 28,
+		nickname1: 'TheKeker',
+		nickname2: 'Vladimir putin',
+		score: '988'
+	}
+];
+
+
+app.get('/scoreboard', function(req, res) {
+
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
 	logger(`Server listening port ${port}`);
 });
+
+

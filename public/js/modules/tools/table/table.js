@@ -3,16 +3,20 @@
 import utiles from '../../../components/utiles.js';
 
 class Table {
-    constructor (columnsOptions = []) {
-        const template = window.tableTmplTemplate();
+    constructor ({
+        columnsOptions = [],
+        blocksCount = 1
+    }) {
+        console.log(blocksCount);
+        const template = window.tableTmplTemplate({ blocksCount });
         this._el = utiles.htmlToElements(template)[0];
-        this._columns = columnsOptions.map(option => option.title);
-        this._rowsNumber = 0;
-        this._generateRowTemplate(columnsOptions);
+        this._columns = columnsOptions;
+        this._rowsCount = 0;
+        this._blocksCount = blocksCount;
     }
 
     render() {
-        // this._generateRowTemplate();
+        this._generateRowTemplate();
         this._renderHeader();
     }
 
@@ -20,46 +24,67 @@ class Table {
         return this._el;
     }
 
-    addRows(rows = []) {
-        
+    clear() {
+        for (let i = 1; i <= this._blocksCount; i++) {
+            this._el.querySelector(`.js-table-rows-${i}`).innerHtml = '';
+        }
     }
 
-    get rowsNUmber() {
-        return this._rowsNumber;
+    extendRows(rows = [], blockNumber = 1) {
+        if (blockNumber <= this._blocksCount) {
+            for (let row of rows) {
+                this._renderRow(row);
+            }
+        }
     }
 
-    _generateRowTemplate(options) {
-        console.log(options);
-        this._rowTemplate = options.map( option => option.template ).join(' ');
-        console.log('row template: ', this._rowTemplate);
+    appendRow(row, blockNumber = 1) {
+        if (blockNumber <= this._blocksCount) {
+            this._renderRow(row);
+        }
+    }
+
+    get rowsCount() {
+        return this._rowsCount;
+    }
+
+    _generateRowTemplate() {
+        this._rowTemplate = this._columns.map( option => option.template ).join(' ');
     }
 
     _renderHeader() {
         const header = this._el.querySelector('.js-table-header');
         header.style['grid-template-columns'] = this._rowTemplate;
         
-        console.log(this._el);
         for (let column of this._columns) {
             const template = headercellTmplTemplate({
                 cell: {
-                    class: `js-header-${column}`,
-                    text: column
+                    class: `js-header-${column.name}`,
+                    text: column.title
                 }
             });
-            console.log(template);
             const newCell = utiles.htmlToElements(template)[0];
             header.appendChild(newCell);            
         }
     }
 
-    _renderRow(rowData) {
-        const rows = this._el.querySelector('.table-rows');
-        const rowArray = this._columns.map(column => rowData[column]);
-
+    _renderRow(rowData, blcokNumber = 1) {
+        const rows = this._el.querySelector(`.js-table-rows-${blcokNumber}`);
+        const rowArray = this._columns.map(column => rowData[column.name]);
+        
+        console.log(rowArray);
+        
         const template = tablerowTmplTemplate({ rowArray });
         const rowElement = utiles.htmlToElements(template)[0];
+
+        rowElement.style['grid-template-columns'] = this._rowTemplate;
+
         rows.appendChild(rowElement);
+
+        this._rowsCount++;
     }
 }
+
+
 
 export default Table;

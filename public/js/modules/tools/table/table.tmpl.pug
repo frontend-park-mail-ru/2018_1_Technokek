@@ -1,5 +1,6 @@
 div(class='table')
     div(class='table-header js-table-header')
 
-    div(class='table-rows js-table-rows')
-        div(class='table-row')
+    - for (let i = 1; i <= blocksCount; i++)
+        div(class='table-rows' class=`js-table-rows-${i}`)
+    

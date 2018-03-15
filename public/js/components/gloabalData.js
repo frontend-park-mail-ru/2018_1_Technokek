@@ -211,15 +211,18 @@ class GlobalValues {
                 singleplayer: [
                     {
                         title: '#',
+                        name: 'index',
                         template: '60px'
                     },
                     {
                         title: 'Nickname',
+                        name: 'nickname',
                         template: 'auto'
                     },
                     {
                         title: 'Score',
-                        template: '100px'
+                        name: 'score',
+                        template: '150px'
                     }
                 ]
             }

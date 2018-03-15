@@ -131,7 +131,7 @@ class AbstractForm {
         templateFunction = window.abstractformTmplTemplate,
         fieldTemplateFunction = window.fieldTmplTemplate
     } = {}) {
-        const template = templateFunction({ formElements: formTitle });
+        const template = templateFunction({ formTitle });
         this._el = utiles.htmlToElements(template)[0];
 
         this._submitBtn = new Buttons.ActiveButton({

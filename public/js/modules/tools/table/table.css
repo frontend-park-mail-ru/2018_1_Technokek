@@ -7,10 +7,19 @@
 }
 
 .table-header, .table-row {
+    display: grid;
+}
+
+.table-header {
     background-color: #F5F5F5;
     border-bottom: 1px solid #E0E0E0;
-    
-    display: grid;
+}
+
+.table-row > div {
+    height: 100%;
+    border-right: 1px solid #E0E0E0;
+    text-align: center;
+    line-height: 40px;
 }
 
 .table-header > div {
@@ -18,6 +27,10 @@
     border-right: 1px solid #E0E0E0;
     text-align: center;
     line-height: 40px;
+    
+    font-family: 'ProximaNovaLt';
+    font-weight: 600;
+    font-style: normal;
 }
 
 .table-header:last-child, .table-row:last-child {
