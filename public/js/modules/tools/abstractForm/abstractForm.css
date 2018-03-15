@@ -34,3 +34,7 @@ input, select {
 .form-error:empty, .form-message:empty {
     display: none;
 }
+
+.form-submit-subsection > a {
+    margin-right: 10px;
+}

@@ -1,6 +1,5 @@
 .table {
     width: 100%;
-    margin: 0 5px;
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #E0E0E0;
@@ -20,6 +19,7 @@
     border-right: 1px solid #E0E0E0;
     text-align: center;
     line-height: 40px;
+    padding: 0 5px;
 }
 
 .table-header > div {
@@ -27,13 +27,14 @@
     border-right: 1px solid #E0E0E0;
     text-align: center;
     line-height: 40px;
+    padding: 0 5px;
     
     font-family: 'ProximaNovaLt';
     font-weight: 600;
     font-style: normal;
 }
 
-.table-header:last-child, .table-row:last-child {
+.table-header > div:last-child, .table-row > div:last-child {
     border-right: none;
 }
 

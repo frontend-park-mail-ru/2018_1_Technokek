@@ -222,7 +222,29 @@ class GlobalValues {
                     {
                         title: 'Score',
                         name: 'score',
-                        template: '150px'
+                        template: '110px'
+                    }
+                ],
+                multiplayer: [
+                    {
+                        title: '#',
+                        name: 'index',
+                        template: '60px'
+                    },
+                    {
+                        title: 'Nickname',
+                        name: 'nickname1',
+                        template: 'auto'
+                    },
+                    {
+                        title: 'Nickname',
+                        name: 'nickname2',
+                        template: 'auto'
+                    },
+                    {
+                        title: 'Score',
+                        name: 'score',
+                        template: '110px'
                     }
                 ]
             }

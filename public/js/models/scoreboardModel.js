@@ -154,4 +154,8 @@ class ScoreboardModel {
 
 const scoreboardModel = new ScoreboardModel();
 
-export default scoreboardMode;
+export default scoreboardModel;
+
+export {
+    scoreboardMode
+};
