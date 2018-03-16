@@ -10,7 +10,6 @@ class AbstractButton {
             wide = false
     } = {}) {
         const elHtml = templateFunction({ text });
-        console.log(elHtml);
         this._el = utiles.htmlToElements(elHtml)[0];
 
         if (wide) {
@@ -83,7 +82,6 @@ class UnderliningButton extends AbstractButton {
             name: 'click',
             handler: (evt) => {
                 evt.preventDefault();
-                this._setIsActive(true);
             }
         }]);
     }
@@ -92,18 +90,26 @@ class UnderliningButton extends AbstractButton {
         return this._isActive;
     }
 
+    acitvate() {
+        console.log('activate: ', this._el);
+        this._setIsActive(true);
+    }
+
     deactivate() {
+        console.log('deactivate: ', this._el);
         this._setIsActive(false);
     }
 
     _setIsActive(isActive) {
         this._isActive = isActive;
+        console.log('active: ', this._isActive);
 
         if (this._isActive) {
+            console.log('ADD');
             this._el.classList.add('active');
         }
-
         else {
+            console.log('REMOVE');
             this._el.classList.remove('active');
         }
     }

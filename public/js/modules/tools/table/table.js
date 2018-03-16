@@ -25,7 +25,10 @@ class Table {
 
     clear() {
         for (let i = 1; i <= this._blocksCount; i++) {
-            this._el.querySelector(`.js-table-rows-${i}`).innerHtml = '';
+            const block = this._el.querySelector(`.js-table-rows-${i}`);
+            while (block.firstChild) {
+                block.removeChild(block.firstChild);
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 'use strict';
 
 import profileModel from './profileModel.js';
-// import tabsModel from './tabsModels.js';
 import httpRequester from '../components/http.js';
 import globalValues from '../components/gloabalData.js';
 
@@ -12,7 +11,7 @@ const scoreboardMode = {
 
 class ScoreboardModel {
     constructor () {
-        this._currentMode = scoreboardMode.SINGLEPLAYER;
+        this._currentMode = null;
         
         this._data = {};
         
@@ -32,14 +31,16 @@ class ScoreboardModel {
     }
     
     toSingleplayerMode() {
-        if (this._currentMode === scoreboardMode.MULTIPLAYER) {
+        if (this._currentMode !== scoreboardMode.SINGLEPLAYER) {
+            console.log('TO SP MODEL');
             this._setMode(scoreboardMode.SINGLEPLAYER);
             this._callSwitchToSingleplayerListeners();
         }
     }
 
     toMultiplayerMode() {
-        if (this._currentMode === scoreboardMode.SINGLEPLAYER) {
+        if (this._currentMode !== scoreboardMode.MULTIPLAYER) {
+            console.log('TO MP MODEL');
             this._setMode(scoreboardMode.MULTIPLAYER);
             this._callSwitchToMultiplayerListeners();
         }
@@ -54,7 +55,7 @@ class ScoreboardModel {
     clear() {
         for (let key in this._data) {
             const item = this._data[key];
-            item.rows.clear();
+            item.rows = [];
             item.pageNumber = 0;
         }
 
@@ -62,14 +63,17 @@ class ScoreboardModel {
     }
 
     get data() {
-        return this.data[this._currentMode].rows;
+        console.log('GET DATA SBM', this._data[this._currentMode].rows);
+        return this._data[this._currentMode].rows;
     }
 
     loadNextPage() {
+        console.log('LOAD NEXT PAGE', this._data[this._currentMode].currentPage + 1);
+
         httpRequester.doGet({
-            url: globalValues.apiUrls.GET.SINGLEPLAYER({
+            url: globalValues.apiUrls.GET.SCOREBOARD({
                 mode: this._currentMode, 
-                pageNumber: this._data[this._currentMode].pageNumber + 1
+                pageNumber: this._data[this._currentMode].currentPage + 1
             }),
             callback: (err, resp) => {
                 if (!err) {
@@ -80,7 +84,7 @@ class ScoreboardModel {
     }
 
     _addNewData(data) {
-        this._data[this._currentMode].rows.concat(data);
+        this._data[this._currentMode].rows = this._data[this._currentMode].rows.concat(data);
         this._data[this._currentMode].currentPage += 1;
         this._callDataChangedListeners();
     }
@@ -94,7 +98,7 @@ class ScoreboardModel {
             this._switchToMultiplayerListeners = [];
         }
 
-        this._switchToSingleplayerListeners.push(listener);
+        this._switchToMultiplayerListeners.push(listener);
     }
 
     addSwitchToSingleplayerListener(listener) {
@@ -155,7 +159,3 @@ class ScoreboardModel {
 const scoreboardModel = new ScoreboardModel();
 
 export default scoreboardModel;
-
-export {
-    scoreboardMode
-};

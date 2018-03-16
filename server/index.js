@@ -448,16 +448,19 @@ app.get('/scoreboard/:mode/page/:pageNumber', function(req, res) {
 			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
 		);
 		res.json(respData);
+		return;
 	}
 
-	if (mode === scoreboardModes.MULTIPLAYER) {
+	else if (mode === scoreboardModes.MULTIPLAYER) {
 		const respData = sbMultiplayer.filter(item => 
 			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
 		);
-		res.json('rwspData:\n',respData);
+		res.json(respData);
 	}
 
-	res.json({ });
+	else {
+		res.json({ });
+	}
 });
 
 const port = process.env.PORT || 3000;

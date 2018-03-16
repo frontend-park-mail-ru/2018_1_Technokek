@@ -6,7 +6,6 @@ import utiles from '../../../../components/utiles.js';
 import globalValues from '../../../../components/gloabalData.js';
 import httpRequester from '../../../../components/http.js';
 import scoreboardModel from '../../../../models/scoreboardModel.js';
-import * as SBModes from '../../../../models/scoreboardModel.js';
 
 import * as Buttons from '../../../tools/buttons/buttons.js';
 
@@ -39,7 +38,7 @@ const scoreboardExample = [
     }
 ];
 
-const MODE = {
+const scoreboardMode = {
     SINGLEPLAYER: 'singleplayer',
     MULTIPLAYER: 'multiplayer'
 };
@@ -48,25 +47,23 @@ class Scoreboard extends AbstractSection{
     constructor(tabModel = {}) {
         super(tabModel);
 
-        this._tabModel.addActiveListener(this._toSingleplayer.bind(this));
         scoreboardModel.addDataClearedListener(this._clear.bind(this));
         scoreboardModel.addDataChangedListener(this._setData.bind(this));
+        
         scoreboardModel.addSwitchToSingleplayerListener(this._toSingleplayer.bind(this));
         scoreboardModel.addSwitchToMultiplayerListener(this._toMultiplayer.bind(this));
+
+        this._tabModel.addActiveListener(() => {
+            if (this._tabModel.active) {
+                console.log('scoreboard opened');
+                scoreboardModel.toSingleplayerMode();
+            }
+        });
     }
 
     render() {
         const template = window.scoreboardTmplTemplate();
         this._el.appendChild(utiles.htmlToElements(template)[0]);
-
-        // this._scoreboardTable = new Table({
-        //     columnsOptions: globalValues.tablesOptions.scoreboard.singleplayer
-        // });
-        // this._scoreboardTable.render();
-        // this._scoreboardTable.extendRows(scoreboardExample);
-
-        // const tableContainer = this._el.querySelector('.js-singleplayer-scoreboard-container');
-        // tableContainer.appendChild(this._scoreboardTable.element);
 
         this._renderButtons();
         this._renderTables();
@@ -96,7 +93,11 @@ class Scoreboard extends AbstractSection{
             wide: true,
             events: [{
                 name: 'click',
-                handler: scoreboardModel.loadNextPage.bind(scoreboardModel)
+                handler: (evt) => {
+                    evt.preventDefault();
+                    console.log('LOAD MORE BTN');
+                    scoreboardModel.loadNextPage();
+                }
             }]
         });
 
@@ -128,19 +129,17 @@ class Scoreboard extends AbstractSection{
     }
 
     _toSingleplayer() {
+        this._singleplayerBtn.acitvate();
         this._multiplayerBtn.deactivate();
         this._mTableContainer.hidden = true;
         this._sTableContainer.hidden = false;
-
-        scoreboardModel.toSingleplayerMode();
     }
 
     _toMultiplayer() {
+        this._multiplayerBtn.acitvate();
         this._singleplayerBtn.deactivate();
         this._mTableContainer.hidden = false;
         this._sTableContainer.hidden = true;
-
-        scoreboardModel.toMultiplayerMode();
     }
 
     _clear() {
@@ -149,15 +148,13 @@ class Scoreboard extends AbstractSection{
     }
 
     _setData() {
-        if (scoreboardModel.mode === SBModes.SINGLEPLAYER) {
-            this._singleplayerTable.extendRows({
-                rows: scoreboardModel.data
-            });
+        this._clear();
+
+        if (scoreboardModel.mode === scoreboardMode.SINGLEPLAYER) {
+            this._singleplayerTable.extendRows(scoreboardModel.data);
         }
-        if (scoreboardModel.mode === SBModes.MULTIPLAYER) {
-            this._multiplayerTable.extendRows({
-                rows: scoreboardModel.data
-            });
+        if (scoreboardModel.mode === scoreboardMode.MULTIPLAYER) {
+            this._multiplayerTable.extendRows(scoreboardModel.data);
         }
     }
 }
