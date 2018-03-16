@@ -91,25 +91,20 @@ class UnderliningButton extends AbstractButton {
     }
 
     acitvate() {
-        console.log('activate: ', this._el);
         this._setIsActive(true);
     }
 
     deactivate() {
-        console.log('deactivate: ', this._el);
         this._setIsActive(false);
     }
 
     _setIsActive(isActive) {
         this._isActive = isActive;
-        console.log('active: ', this._isActive);
-
+        
         if (this._isActive) {
-            console.log('ADD');
             this._el.classList.add('active');
         }
         else {
-            console.log('REMOVE');
             this._el.classList.remove('active');
         }
     }

@@ -32,7 +32,6 @@ class ScoreboardModel {
     
     toSingleplayerMode() {
         if (this._currentMode !== scoreboardMode.SINGLEPLAYER) {
-            console.log('TO SP MODEL');
             this._setMode(scoreboardMode.SINGLEPLAYER);
             this._callSwitchToSingleplayerListeners();
         }
@@ -40,7 +39,6 @@ class ScoreboardModel {
 
     toMultiplayerMode() {
         if (this._currentMode !== scoreboardMode.MULTIPLAYER) {
-            console.log('TO MP MODEL');
             this._setMode(scoreboardMode.MULTIPLAYER);
             this._callSwitchToMultiplayerListeners();
         }
@@ -53,23 +51,22 @@ class ScoreboardModel {
     }
 
     clear() {
+        console.log('CLEAR');
+
         for (let key in this._data) {
             const item = this._data[key];
             item.rows = [];
-            item.pageNumber = 0;
+            item.currentPage = 0;
         }
 
         this._callDataClearedListeners();
     }
 
     get data() {
-        console.log('GET DATA SBM', this._data[this._currentMode].rows);
         return this._data[this._currentMode].rows;
     }
 
     loadNextPage() {
-        console.log('LOAD NEXT PAGE', this._data[this._currentMode].currentPage + 1);
-
         httpRequester.doGet({
             url: globalValues.apiUrls.GET.SCOREBOARD({
                 mode: this._currentMode, 

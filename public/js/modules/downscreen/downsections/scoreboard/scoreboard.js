@@ -55,7 +55,7 @@ class Scoreboard extends AbstractSection{
 
         this._tabModel.addActiveListener(() => {
             if (this._tabModel.active) {
-                console.log('scoreboard opened');
+                console.log('LOADSP');
                 scoreboardModel.toSingleplayerMode();
             }
         });
@@ -95,7 +95,6 @@ class Scoreboard extends AbstractSection{
                 name: 'click',
                 handler: (evt) => {
                     evt.preventDefault();
-                    console.log('LOAD MORE BTN');
                     scoreboardModel.loadNextPage();
                 }
             }]
