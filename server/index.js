@@ -44,8 +44,6 @@ const users = {
 const ids = {};
 
 app.post('/signup', function (req, res) {
-	console.log('SIGNUP', req.body);
-
 	const password = req.body.password;
 	const passwordRepeat = req.body['repeat-password'];
 	const email = req.body.email;
@@ -55,17 +53,48 @@ app.post('/signup', function (req, res) {
 		!password.match(/^\S{4,}$/) ||
 		!email.match(/@/)
 	) {
-		return res.status(400).json({error: 'Не валидные данные пользователя'});
+		return res.status(400).json({
+			error: {
+				global: 'Не валидные данные пользователя',
+				fields: []
+			}
+		});
 	}
 	if (users[email]) {
-		return res.status(400).json({error: 'Пользователь уже существует'});
+		return res.status(400).json({
+			error: {
+				global: '',
+				fields: [
+					{
+						name: 'email',
+						value: 'Пользователь уже существует'
+					}
+				]
+			}
+		});
 	}
 	if (password !== passwordRepeat) {
-		return res.status(400).json({error: 'Введеные пароли не совпадают'});
+		return res.status(400).json({
+			error: {
+				global: '',
+				feidls:[{
+					name: 'repeat-password',
+					value: 'Введеные пароли не совпадают'
+				}]
+			}
+		});
 	}
 	for (let user of Object.values(users)) {
 		if (user.nickname === nickname) {
-			return res.status(400).json({error: 'Такой никнейм уже занят'});
+			return res.status(400).json({
+				error: {
+					global: '',
+					fields: [{
+						name: 'email',
+						value: 'Такой никнейм уже занят'
+					}]
+				}
+			});
 		}
 	}
 
@@ -73,8 +102,6 @@ app.post('/signup', function (req, res) {
 	const user = {password, nickname, email, score: 0, games: 0};
 	ids[id] = email;
 	users[email] = user;
-
-	console.log(req.body, user, users[email]);
 
 	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 	res.status(201).json({id});
@@ -85,10 +112,16 @@ app.post('/login', function (req, res) {
 	const password = req.body.password;
 	const email = req.body.email;
 	if (!password || !email) {
-		return res.status(400).json({error: 'Не указан E-Mail или пароль'});
+		return res.status(400).json({error: {
+			global: 'Не указан E-Mail или пароль',
+			fields: []
+		}});
 	}
 	if (!users[email] || users[email].password !== password) {
-		return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
+		return res.status(400).json({error: {
+			global: 'Не верный E-Mail и/или пароль',
+			fields: []
+		}});
 	}
 
 	const id = uuid();
@@ -105,6 +138,68 @@ app.post('/logout', function (req, res) {
 	res.status(200).end();
 });
 
+app.post('/edit', function(req, res) {
+	const id = req.cookies['frontend'];
+	const email = ids[id];
+	const field = req.body.field;
+	const value = req.body.value;
+
+	if (!email || !users[email] || !users[email][field]) {
+		return res.status(401).end();
+	}
+
+	if (field !== 'password') {
+		if (users[email][field] === value) {
+			res.status(201).json({id});
+		}
+		for (let user of Object.values(users)) {
+			if (user[field] === value) {
+				return res.status(400).json({
+					error: {
+						global: '',
+						fields:[{
+							name: field,
+							value: `Такой ${field} уже занят`
+						}]
+					}
+				});
+			}
+		}
+		users[email][field] = value;
+		res.status(201).json({id});
+	}
+	else {
+		const newPassword = req.body['new-password'];
+		const repeatPassword = req.body['new-password-repeat'];
+
+		if (users[email].password !== value) {
+			return res.status(400).json({
+				error: {
+					global: '',
+					fields: [{
+						name: 'old-password',
+						value: 'Старый парль введен неверно'
+					}]
+				}
+			});
+		}
+		if (newPassword !== repeatPassword) {
+			return res.status(400).json({
+				error: {
+					global: '',
+					fields: [{
+						name: 'new-password-repeat',
+						value: 'Введенные пароли не совпадают'
+					}]
+				}
+			});
+		}
+
+		users[email].password = newPassword;
+		res.status(201).json({id});
+	}
+});
+
 app.get('/me', function (req, res) {
 
 	const id = req.cookies['frontend'];
@@ -113,7 +208,7 @@ app.get('/me', function (req, res) {
 		return res.status(401).end();
 	}
 
-	users[email].rating += 1;
+	users[email].score += 1;
 
 	res.json(users[email]);
 });

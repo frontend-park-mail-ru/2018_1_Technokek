@@ -27,7 +27,7 @@ class HttpRequester {
             } else {
                 try {
                     const response = JSON.parse(xhr.responseText);
-                    callback(response);
+                    callback(response.error);
                 } catch (err) {
                     callback(err);
                 }

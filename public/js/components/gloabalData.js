@@ -22,7 +22,7 @@ class GlobalValues {
                 AUTH: '/login',
                 SIGNUP: '/signup',
                 LOGOUT: '/logout',
-                EDIT_USER: '/user'
+                EDIT_USER: '/edit'
             }
         };
     }
@@ -145,7 +145,7 @@ class GlobalValues {
                     options: {
                         type: globalValues.inputTypes.text,
                         id: 'edit-nickname',
-                        name: 'edit-nickname',
+                        name: 'nickname',
                         label: 'Nickname',
                         placeholder: 'Nickname',
                     }
@@ -158,7 +158,7 @@ class GlobalValues {
                     options: {
                         type: globalValues.inputTypes.email,
                         id: 'edit-email',
-                        name: 'edit-email',
+                        name: 'email',
                         label: 'Email',
                         placeholder: 'Email'
                     }
@@ -172,7 +172,7 @@ class GlobalValues {
                         options: {
                             type: globalValues.inputTypes.password,
                             id: 'edit-old-password',
-                            name: 'edit-old-password',
+                            name: 'old-password',
                             label: 'Old password',
                             placeholder: 'Old password'
                         }
@@ -181,7 +181,7 @@ class GlobalValues {
                         options: {
                             type: globalValues.inputTypes.password,
                             id: 'edit-new-password',
-                            name: 'edit-new-password',
+                            name: 'new-password',
                             label: 'New password',
                             placeholder: 'New password'
                         }
@@ -190,7 +190,7 @@ class GlobalValues {
                         options: {
                             type: globalValues.inputTypes.password,
                             id: 'edit-new-password-repeat',
-                            name: 'edit-new-password-repeat',
+                            name: 'new-password-repeat',
                             label: 'Repeat password',
                             placeholder: 'Repeat new password'
                         }

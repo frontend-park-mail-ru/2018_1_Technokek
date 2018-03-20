@@ -207,11 +207,17 @@ class AbstractForm {
         });
     }
 
-    _outputErrors(err) {
-        const errorContainer = this._el.querySelector('.js-common-errors');
+    _outputErrors(errors) {
+        console.log(errors);
 
-        errorContainer.innerHtml = '';
-        errorContainer.textContent = err.error;
+        const errorContainer = this._el.querySelector('.js-common-errors');
+        errorContainer.textContent = errors.global;
+        
+        for (let error of errors.fields) {
+            const field = this._getFieldByName(error.name);
+            field.reset();
+            field.error = error.value;
+        }
     }
 
     _resetErrors() {

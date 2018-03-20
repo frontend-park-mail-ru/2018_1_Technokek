@@ -51,8 +51,6 @@ class ScoreboardModel {
     }
 
     clear() {
-        console.log('CLEAR');
-
         for (let key in this._data) {
             const item = this._data[key];
             item.rows = [];

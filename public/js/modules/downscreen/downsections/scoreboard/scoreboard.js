@@ -55,7 +55,6 @@ class Scoreboard extends AbstractSection{
 
         this._tabModel.addActiveListener(() => {
             if (this._tabModel.active) {
-                console.log('LOADSP');
                 scoreboardModel.toSingleplayerMode();
             }
         });

@@ -85,11 +85,11 @@ class FieldEditToggler extends Toggling.AbstractToggler {
         super(selector);
         this._viewChild = viewChild;
         this._formChild = formChild;
+
+        profileModel.addDataChangedListener(() => this._toViewMode());
     }
 
     render() {
-        console.log(this._viewChild, this._formChild);
-
         this._togglingItems = [
             new EditFieldTogglingItem({
                 parent: this._el,
@@ -113,6 +113,11 @@ class FieldEditToggler extends Toggling.AbstractToggler {
             item.render();
         }
     }
+
+    _toViewMode() {
+        this._togglingItems[0].hidden = false;
+        this._togglingItems[1].hidden = true;
+    }
 }
 
 
@@ -127,7 +132,8 @@ class NicknameToggler extends FieldEditToggler {
             formChild: new AbstractForm({
                 fields: globalValues.formsOptions.nicknameForm.fields,
                 fieldTemplateFunction: window.editinputTmplTemplate,
-                templateFunction: window.editmodeTmplTemplate
+                templateFunction: window.editmodeTmplTemplate,
+                reciverCallback: profileModel.changeNickname.bind(profileModel)
             })
         });
     }
@@ -146,7 +152,8 @@ class EmailToggler extends FieldEditToggler {
             formChild: new AbstractForm({
                 fields: globalValues.formsOptions.emailForm.fields,
                 fieldTemplateFunction: window.editinputTmplTemplate,
-                templateFunction: window.editmodeTmplTemplate
+                templateFunction: window.editmodeTmplTemplate,
+                reciverCallback: profileModel.changeEmail.bind(profileModel)
             })
         });
     }
@@ -165,7 +172,8 @@ class PasswordToggler extends FieldEditToggler {
             formChild: new AbstractForm({
                 fields: globalValues.formsOptions.passwordForm.fields,
                 fieldTemplateFunction: window.editinputTmplTemplate,
-                templateFunction: window.editmodeTmplTemplate
+                templateFunction: window.editmodeTmplTemplate,
+                reciverCallback: profileModel.changePassword.bind(profileModel)
             })
         });
     }

@@ -36,7 +36,15 @@ class AbstractTogglingItem {
     }
 
     toggle() {
-        this._hidden = this._el.hidden = !this._el.hidden;
+        this._el.hidden = !this._el.hidden;
+    }
+
+    get hidden() {
+        return this._el.hidden;
+    }
+    
+    set hidden(value) {
+        this._el.hidden = value;
     }
 }
 

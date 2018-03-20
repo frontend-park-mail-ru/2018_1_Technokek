@@ -65,7 +65,7 @@ class ProfileModel {
                 if (err) {
                     callback(err);
                 }
-
+                
                 this.checkAuth();
             }
         });
@@ -114,22 +114,42 @@ class ProfileModel {
 // setters
 // ---------------------------------------------------------------------------------
 
-    changeEmail({ value = '', callback = utiles.noop } = {}) {
+    changeEmail({ data = '', callback = utiles.noop } = {}) {
         console.log('[set] email');
 
-
-
-        this._dataChanged();
+        this._changeField({
+            data: {
+                field: 'email',
+                value: data.email
+            },
+            callback
+        });    
     }
 
-    changeNickname({ value = '', callback = utiles.noop } = {}) {
+    changeNickname({ data = '', callback = utiles.noop } = {}) {
         console.log('[set] nickname');
-        this._dataChanged();
+
+        this._changeField({
+            data: {
+                field: 'nickname',
+                value: data.nickname
+            },
+            callback
+        });  
     }
 
-    changePassword({ oldPassword = '', newPassword = '', callback = utiles.noop } = {}) {
+    changePassword({ data = {}, callback = utiles.noop } = {}) {
         console.log('changePassword');
-        this._dataChanged();
+        
+        this._changeField({
+            data: {
+                field: 'password',
+                value: data['old-password'],
+                'new-password': data['new-password'],
+                'new-password-repeat': data['new-password-repeat']
+            },
+            callback
+        });  
     }
 
     get history() {
@@ -139,6 +159,23 @@ class ProfileModel {
 
     get authenticated() {
         return this._isAuthinticated;
+    }
+
+    _changeField({ data = {}, callback = utiles.noop } = {}) {
+        console.log('field data to send', data);
+
+        httpRequester.doPost({
+            url: globalValues.apiUrls.POST.EDIT_USER,
+            data,
+            callback(err, resp) {
+                if (err) {
+                    callback(err);
+                }
+                else {
+                    profileModel.checkAuth();
+                }
+            }
+        });
     }
 
 // ---------------------------------------------------------------------------------
@@ -171,10 +208,13 @@ class ProfileModel {
 
     _authenticate(resp) {
         console.log('authenticate', resp);
-        this._isAuthinticated = true;
         this._data = resp;
 
-        this._callListenersArray(this._authListeners);
+        if (!this._isAuthinticated) {
+            this._isAuthinticated = true;
+            this._callListenersArray(this._authListeners);
+        }
+
         this._dataChanged();
     }
 
