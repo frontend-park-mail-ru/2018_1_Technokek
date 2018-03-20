@@ -20,11 +20,11 @@ class GlobalValues {
         
             POST: {
                 AUTH: '/login',
-                SIGNUP: '/register',
+                SIGNUP: '/signup',
                 LOGOUT: '/logout',
                 EDIT_USER: '/user'
             }
-        }
+        };
     }
 
     get tabsOptions() {
@@ -234,17 +234,17 @@ class GlobalValues {
                     {
                         title: 'Nickname',
                         name: 'nickname1',
-                        template: 'auto'
+                        template: 'minmax(30%, 40%)'
                     },
                     {
                         title: 'Nickname',
                         name: 'nickname2',
-                        template: 'auto'
+                        template: 'minmax(30%, 40%)'
                     },
                     {
                         title: 'Score',
                         name: 'score',
-                        template: '110px'
+                        template: 'minmax(90px, auto)'
                     }
                 ]
             }

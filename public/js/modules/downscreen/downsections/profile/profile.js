@@ -33,6 +33,10 @@ class Profile extends AbstractSection {
         this._checkMode();
     }
 
+    _reload() {
+        
+    }
+
     _updateTmplData() {
         this._updateTmplEmail(profileModel.email);
         this._updateTmplNickname(profileModel.nickname);

@@ -19,33 +19,39 @@ app.use(cookie());
 
 const users = {
 	'vv-ch@bk.ru': {
+		nickname: 'Vitaly Cherkov',
 		email: 'vv-ch@bk.ru',
 		password: 'password',
 		games: 20,
-		rating: 72
+		score: 72
 	},
 	'vv-ch1@bk.ru': {
+		nickname: 'Vitaly Cherkovv',
 		email: 'vv-ch1@bk.ru',
 		password: 'password',
 		games: 21,
-		rating: 172
+		score: 172
 	},
 	'vv-ch2@bk.ru': {
+		nickname: 'Vitaly Cherkovvv',
 		email: 'vv-ch2@bk.ru',
 		password: 'password',
 		games: 22,
-		rating: 272
+		score: 272
 	},
 };
 
 const ids = {};
 
 app.post('/signup', function (req, res) {
+	console.log('SIGNUP', req.body);
+
 	const password = req.body.password;
+	const passwordRepeat = req.body['repeat-password'];
 	const email = req.body.email;
 	const nickname = req.body.nickname;
 	if (
-		!password || !email || !age ||
+		!password || !email ||
 		!password.match(/^\S{4,}$/) ||
 		!email.match(/@/)
 	) {
@@ -54,16 +60,21 @@ app.post('/signup', function (req, res) {
 	if (users[email]) {
 		return res.status(400).json({error: 'Пользователь уже существует'});
 	}
-	for (let user of users) {
+	if (password !== passwordRepeat) {
+		return res.status(400).json({error: 'Введеные пароли не совпадают'});
+	}
+	for (let user of Object.values(users)) {
 		if (user.nickname === nickname) {
 			return res.status(400).json({error: 'Такой никнейм уже занят'});
 		}
 	}
 
 	const id = uuid();
-	const user = {password, email, age, rating: 0};
+	const user = {password, nickname, email, score: 0, games: 0};
 	ids[id] = email;
 	users[email] = user;
+
+	console.log(req.body, user, users[email]);
 
 	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 	res.status(201).json({id});

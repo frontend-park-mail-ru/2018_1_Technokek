@@ -56,14 +56,6 @@ class SignupForm extends BaseAuthSignupForm {
 
         return true;
     }
-
-    _getFieldByName(name) {
-        for (let field of this._fields) {
-            if (field.name === name) {
-                return field;
-            }
-        }
-    }
 }
 
 class AuthSignupFormContainer extends Toggling.AbstractTogglingItem {

@@ -246,6 +246,14 @@ class AbstractForm {
             fieldsSelector.appendChild(field.element);
         }
     }
+
+    _getFieldByName(name) {
+        for (let field of this._fields) {
+            if (field.name === name) {
+                return field;
+            }
+        }
+    }
 }
 
 export default AbstractForm;

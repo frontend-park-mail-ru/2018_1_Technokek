@@ -44,20 +44,31 @@ class ProfileModel {
 
         httpRequester.doPost({
             url: globalValues.apiUrls.POST.AUTH,
+            data,
             callback: (err, resp) => {
-                if(err) {
-                    // callback from auth args
+                if (err) {
                     callback(err);
                 }
 
                 this.checkAuth();
-            },
-            data
+            }
         });
     }
 
     signup({ data = {}, callback = utiles.noop } = {}) {
         console.log('signup', data);
+
+        httpRequester.doPost({
+            url: globalValues.apiUrls.POST.SIGNUP,
+            data,
+            callback: (err, resp) => {
+                if (err) {
+                    callback(err);
+                }
+
+                this.checkAuth();
+            }
+        });
     }
 
     logout() {
@@ -85,13 +96,13 @@ class ProfileModel {
     }
 
     get nickname() {
-        console.log('[get] nickname');
+        console.log('[get] nickname', this._data);
         return this._data.nickname;
     }
 
     get score() {
         console.log('[get] score');
-        return this._data.rating;
+        return this._data.score;
     }
 
     get games() {
@@ -105,6 +116,9 @@ class ProfileModel {
 
     changeEmail({ value = '', callback = utiles.noop } = {}) {
         console.log('[set] email');
+
+
+
         this._dataChanged();
     }
 
@@ -161,9 +175,11 @@ class ProfileModel {
         this._data = resp;
 
         this._callListenersArray(this._authListeners);
+        this._dataChanged();
     }
 
     _dataChanged() {
+        console.log('data changed');
         this._callListenersArray(this._dataChangedListeners);
     }
 

@@ -9,9 +9,12 @@ import profileModel from '../../../../../models/profileModel.js';
 
 
 class FieldView {
-    constructor({label = '', value = ''} = {}) {
+    constructor({label = '', value = '', dataGetter = profileModel.data} = {}) {
         const template = window.viewmodeTmplTemplate({ label: label, value: value });
         this._el = utiles.htmlToElements(template)[0];
+        this._dataGetter = dataGetter;
+
+        profileModel.addDataChangedListener(this.reloadValue.bind(this));
     }
 
     render() { }
@@ -19,10 +22,15 @@ class FieldView {
     get element() {
         return this._el;
     }
+
+    reloadValue() {
+        this._el.querySelector('.js-field-value').textContent = this._dataGetter();
+    }
 }
 
+
 // Поле редактирования в режиме отображения
-class EditFieldToggler extends Toggling.AbstractTogglingItem {
+class EditFieldTogglingItem extends Toggling.AbstractTogglingItem {
     constructor({
         parent = document,
         selector = null, 
@@ -67,27 +75,34 @@ class EditFieldToggler extends Toggling.AbstractTogglingItem {
     }
 }
 
-// TODO: 
-class NicknameToggler extends Toggling.AbstractToggler {
+
+class FieldEditToggler extends Toggling.AbstractToggler {
+    constructor({
+        selector,
+        viewChild,
+        formChild
+    }) {
+        super(selector);
+        this._viewChild = viewChild;
+        this._formChild = formChild;
+    }
+
     render() {
+        console.log(this._viewChild, this._formChild);
 
         this._togglingItems = [
-            new EditFieldToggler({
+            new EditFieldTogglingItem({
                 parent: this._el,
                 selector: '.js-view-item',
-                childElement: new FieldView({ label: 'Nickname' }),
+                childElement: this._viewChild,
                 hidden: false,
                 togglingBtnText: 'Change',
                 togglingBtnListener: this.changeItems.bind(this)
             }),
-            new EditFieldToggler({
+            new EditFieldTogglingItem({
                 parent: this._el,
                 selector: '.js-form-item',
-                childElement: new AbstractForm({
-                    fields: globalValues.formsOptions.nicknameForm.fields,
-                    fieldTemplateFunction: window.editinputTmplTemplate,
-                    templateFunction: window.editmodeTmplTemplate
-                }),
+                childElement: this._formChild,
                 hidden: true,
                 togglingBtnText: 'Cancel',
                 togglingBtnListener: this.changeItems.bind(this)
@@ -100,67 +115,62 @@ class NicknameToggler extends Toggling.AbstractToggler {
     }
 }
 
-class EmailToggler extends Toggling.AbstractToggler {
-    render() {
-        this._togglingItems = [
-            new EditFieldToggler({
-                parent: this._el,
-                selector: '.js-view-item',
-                childElement: new FieldView({ label: 'Email' }),
-                hidden: false,
-                togglingBtnText: 'Change',
-                togglingBtnListener: this.changeItems.bind(this)
-            }),
-            new EditFieldToggler({
-                parent: this._el,
-                selector: '.js-form-item',
-                childElement: new AbstractForm({
-                    fields: globalValues.formsOptions.emailForm.fields,
-                    fieldTemplateFunction: window.editinputTmplTemplate,
-                    templateFunction: window.editmodeTmplTemplate
-                }),
-                hidden: true,
-                togglingBtnText: 'Cancel',
-                togglingBtnListener: this.changeItems.bind(this)
-            })
-        ];
 
-        for (let item of this._togglingItems) {
-            item.render();
-        }
+class NicknameToggler extends FieldEditToggler {
+    constructor(selector) {
+        super({
+            selector,
+            viewChild: new FieldView({ 
+                label: 'Nickname', 
+                dataGetter: () => profileModel.nickname 
+            }),
+            formChild: new AbstractForm({
+                fields: globalValues.formsOptions.nicknameForm.fields,
+                fieldTemplateFunction: window.editinputTmplTemplate,
+                templateFunction: window.editmodeTmplTemplate
+            })
+        });
     }
 }
 
-class PasswordToggler extends Toggling.AbstractToggler {
-    render() {
-        this._togglingItems = [
-            new EditFieldToggler({
-                parent: this._el,
-                selector: '.js-view-item',
-                childElement: new FieldView({ label: 'Password', value: '***...***' }),
-                hidden: false,
-                togglingBtnText: 'Change',
-                togglingBtnListener: this.changeItems.bind(this)
-            }),
-            new EditFieldToggler({
-                parent: this._el,
-                selector: '.js-form-item',
-                childElement: new AbstractForm({
-                    fields: globalValues.formsOptions.passwordForm.fields,
-                    fieldTemplateFunction: window.editinputTmplTemplate,
-                    templateFunction: window.editmodeTmplTemplate
-                }),
-                hidden: true,
-                togglingBtnText: 'Cancel',
-                togglingBtnListener: this.changeItems.bind(this)
-            })
-        ];
 
-        for (let item of this._togglingItems) {
-            item.render();
-        }
+class EmailToggler extends FieldEditToggler {
+
+    constructor(selector) {
+        super({
+            selector,
+            viewChild: new FieldView({ 
+                label: 'Email', 
+                dataGetter: () => profileModel.email 
+            }),
+            formChild: new AbstractForm({
+                fields: globalValues.formsOptions.emailForm.fields,
+                fieldTemplateFunction: window.editinputTmplTemplate,
+                templateFunction: window.editmodeTmplTemplate
+            })
+        });
     }
 }
+
+
+class PasswordToggler extends FieldEditToggler {
+
+    constructor(selector) {
+        super({
+            selector,
+            viewChild: new FieldView({ 
+                label: 'Password', 
+                dataGetter: () => '***...***' 
+            }),
+            formChild: new AbstractForm({
+                fields: globalValues.formsOptions.passwordForm.fields,
+                fieldTemplateFunction: window.editinputTmplTemplate,
+                templateFunction: window.editmodeTmplTemplate
+            })
+        });
+    }
+}
+
 
 class EditSection {
     constructor() {
@@ -177,8 +187,6 @@ class EditSection {
 
         this._passwordToggler = new PasswordToggler('.js-edit-password');
         this._passwordToggler.render();
-        
-        this._insertForms();
     }
 
     get element() {
@@ -195,12 +203,6 @@ class EditSection {
 
     set hidden(val) {
         this._el.hidden = Boolean(val);
-    }
-
-    _insertForms() {
-        const container = this._el.querySelector('.js-edit-fields-list');
-
-        
     }
 }
 
