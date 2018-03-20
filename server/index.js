@@ -569,6 +569,170 @@ app.get('/scoreboard/:mode/page/:pageNumber', function(req, res) {
 	}
 });
 
+const hsSingleplayer = [
+	{
+		index: 1,
+		date: '13:02:2017',
+		score: '3000'
+	},
+	{
+		index: 2,
+		date: '13:02:2017',
+		score: '2984'
+	},
+	{
+		index: 3,
+		date: '13:02:2017',
+		score: '2876'
+	},
+	{
+		index: 4,
+		date: '13:02:2017',
+		score: '2465'
+	},
+	{
+		index: 5,
+		date: '13:02:2017',
+		score: '2311'
+	},{
+		index: 6,
+		date: '13:02:2017',
+		score: '2163'
+	},
+	{
+		index: 7,
+		date: '13:02:2017',
+		score: '2085'
+	},
+	{
+		index: 8,
+		date: '13:02:2017',
+		score: '1984'
+	},
+	{
+		index: 9,
+		date: '13:02:2017',
+		score: '1854'
+	},
+	{
+		index: 10,
+		date: '13:02:2017',
+		score: '1765'
+	},
+	{
+		index: 11,
+		date: '13:02:2017',
+		score: '1754'
+	},
+	{
+		index: 12,
+		date: '13:02:2017',
+		score: '1654'
+	}
+];
+
+const hsMultiplayer = [
+	{
+		index: 1,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '3000'
+	},
+	{
+		index: 2,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '2984'
+	},
+	{
+		index: 3,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '2876'
+	},
+	{
+		index: 4,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '2465'
+	},
+	{
+		index: 5,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '2311'
+	},{
+		index: 6,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '2163'
+	},
+	{
+		index: 7,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '2085'
+	},
+	{
+		index: 8,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '1984'
+	},
+	{
+		index: 9,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '1854'
+	},
+	{
+		index: 10,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '1765'
+	},
+	{
+		index: 11,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '1754'
+	},
+	{
+		index: 12,
+		date: '13:02:2017',
+		partner: 'Vladimir putin',
+		score: '1654'
+	}
+];
+
+app.get('/history/:mode/page/:pageNumber', function(req, res) {
+	
+	const mode = req.params.mode;
+	const pageNumber = req.params.pageNumber;
+	
+	if (mode === scoreboardModes.SINGLEPLAYER) {
+		const respData = hsSingleplayer.filter(item => 
+			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
+		);
+		console.log(respData);
+		res.json(respData);
+		return;
+	}
+
+	else if (mode === scoreboardModes.MULTIPLAYER) {
+		const respData = hsMultiplayer.filter(item => 
+			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
+		);
+
+		console.log(respData);
+		res.json(respData);
+	}
+
+	else {
+		res.json({ });
+	}
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {

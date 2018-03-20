@@ -96,7 +96,7 @@ class ProfileModel {
     }
 
     get nickname() {
-        console.log('[get] nickname', this._data);
+        console.log('[get] nickname');
         return this._data.nickname;
     }
 

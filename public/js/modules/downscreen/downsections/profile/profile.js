@@ -8,6 +8,7 @@ import * as Toggling from '../../../tools/toggling/toggling.js';
 import AbstractForm from '../../../tools/abstractForm/abstractForm.js';
 import AbstractSection from '../abstractSection.js';
 import EditSection from './editSection/editSection.js';
+import HistorySection from './historySection/historySection.js';
 
 const modes = {
     SHOW: 0,
@@ -29,7 +30,7 @@ class Profile extends AbstractSection {
 
     render() {
         this._insertButtons();
-        this._insertEditSection();
+        this._insertSections();
         this._checkMode();
     }
 
@@ -39,6 +40,7 @@ class Profile extends AbstractSection {
 
     _updateTmplData() {
         this._updateTmplEmail(profileModel.email);
+        console.log('nickname: ', profileModel.nickname);
         this._updateTmplNickname(profileModel.nickname);
         this._updateTmplGames(profileModel.games);
         this._updateTmplScore(profileModel.score);
@@ -56,7 +58,7 @@ class Profile extends AbstractSection {
     }
 
     _updateTmplNickname(newNickname) {
-        // this._updateTmplField('js-nickname-field', newNickname);
+        this._updateTmplField('.js-nickname-field', newNickname);
     }
 
     _updateTmplGames(newGamesCount) {
@@ -125,11 +127,18 @@ class Profile extends AbstractSection {
         logoutBtnContainer.appendChild(this._buttons.logoutBtn.element);
     }
 
-    _insertEditSection() {
+    _insertSections() {
         this._editSection = new EditSection();
+        this._historySection = new HistorySection();
         const container = this._el.querySelector('.js-profile-center');
+        
+        this._historySection.render();
+        
         container.appendChild(this._editSection.element);
+        container.appendChild(this._historySection.element);
+        
         this._editSection.render();
+        
     }
 
     _checkMode() {
@@ -171,6 +180,7 @@ class Profile extends AbstractSection {
     _showElementsHidden(val) {
         val = Boolean(val);
 
+        this._historySection.element.hidden = val;
         this._buttons.editBtn.element.hidden = val;
         this._el.querySelector('.js-personal-info').hidden = val;
     }

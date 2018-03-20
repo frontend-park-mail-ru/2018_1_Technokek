@@ -4,11 +4,6 @@ import utiles from '../../../components/utiles.js';
 import tabsModels from '../../../models/tabsModels.js';
 import profileModel from '../../../models/profileModel.js';
 
-const getLinkedSection = function(tabElement) {
-    const linkedSection = tabElement.dataset.section;
-    const el = window.document.getElementsByClassName(linkedSection);
-    return el[0];
-};
 
 class TabDelegate {
     constructor({
@@ -92,6 +87,8 @@ class Tabbar {
     _handleClick(evt, tabDelegate) {
         evt.preventDefault();
 
+        this._scrollToTabbar();
+
         if (!this._current) {
             tabDelegate.activate();
             this._current = tabDelegate;
@@ -110,6 +107,23 @@ class Tabbar {
                 tabDelegate.element.click();
                 break;
             }
+        }
+    }
+
+    _scrollToTabbar(name) {
+        this._moveToTabbar(this._el);
+    }
+      
+    _moveToTabbar(elem) {
+        const jump = parseInt(elem.getBoundingClientRect().top * 0.3);
+        document.body.scrollTop += jump;
+        document.documentElement.scrollTop += jump;
+        if (!elem.lastjump || elem.lastjump > Math.abs(jump)) {
+            elem.lastjump = Math.abs(jump);
+            setTimeout(() => this._moveToTabbar(elem), 20);
+        } 
+        else {
+            elem.lastjump = null;
         }
     }
 }

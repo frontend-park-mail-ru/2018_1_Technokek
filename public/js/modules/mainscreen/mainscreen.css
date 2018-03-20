@@ -1,6 +1,18 @@
 @import url("./centralBlock/centralBlock.css");
 @import url("./tabbar/tabbar.css");
 
+.screen .main-screen {
+    height: 80%;
+}
+
+.main-screen {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .header {
     align-items: center;
     align-content: space-between;
@@ -20,11 +32,3 @@
     color: #000;
 }
 
-.main-screen {
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    justify-content: space-between;
-    align-items: center;
-    /* background-color: lightgreen; */
-}

@@ -1,42 +1,38 @@
 'use strict';
 
-import AbstractSection from '../abstractSection.js';
-import Table from '../../../tools/table/table.js';
-import utiles from '../../../../components/utiles.js';
-import globalValues from '../../../../components/gloabalData.js';
-import scoreboardModel from '../../../../models/scoreboardModel.js';
+import utiles from "../../../../../components/utiles.js";
+import historyModel from '../../../../../models/historyModel.js';
+import globalValues from '../../../../../components/gloabalData.js';
+import Table from '../../../../tools/table/table.js';
 
-import * as Buttons from '../../../tools/buttons/buttons.js';
+import * as Buttons from '../../../../tools/buttons/buttons.js';
 
-
-const scoreboardMode = {
+const historyMode = {
     SINGLEPLAYER: 'singleplayer',
     MULTIPLAYER: 'multiplayer'
 };
 
-class Scoreboard extends AbstractSection{
-    constructor(tabModel = {}) {
-        super(tabModel);
-
-        scoreboardModel.addDataClearedListener(this._clear.bind(this));
-        scoreboardModel.addDataChangedListener(this._setData.bind(this));
+class HistorySection {
+    constructor() {
+        historyModel.addDataClearedListener(this._clear.bind(this));
+        historyModel.addDataChangedListener(this._setData.bind(this));
         
-        scoreboardModel.addSwitchToSingleplayerListener(this._toSingleplayer.bind(this));
-        scoreboardModel.addSwitchToMultiplayerListener(this._toMultiplayer.bind(this));
-
-        this._tabModel.addActiveListener(() => {
-            if (this._tabModel.active) {
-                scoreboardModel.toSingleplayerMode();
-            }
-        });
+        historyModel.addSwitchToSingleplayerListener(this._toSingleplayer.bind(this));
+        historyModel.addSwitchToMultiplayerListener(this._toMultiplayer.bind(this));
     }
 
     render() {
-        const template = window.scoreboardTmplTemplate();
-        this._el.appendChild(utiles.htmlToElements(template)[0]);
+        const template = window.historysectionTmplTemplate();
+        this._el = utiles.htmlToElements(template)[0];
 
         this._renderButtons();
         this._renderTables();
+
+        historyModel.toSingleplayerMode();
+    }
+
+    get element() {
+        return this._el;
     }
 
     _renderButtons() {
@@ -45,7 +41,7 @@ class Scoreboard extends AbstractSection{
             isActive: true,
             events: [{
                 name: 'click',
-                handler: scoreboardModel.toSingleplayerMode.bind(scoreboardModel)
+                handler: historyModel.toSingleplayerMode.bind(historyModel)
             }]
         });
 
@@ -54,10 +50,10 @@ class Scoreboard extends AbstractSection{
             isActive: false,
             events: [{
                 name: 'click',
-                handler: scoreboardModel.toMultiplayerMode.bind(scoreboardModel)
+                handler: historyModel.toMultiplayerMode.bind(historyModel)
             }]
         });
-
+        
         this._loadMoreBtn = new Buttons.PassiveButton({
             text: 'Load more',
             wide: true,
@@ -65,12 +61,12 @@ class Scoreboard extends AbstractSection{
                 name: 'click',
                 handler: (evt) => {
                     evt.preventDefault();
-                    scoreboardModel.loadNextPage();
+                    historyModel.loadNextPage();
                 }
             }]
         });
 
-        const tabsContainer = this._el.querySelector('.js-scoreboard-buttons');
+        const tabsContainer = this._el.querySelector('.js-history-buttons');
         tabsContainer.appendChild(this._singleplayerBtn.element);
         tabsContainer.appendChild(this._multiplayerBtn.element);
 
@@ -80,24 +76,25 @@ class Scoreboard extends AbstractSection{
 
     _renderTables() {
         this._singleplayerTable = new Table({
-            columnsOptions: globalValues.tablesOptions.scoreboard.singleplayer
+            columnsOptions: globalValues.tablesOptions.gameHistory.singleplayer
         });
 
         this._multiplayerTable = new Table({
-            columnsOptions: globalValues.tablesOptions.scoreboard.multiplayer
+            columnsOptions: globalValues.tablesOptions.gameHistory.multiplayer
         });
 
         this._singleplayerTable.render();
         this._multiplayerTable.render();
 
-        this._sTableContainer = this._el.querySelector('.js-singleplayer-scoreboard-container');
-        this._mTableContainer = this._el.querySelector('.js-multiplayer-scoreboard-container');
+        this._sTableContainer = this._el.querySelector('.js-singleplayer-history-container');
+        this._mTableContainer = this._el.querySelector('.js-multiplayer-history-container');
 
         this._sTableContainer.appendChild(this._singleplayerTable.element);
         this._mTableContainer.appendChild(this._multiplayerTable.element);
     }
 
     _toSingleplayer() {
+        console.log('to single player porfile');
         this._singleplayerBtn.acitvate();
         this._multiplayerBtn.deactivate();
         this._mTableContainer.hidden = true;
@@ -105,6 +102,7 @@ class Scoreboard extends AbstractSection{
     }
 
     _toMultiplayer() {
+        console.log('to single MP porfile');
         this._multiplayerBtn.acitvate();
         this._singleplayerBtn.deactivate();
         this._mTableContainer.hidden = false;
@@ -117,15 +115,17 @@ class Scoreboard extends AbstractSection{
     }
 
     _setData() {
+        console.log('set data history');
+
         this._clear();
 
-        if (scoreboardModel.mode === scoreboardMode.SINGLEPLAYER) {
-            this._singleplayerTable.extendRows(scoreboardModel.data);
+        if (historyModel.mode === historyMode.SINGLEPLAYER) {
+            this._singleplayerTable.extendRows(historyModel.data);
         }
-        if (scoreboardModel.mode === scoreboardMode.MULTIPLAYER) {
-            this._multiplayerTable.extendRows(scoreboardModel.data);
+        if (historyModel.mode === historyMode.MULTIPLAYER) {
+            this._multiplayerTable.extendRows(historyModel.data);
         }
     }
 }
 
-export default Scoreboard;
+export default HistorySection;
