@@ -1,12 +1,18 @@
+mixin authorizedSection()
+    include ./authorizedSection/authorizedSection.tmpl.pug
+    
+mixin singleplayColumn()
+    include ./singleplayColumn/singleplayColumn.tmpl.pug    
+
+
 div(class='site-center')
     h1(class='logo')
-        |StalinGRAPH
+        |TheGame
 
     div(class='site-center-sections')
-        div(class='site-center-column sigleplay-section')
-            img(src='/img/play_btn.png' class='play-btn')
-
+        
+        +singleplayColumn()
         div(class='site-center-column js-login-register-section')
+        +authorizedSection()
 
-        div(class='site-center-column js-authorized-section')
-            |You authorized
+        

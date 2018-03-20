@@ -7,13 +7,19 @@ class AbstractButton {
             text = '',
             events = [],
             templateFunction = utiles.noop,
-            wide = false
+            wide = false,
+            tall = false,
     } = {}) {
         const elHtml = templateFunction({ text });
         this._el = utiles.htmlToElements(elHtml)[0];
 
         if (wide) {
             this._el.style.width = '100%';
+        }
+
+        if (tall) {
+            this._el.style.height = '100%';
+            this._el.style['line-height'] = '100%';
         }
 
         this._createListeners(events);
@@ -35,23 +41,37 @@ class AbstractButton {
 }
 
 class ActiveButton extends AbstractButton {
-    constructor({text = '', events = [], wide = false} = {}) {
+    constructor({text = '', events = [], wide = false, tall = false} = {}) {
         super({ 
             text, 
             events,
             templateFunction: window.activebuttonTmplTemplate,
-            wide
+            wide,
+            tall
+        });
+    }
+}
+
+class PLayButton extends AbstractButton {
+    constructor({text = '', events = [], wide = false, tall = false} = {}) {
+        super({ 
+            text, 
+            events,
+            templateFunction: window.playbuttonTmplTemplate,
+            wide,
+            tall
         });
     }
 }
 
 class PassiveButton extends AbstractButton {
-    constructor({text = '', events = [], wide = false} = {}) {
+    constructor({text = '', events = [], wide = false, tall = false} = {}) {
         super({ 
             text, 
             events,
             templateFunction: window.passivebuttonTmplTemplate,
-            wide
+            wide,
+            tall
         });
     }
 }
@@ -110,4 +130,4 @@ class UnderliningButton extends AbstractButton {
     }
 }
 
-export {ActiveButton, PassiveButton, SubmitInput, UnderliningButton};
+export {ActiveButton, PassiveButton, SubmitInput, UnderliningButton, PLayButton};

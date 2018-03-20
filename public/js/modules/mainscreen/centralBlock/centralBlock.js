@@ -3,6 +3,7 @@
 import AuthSugnup from './authSignup/authSignup.js';
 import utiles from '../../../components/utiles.js'; 
 import AuthorizedSection from './authorizedSection/authorizedSection.js';
+import SingleplayColumn from './singleplayColumn/singleplayColumn.js';
 
 class CentralBlock {
     constructor() {
@@ -27,8 +28,12 @@ class CentralBlock {
     _createInners() {
         this._inners = [
             new AuthSugnup('.js-login-register-section'),
-            new AuthorizedSection('.js-authorized-section')
+            new AuthorizedSection('.js-authorized-section'),
         ];
+
+        console.log('step');
+        this._inners.push(new SingleplayColumn('.js-singleplay-column'));
+        console.log('step2');
     }    
 }
 
