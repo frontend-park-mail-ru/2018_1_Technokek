@@ -88,7 +88,10 @@ class Tabbar {
         evt.preventDefault();
 
         this._scrollToTabbar();
+        this._activateTab(tabDelegate);
+    }
 
+    _activateTab(tabDelegate) {
         if (!this._current) {
             tabDelegate.activate();
             this._current = tabDelegate;
@@ -104,7 +107,7 @@ class Tabbar {
     _openFirstTab() {
         for (let tabDelegate of this._tabsDelegates) {
             if (!tabDelegate.element.hidden) {
-                tabDelegate.element.click();
+                this._activateTab(tabDelegate);
                 break;
             }
         }

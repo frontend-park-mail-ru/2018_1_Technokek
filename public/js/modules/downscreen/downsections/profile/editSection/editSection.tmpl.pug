@@ -1,6 +1,8 @@
+mixin subsectionTitle(text) 
+    include ../../../../tools/texts/subsectionTitle.pug
+
 section(class='js-edit-section profile-subsection')
-    h3(class='profile-subsection-title')
-        |Edit profile
+    +subsectionTitle('Edit profile')
 
     div(class='js-edit-fields-list')
 

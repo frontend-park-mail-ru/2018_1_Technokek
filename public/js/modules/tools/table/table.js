@@ -74,6 +74,8 @@ class Table {
         const rows = this._el.querySelector(`.js-table-rows-${blcokNumber}`);
         const rowArray = this._columns.map(column => rowData[column.name]);
         
+        console.log(rowData, rowArray);
+
         const template = tablerowTmplTemplate({ rowArray });
         const rowElement = utiles.htmlToElements(template)[0];
 

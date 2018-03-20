@@ -11,14 +11,30 @@
 .tabbar-item a {
     font-size: 30px;
     text-decoration: none;
-    color: #424242;
     font-family: 'ProximaNovaLt';
     font-weight: 300;
     font-style: normal;
+}
+
+.tabbar-item a:hover {
+    font-size: 30px;
+    text-decoration: none;
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+    text-decoration: underline;
 }
 
 .active > a, .active {
     font-family: 'ProximaNovaLt';
     font-weight: 600;
     font-style: normal;
+    text-decoration: underline;
+}
+
+.active > a:hover, .active:hover {
+    font-family: 'ProximaNovaLt';
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
 }
