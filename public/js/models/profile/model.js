@@ -10,9 +10,6 @@ import profileEvents from './eventsNames.js';
 class ProfileModel {
     constructor() {
         this._isAuthinticated = false;
-        this._authListeners = [];
-        this._deauthListeners = [];
-        this._dataChangedListeners = [];
     }
 
 // ---------------------------------------------------------------------------------
@@ -177,22 +174,6 @@ class ProfileModel {
     }
 
 // ---------------------------------------------------------------------------------
-// work with listeners
-// ---------------------------------------------------------------------------------
-
-    addAuthListener(listener) {
-        this._authListeners.push(listener);
-    }
-
-    addDeauthListener(listener) {
-        this._deauthListeners.push(listener);
-    }
-
-    addDataChangedListener(listener) {
-        this._dataChangedListeners.push(listener);
-    }
-
-// ---------------------------------------------------------------------------------
 // private signals
 // ---------------------------------------------------------------------------------
 
@@ -213,7 +194,7 @@ class ProfileModel {
         if (!this._isAuthinticated) {
             this._isAuthinticated = true;
 
-            eventBus.call(profileEvents.AUTHORISED());
+            eventBus.call(profileEvents.AUTHORIZED());
 
             this._callListenersArray(this._authListeners);
         }

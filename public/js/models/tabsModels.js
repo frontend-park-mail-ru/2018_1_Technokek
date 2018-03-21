@@ -2,6 +2,8 @@
 
 import globalValues from '../components/gloabalData.js';
 import profileModel from './profile/model.js';
+import profileEvents from './profile/eventsNames.js';
+import eventBus from '/js/components/arcitectureElements/eventBus.js';
 
 class TabModel {
     constructor ({ name = '', title = '', active = false, avaliable = true, sectionType = Object, authDepends = false } = {}) {
@@ -13,11 +15,12 @@ class TabModel {
         this._sectionType = sectionType;
 
         if (authDepends) {
-            profileModel.addAuthListener(() => {
+
+            eventBus.on(profileEvents.AUTHORIZED(), () => {
                 this.avaliable = true;
             });
 
-            profileModel.addDeauthListener(() => {
+            eventBus.on(profileEvents.DEAUTHORIZED(), () => {
                 this.avaliable = false;
             });
         }

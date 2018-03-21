@@ -4,9 +4,7 @@ import * as Buttons from "../../../tools/buttons/buttons.js";
 
 class SingleplayColumn {
     constructor(selector) {
-        console.log('Constructor');
         this._el = document.querySelector(selector);
-        console.log(this._el);
     }
 
     render() {

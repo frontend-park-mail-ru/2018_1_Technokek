@@ -208,8 +208,6 @@ class AbstractForm {
     }
 
     _outputErrors(errors) {
-        console.log(errors);
-
         const errorContainer = this._el.querySelector('.js-common-errors');
         errorContainer.textContent = errors.global;
         

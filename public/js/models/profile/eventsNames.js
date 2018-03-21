@@ -5,7 +5,7 @@ const DATA_CHANGED = 'dataChaged';
 
 const profileEvents = {
     // Авторизация
-    AUTHORISED: () => `/${USER}/auth`,
+    AUTHORIZED: () => `/${USER}/auth`,
 
     // Выход
     DEAUTHORIZED: () => `/${USER}/deauth`,

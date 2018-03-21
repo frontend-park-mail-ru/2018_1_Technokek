@@ -31,9 +31,7 @@ class CentralBlock {
             new AuthorizedSection('.js-authorized-section'),
         ];
 
-        console.log('step');
         this._inners.push(new SingleplayColumn('.js-singleplay-column'));
-        console.log('step2');
     }    
 }
 

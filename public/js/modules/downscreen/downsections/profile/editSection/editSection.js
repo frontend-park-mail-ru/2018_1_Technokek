@@ -1,11 +1,17 @@
 'use strict';
 
-import globalValues from '../../../../../components/gloabalData.js';
-import utiles from '../../../../../components/utiles.js';
-import * as Toggling from '../../../../tools/toggling/toggling.js';
-import * as Buttons from '../../../../tools/buttons/buttons.js';
-import AbstractForm from '../../../../tools/abstractForm/abstractForm.js';
-import profileModel from '../../../../../models/profile/model.js';
+
+
+import globalValues from '/js/components/gloabalData.js';
+import utiles from '/js/components/utiles.js';
+import eventBus from '/js/components/arcitectureElements/eventBus.js';
+
+import * as Toggling from '/js/modules/tools/toggling/toggling.js';
+import * as Buttons from '/js/modules/tools/buttons/buttons.js';
+import AbstractForm from '/js/modules/tools/abstractForm/abstractForm.js';
+
+import profileModel from '/js/models/profile/model.js';
+import profileEvents from '/js/models/profile/eventsNames.js';
 
 
 class FieldView {
@@ -14,7 +20,7 @@ class FieldView {
         this._el = utiles.htmlToElements(template)[0];
         this._dataGetter = dataGetter;
 
-        profileModel.addDataChangedListener(this.reloadValue.bind(this));
+        eventBus.on(profileEvents.DATA_CHANGED(), this.reloadValue.bind(this));
     }
 
     render() { }
@@ -86,7 +92,7 @@ class FieldEditToggler extends Toggling.AbstractToggler {
         this._viewChild = viewChild;
         this._formChild = formChild;
 
-        profileModel.addDataChangedListener(() => this._toViewMode());
+        eventBus.on(profileEvents.DATA_CHANGED(), this._toViewMode.bind(this));
     }
 
     render() {

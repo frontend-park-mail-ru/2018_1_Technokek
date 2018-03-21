@@ -8,6 +8,8 @@ import * as Buttons from '../../../tools/buttons/buttons.js';
 import * as Toggling from '../../../tools/toggling/toggling.js';
 import profileModel from '../../../../models/profile/model.js';
 import utiles from '../../../../components/utiles.js';
+import eventBus from '../../../../components/arcitectureElements/eventBus.js';
+import profileEvents from '../../../../models/profile/eventsNames.js';
 
 class BaseAuthSignupForm extends AbstractForm {
     constructor({formOptions = {}, reciverCallback = utiles.noop} = {}) {
@@ -104,11 +106,10 @@ class AuthSignup extends Toggling.AbstractToggler {
             item.render();
         }
 
-        profileModel.addDeauthListener((evt) => {
+        eventBus.on(profileEvents.DEAUTHORIZED(), () => {
             this._el.hidden = false;
         });
-
-        profileModel.addAuthListener((evt) => {
+        eventBus.on(profileEvents.AUTHORIZED(), () => {
             this._el.hidden = true;
         });
     }

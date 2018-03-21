@@ -94,7 +94,6 @@ class HistorySection {
     }
 
     _toSingleplayer() {
-        console.log('to single player porfile');
         this._singleplayerBtn.acitvate();
         this._multiplayerBtn.deactivate();
         this._mTableContainer.hidden = true;
@@ -102,7 +101,6 @@ class HistorySection {
     }
 
     _toMultiplayer() {
-        console.log('to single MP porfile');
         this._multiplayerBtn.acitvate();
         this._singleplayerBtn.deactivate();
         this._mTableContainer.hidden = false;
@@ -115,8 +113,6 @@ class HistorySection {
     }
 
     _setData() {
-        console.log('set data history');
-
         this._clear();
 
         if (historyModel.mode === historyMode.SINGLEPLAYER) {

@@ -1,19 +1,20 @@
 'use strict';
 
-import profileModel from '../../../../models/profile/model.js';
-import utiles from '../../../../components/utiles.js';
-import * as Buttons from '../../../tools/buttons/buttons.js';
+import profileModel from '/js/models/profile/model.js';
+import profileEvents from '/js/models/profile/eventsNames.js';
+import utiles from '/js/components/utiles.js';
+import eventBus from '/js/components/arcitectureElements/eventBus.js';
+import * as Buttons from '/js/modules/tools/buttons/buttons.js';
 
 
 class AuthorizedSection {
     constructor (seclector) {
         this._el = document.querySelector(seclector);
 
-        profileModel.addAuthListener(() => {
+        eventBus.on(profileEvents.AUTHORIZED(), () => {
             this._el.hidden = false;
         });
-
-        profileModel.addDeauthListener(() => {
+        eventBus.on(profileEvents.DEAUTHORIZED(), () => {
             this._el.hidden = true;
         });
     }

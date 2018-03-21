@@ -3,6 +3,8 @@
 import utiles from '../../../components/utiles.js';
 import tabsModels from '../../../models/tabsModels.js';
 import profileModel from '../../../models/profile/model.js';
+import eventBus from '../../../components/arcitectureElements/eventBus.js';
+import profileEvents from '../../../models/profile/eventsNames.js';
 
 
 class TabDelegate {
@@ -61,8 +63,8 @@ class Tabbar {
         const template = window.tabbarTmplTemplate();
         this._el = utiles.htmlToElements(template)[0];
 
-        profileModel.addAuthListener(this._openFirstTab.bind(this));
-        profileModel.addDeauthListener(this._openFirstTab.bind(this));
+        eventBus.on(profileEvents.AUTHORIZED(), this._openFirstTab.bind(this));
+        eventBus.on(profileEvents.DEAUTHORIZED(), this._openFirstTab.bind(this));
     }
 
     get element() {

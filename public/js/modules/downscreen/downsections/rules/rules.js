@@ -102,7 +102,6 @@ class Rules extends AbstractSection {
     }
 
     _append(child) {
-        console.log(child);
         this._contentBody.appendChild(child.element);
     }
 }

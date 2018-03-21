@@ -1,14 +1,18 @@
 'use strict';
 
-import utiles from '../../../../components/utiles.js';
-import globalValues from '../../../../components/gloabalData.js';
-import profileModel from '../../../../models/profile/model.js';
-import * as Buttons from '../../../tools/buttons/buttons.js';
-import * as Toggling from '../../../tools/toggling/toggling.js';
-import AbstractForm from '../../../tools/abstractForm/abstractForm.js';
+import utiles from '/js/components/utiles.js';
+import globalValues from '/js/components/gloabalData.js';
+
+import profileModel from '/js/models/profile/model.js';
+import profileEvents from '/js/models/profile/eventsNames.js';
+
+import * as Buttons from '/js/modules/tools/buttons/buttons.js';
+import * as Toggling from '/js/modules/tools/toggling/toggling.js';
+import AbstractForm from '/js/modules/tools/abstractForm/abstractForm.js';
 import AbstractSection from '../abstractSection.js';
 import EditSection from './editSection/editSection.js';
 import HistorySection from './historySection/historySection.js';
+import eventBus from '/js/components/arcitectureElements/eventBus.js';
 
 const modes = {
     SHOW: 0,
@@ -40,7 +44,6 @@ class Profile extends AbstractSection {
 
     _updateTmplData() {
         this._updateTmplEmail(profileModel.email);
-        console.log('nickname: ', profileModel.nickname);
         this._updateTmplNickname(profileModel.nickname);
         this._updateTmplGames(profileModel.games);
         this._updateTmplScore(profileModel.score);
@@ -75,9 +78,9 @@ class Profile extends AbstractSection {
     }
 
     _connectToProfileModel() {
-        profileModel.addAuthListener(this._toShowMode.bind(this));
-        profileModel.addDataChangedListener(this._updateTmplData.bind(this));
-        profileModel.addDeauthListener(this._clearTmplData.bind(this));
+        eventBus.on(profileEvents.AUTHORIZED(), this._toShowMode.bind(this));
+        eventBus.on(profileEvents.DATA_CHANGED(), this._updateTmplData.bind(this));
+        eventBus.on(profileEvents.DEAUTHORIZED(), this._clearTmplData.bind(this));
     }
 
     _insertButtons() {
