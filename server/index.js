@@ -714,7 +714,6 @@ app.get('/history/:mode/page/:pageNumber', function(req, res) {
 		const respData = hsSingleplayer.filter(item => 
 			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
 		);
-		console.log(respData);
 		res.json(respData);
 		return;
 	}
@@ -724,7 +723,6 @@ app.get('/history/:mode/page/:pageNumber', function(req, res) {
 			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
 		);
 
-		console.log(respData);
 		res.json(respData);
 	}
 
