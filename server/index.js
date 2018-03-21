@@ -7,6 +7,7 @@ const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const debug = require('debug');
 const uuid = require('uuid/v4');
+const pug = require('pug');
 
 const logger = debug('mylogger');
 logger('Starting app');
