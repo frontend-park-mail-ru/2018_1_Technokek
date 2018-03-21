@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Frontend",
   "main": "server/index.js",
+  "engines": {
+    "npm": "5.7.1"
+  },
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
