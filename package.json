@@ -12,12 +12,11 @@
     "express": "^4.16.3",
     "jade": "^1.11.0",
     "morgan": "^1.9.0",
-    "uuid": "^3.2.1"
-  },
-  "devDependencies": {
+    "uuid": "^3.2.1",
     "pug": "^2.0.3",
     "pug-cli": "^1.0.0-alpha6"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pug -c --name-after-file -o public/js/modules public/js/modules",
