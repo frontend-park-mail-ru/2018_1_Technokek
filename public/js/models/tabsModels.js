@@ -1,7 +1,7 @@
 'use strict';
 
 import globalValues from '../components/gloabalData.js';
-import profileModel from './profileModel.js';
+import profileModel from './profile/model.js';
 
 class TabModel {
     constructor ({ name = '', title = '', active = false, avaliable = true, sectionType = Object, authDepends = false } = {}) {

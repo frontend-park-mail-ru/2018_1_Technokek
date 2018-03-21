@@ -1,6 +1,6 @@
 'use strict';
 
-import profileModel from '../../../../models/profileModel.js';
+import profileModel from '../../../../models/profile/model.js';
 import utiles from '../../../../components/utiles.js';
 import * as Buttons from '../../../tools/buttons/buttons.js';
 

@@ -2,7 +2,7 @@
 
 import utiles from '../../../components/utiles.js';
 import tabsModels from '../../../models/tabsModels.js';
-import profileModel from '../../../models/profileModel.js';
+import profileModel from '../../../models/profile/model.js';
 
 
 class TabDelegate {

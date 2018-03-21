@@ -6,7 +6,7 @@ import errors from '../../../../components/constraints.js';
 import AbstractForm from '../../../tools/abstractForm/abstractForm.js';
 import * as Buttons from '../../../tools/buttons/buttons.js';
 import * as Toggling from '../../../tools/toggling/toggling.js';
-import profileModel from '../../../../models/profileModel.js';
+import profileModel from '../../../../models/profile/model.js';
 import utiles from '../../../../components/utiles.js';
 
 class BaseAuthSignupForm extends AbstractForm {

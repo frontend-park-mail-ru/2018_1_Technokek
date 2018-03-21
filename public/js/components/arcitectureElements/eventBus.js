@@ -1,6 +1,7 @@
 'use strict';
 
-export default class EventBus {
+
+class EventBus {
     constructor() {
         if (EventBus.__instance) {
             return EventBus.__instance;
@@ -39,26 +40,17 @@ export default class EventBus {
         }
     }
 
-    call(eventName, eventData) {
-        for (let callback of this._events[eventName]) {
-            callback(eventData);
+    call(eventName, eventData = {}) {
+        if (this._events[eventBus]) {
+            for (let callback of this._events[eventName]) {
+                callback(eventData);
+            }
         }
     }
 }
 
-const EventsTypes = {
-    TABBAR: "tabbar",
-    DATA_CHANGED: "dataChanged",
-    // и так далее ...
-};
 
-const EventsNamesTemplates = {
-    'tabbar': ({tabbarName = '', tabName = '', actionName = ''} = {}) => `tabbar:${tabbarName}/tab:${tabName}/action:${actionName}`,
-    'dataChanged': (emitterName) => `dataChanged:${emitterName}`,
-    // и так далее ...
-};
+const eventBus = new EventBus();
 
-EventsNamesTemplates[EventsTypes.TABBAR]({
-    tabbarName: '', tabName: '', actionName: ''
-});
 
+export default eventBus;

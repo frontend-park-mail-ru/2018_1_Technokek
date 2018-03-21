@@ -3,11 +3,9 @@
 import globalValues from '../components/gloabalData.js';
 import httpRequester from '../components/http.js';
 import utiles from '../components/utiles.js';
-
-class ProfileHistory {
-    constructor() {
-    }
-}
+import eventBus from '../components/arcitectureElements/eventBus.js';
+import eventsTypes from '../components/eventsTypes.js';
+import profileEvents from './profile/eventsNames.js';
 
 class ProfileModel {
     constructor() {
@@ -202,6 +200,8 @@ class ProfileModel {
         console.log('deauthenticate');
         this._isAuthinticated = false;
         this._data = null;
+
+        eventBus.call(profileEvents.DEAUTHORIZED());
         
         this._callListenersArray(this._deauthListeners);
     }
@@ -212,6 +212,9 @@ class ProfileModel {
 
         if (!this._isAuthinticated) {
             this._isAuthinticated = true;
+
+            eventBus.call(profileEvents.AUTHORISED());
+
             this._callListenersArray(this._authListeners);
         }
 
@@ -220,6 +223,9 @@ class ProfileModel {
 
     _dataChanged() {
         console.log('data changed');
+
+        eventBus.call(profileEvents.DATA_CHANGED());
+
         this._callListenersArray(this._dataChangedListeners);
     }
 

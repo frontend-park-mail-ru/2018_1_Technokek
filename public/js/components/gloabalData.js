@@ -5,7 +5,6 @@ import Profile from '../modules/downscreen/downsections/profile/profile.js';
 import Scoreboard from '../modules/downscreen/downsections/scoreboard/scoreboard.js';
 
 
-
 class GlobalValues {
     constructor() {
         this._apiUrls = {

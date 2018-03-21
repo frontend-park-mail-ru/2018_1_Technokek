@@ -16,15 +16,11 @@ eventsNamesTemplates[eventsTypes.DATA_CHANGED] =
     ({dataOwnerName = ''} = {}) => 
         `/dataChanged/${dataOwnerName}`;
 
-        
+
 // Шаблоны именования событий юзера
 eventsNamesTemplates[eventsTypes.USER] =  {
-    // Авторизация
-    AUTHORISED: () => `/${eventsTypes.USER}/auth`,
-    // Выход
-    DEAUTHORIZED: () => `/${eventsTypes.USER}/deauth`,
-    // Изменение данных
-    DATA_CHANGED: () => `/${eventsTypes.USER}${eventsNamesTemplates.DATA_CHANGED()}`
+    
+
 };
 
 
