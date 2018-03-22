@@ -5,7 +5,9 @@ import httpRequester from '../../components/http.js';
 import utiles from '../../components/utiles.js';
 import eventBus from '../../components/arcitectureElements/eventBus.js';
 import eventsTypes from '../../components/eventsTypes.js';
+
 import profileEvents from './eventsNames.js';
+import profileUrls from './urls.js';
 
 class ProfileModel {
     constructor() {
@@ -20,7 +22,7 @@ class ProfileModel {
         console.log('checkAuth');
         
         httpRequester.doGet({
-            url: globalValues.apiUrls.GET.ME,
+            url: profileUrls.GET.ME,
             callback: (err, resp) => {
                 if (err) {
                     this._deauthenticate();
@@ -38,7 +40,7 @@ class ProfileModel {
         console.log('auth', data);
 
         httpRequester.doPost({
-            url: globalValues.apiUrls.POST.AUTH,
+            url: profileUrls.POST.AUTH,
             data,
             callback: (err, resp) => {
                 if (err) {
@@ -54,7 +56,7 @@ class ProfileModel {
         console.log('signup', data);
 
         httpRequester.doPost({
-            url: globalValues.apiUrls.POST.SIGNUP,
+            url: profileUrls.POST.SIGNUP,
             data,
             callback: (err, resp) => {
                 if (err) {
@@ -70,7 +72,7 @@ class ProfileModel {
         console.log('logut');
 
         httpRequester.doPost({
-            url: globalValues.apiUrls.POST.LOGOUT
+            url: profileUrls.POST.LOGOUT
         });
 
         this.checkAuth();
@@ -160,7 +162,7 @@ class ProfileModel {
         console.log('field data to send', data);
 
         httpRequester.doPost({
-            url: globalValues.apiUrls.POST.EDIT_USER,
+            url: profileUrls.POST.EDIT_USER,
             data,
             callback(err, resp) {
                 if (err) {
@@ -183,8 +185,6 @@ class ProfileModel {
         this._data = null;
 
         eventBus.call(profileEvents.DEAUTHORIZED());
-        
-        this._callListenersArray(this._deauthListeners);
     }
 
     _authenticate(resp) {
@@ -195,8 +195,6 @@ class ProfileModel {
             this._isAuthinticated = true;
 
             eventBus.call(profileEvents.AUTHORIZED());
-
-            this._callListenersArray(this._authListeners);
         }
 
         this._dataChanged();
@@ -206,14 +204,6 @@ class ProfileModel {
         console.log('data changed');
 
         eventBus.call(profileEvents.DATA_CHANGED());
-
-        this._callListenersArray(this._dataChangedListeners);
-    }
-
-    _callListenersArray(listeners) {
-        for (let listener of listeners) {
-            listener();
-        }       
     }
 }
 

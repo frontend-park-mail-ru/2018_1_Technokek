@@ -1,6 +1,6 @@
 'use strict';
 
-import utiles from "../../../../../components/utiles.js";
+import utiles from "/js/components/utiles.js";
 import historyModel from '../../../../../models/historyModel.js';
 import globalValues from '../../../../../components/gloabalData.js';
 import Table from '../../../../tools/table/table.js';
