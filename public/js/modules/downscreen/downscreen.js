@@ -3,11 +3,15 @@
 import globalData from '../../components/gloabalData.js';
 import tabsModels from '../../models/tabsModels.js';
 import utiles from '../../components/utiles.js';
+import tabbarManager from '../../models/tabbar/manager.js';
+import tabbarsOprions from '../../components/globalData/tabbarsOptions.js';
 
 class DownScreen {
     constructor(selector) {
+        this._tabbarModel = tabbarManager.get(tabbarsOprions.MAIN);
+
         const template = window.downscreenTmplTemplate({
-            sections: tabsModels
+            sections: this._tabbarModel.tabs
         });
         this._el = utiles.htmlToElements(template)[0];
     }
@@ -27,8 +31,9 @@ class DownScreen {
     }
 
     _createSections(sections) {
-        this._sections = sections.map((section) => {
-            return new section.sectionType(section);
+        this._sections = this._tabbarModel.tabs.map((section) => {
+            console.log(section);
+            return new section.sectionType(this._el, section);
         });
     }
 }

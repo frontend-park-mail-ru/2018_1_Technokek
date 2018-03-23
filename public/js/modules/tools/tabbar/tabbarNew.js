@@ -18,16 +18,14 @@ class TabbarNew {
             tabStyle: 'tabbar-item',
             tabs: this._tabbarModel.tabs
         });
-
         this._el = utiles.htmlToElements(template)[0];
+        
         this._tabs = this._tabbarModel.tabs.map((tabModel) => 
             new TabNewDelegate({ parentEl: this._el, tabModel })
         );
     }
 
-    render() {
-
-    }
+    render() { }
 
     get element() {
         return this._el;

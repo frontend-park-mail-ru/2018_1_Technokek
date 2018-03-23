@@ -1,12 +1,14 @@
 'use strict';
 
-import AbstractSection from '../abstractSection.js';
+import AbstractSection from '/js/modules/tools/section/absctractSection.js';
 import Table from '../../../tools/table/table.js';
 import utiles from '../../../../components/utiles.js';
 import globalValues from '../../../../components/gloabalData.js';
 import scoreboardModel from '../../../../models/scoreboardModel.js';
 
 import * as Buttons from '../../../tools/buttons/buttons.js';
+import eventBus from '../../../../components/arcitectureElements/eventBus.js';
+import tabbarEvents from '../../../../models/tabbar/eventsNames.js';
 
 
 const scoreboardMode = {
@@ -15,8 +17,8 @@ const scoreboardMode = {
 };
 
 class Scoreboard extends AbstractSection{
-    constructor(tabModel = {}) {
-        super(tabModel);
+    constructor(parentEl, tabModel = {}) {
+        super(parentEl, tabModel);
 
         scoreboardModel.addDataClearedListener(this._clear.bind(this));
         scoreboardModel.addDataChangedListener(this._setData.bind(this));
@@ -24,12 +26,19 @@ class Scoreboard extends AbstractSection{
         scoreboardModel.addSwitchToSingleplayerListener(this._toSingleplayer.bind(this));
         scoreboardModel.addSwitchToMultiplayerListener(this._toMultiplayer.bind(this));
 
-        this._tabModel.addActiveListener(() => {
-            if (this._tabModel.active) {
-                scoreboardModel.toSingleplayerMode();
+        
+        eventBus.on(
+            tabbarEvents.ACTIVE_CHANGED({
+                tabbarName: this._tabModel.parentName,
+                tabName: this.name
+            }),
+            () => {
+                if (this._tabModel.active) {
+                    scoreboardModel.toSingleplayerMode();
+                }
             }
-        });
-    }
+        );
+     }
 
     render() {
         const template = window.scoreboardTmplTemplate();
@@ -37,6 +46,7 @@ class Scoreboard extends AbstractSection{
 
         this._renderButtons();
         this._renderTables();
+        scoreboardModel.toSingleplayerMode();
     }
 
     _renderButtons() {

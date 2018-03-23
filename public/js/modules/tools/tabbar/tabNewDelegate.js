@@ -15,16 +15,19 @@ class TabNewDelegate {
     }
 
     _connectToEventBus() {
+        // Делает вкладку активной по клику
         this._el.addEventListener('click', (evt) => {
             evt.preventDefault();
             this._tabModel.active = true;
         });
 
+        // Если состояние активности вкладки изменилось, то изменяется ее отображение
         eventBus.on(tabbarEvents.ACTIVE_CHANGED({
             tabbarName: this._tabModel.parentName,
             tabName: this._tabModel.name
         }), this._changeActive.bind(this));
 
+        // Если состояние доступности вкладки изменилось, то изменяется ее отображение        
         eventBus.on(tabbarEvents.AVALIABLE_CHANGED({
             tabbarName: this._tabModel.parentName,
             tabName: this._tabModel.name

@@ -6,7 +6,6 @@ class AbstractSection {
         this._el = document.querySelector(`.${tabModel.jsClass}`);
         this._tabModel.addAvaliableListener(this._onHiddenChanged.bind(this));
         this._tabModel.addActiveListener(this._onHiddenChanged.bind(this));
-        
 
         this._onHiddenChanged();
     }

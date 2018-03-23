@@ -62,7 +62,7 @@ class PassiveButton extends Button {
         super({ 
             text, 
             events,
-            templateFunction: buttonsStyles.PASSIVE,
+            style: buttonsStyles.PASSIVE,
             wide
         });
     }

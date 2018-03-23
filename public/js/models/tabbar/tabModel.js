@@ -64,7 +64,7 @@ class TabModel {
         return this._dependsOnAuth;
     }
 
-    get sctionType() {
+    get sectionType() {
         return this._sectionType;
     }
 

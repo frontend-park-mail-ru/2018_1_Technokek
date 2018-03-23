@@ -87,7 +87,7 @@ class TabbarModel {
 
     _deactivateNotCur() {
         for (let tab of this._tabs) {
-            if (!this._curTab || this._curTab !== tab) {
+            if (tab.active && (!this._curTab || this._curTab !== tab)) {
                 tab.active = false;
             }
         }

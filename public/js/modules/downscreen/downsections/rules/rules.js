@@ -4,7 +4,7 @@ import * as Buttons from '../../../tools/buttons/buttons.js';
 import Table from '../../../tools/table/table.js';
 import AbstractForm from '../../../tools/abstractForm/abstractForm.js';
 
-import AbstractSection from '../abstractSection.js';
+import AbstractSection from '/js/modules/tools/section/absctractSection.js';
 import utiles from '../../../../components/utiles.js';
 import globalValues from '../../../../components/gloabalData.js';
 

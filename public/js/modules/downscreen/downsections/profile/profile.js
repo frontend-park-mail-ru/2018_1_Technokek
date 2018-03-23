@@ -9,7 +9,7 @@ import profileEvents from '/js/models/profile/eventsNames.js';
 import * as Buttons from '/js/modules/tools/buttons/buttons.js';
 import * as Toggling from '/js/modules/tools/toggling/toggling.js';
 import AbstractForm from '/js/modules/tools/abstractForm/abstractForm.js';
-import AbstractSection from '../abstractSection.js';
+import AbstractSection from '/js/modules/tools/section/absctractSection.js';
 import EditSection from './editSection/editSection.js';
 import HistorySection from './historySection/historySection.js';
 import eventBus from '/js/components/arcitectureElements/eventBus.js';
@@ -20,8 +20,8 @@ const modes = {
 };
 
 class Profile extends AbstractSection {
-    constructor(tabModel = {}) {
-        super(tabModel);
+    constructor(parentEl, tabModel = {}) {
+        super(parentEl, tabModel);
 
         this._el.innerHTML = '';
         const template = window.profileTmplTemplate();
