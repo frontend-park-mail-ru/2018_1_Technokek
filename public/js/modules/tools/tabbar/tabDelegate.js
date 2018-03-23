@@ -3,7 +3,7 @@
 import eventBus from "../../../components/arcitectureElements/eventBus.js";
 import tabbarEvents from "../../../models/tabbar/eventsNames.js";
 
-class TabNewDelegate {
+class TabDelegate {
     constructor({
         parentEl = {},
         tabModel = {}
@@ -48,4 +48,4 @@ class TabNewDelegate {
     }
 }
 
-export default TabNewDelegate;
+export default TabDelegate;
