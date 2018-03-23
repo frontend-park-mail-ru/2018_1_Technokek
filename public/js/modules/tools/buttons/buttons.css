@@ -1,4 +1,4 @@
-.active-button, .passive-button, .play-button {
+.abstract-button {
     padding: 12px 20px;
     text-align: center;
     display: inline-block;
@@ -12,13 +12,13 @@
     font-style: normal;
 }
 
-.active-button {
+.primary-button {
     background-color: #4CAF50;
     color: white;
     border: 1px solid #ccc;
 }
 
-.active-button:hover {
+.primary-button:hover {
     background-color: #45a049;
 }
 

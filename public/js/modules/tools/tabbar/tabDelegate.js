@@ -9,4 +9,4 @@ class TabDelegate {
     }
 }
 
-export default TabDelegate();
+export default TabDelegate;
