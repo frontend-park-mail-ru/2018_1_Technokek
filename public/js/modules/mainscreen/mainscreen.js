@@ -5,7 +5,6 @@ import utiles from '../../components/utiles.js';
 
 import Header from './header/header.js';
 import CentralBlock from './centralBlock/centralBlock.js';
-import Tabbar from './tabbar/tabbar.js';
 import TabbarNew from '../tools/tabbar/tabbarNew.js';
 import tabbarsOprions from '../../components/globalData/tabbarsOptions.js';
 
@@ -37,7 +36,6 @@ class Mainscreen {
         this._inners = [
             new Header(),
             new CentralBlock(),
-            new Tabbar(),
             new TabbarNew({
                 tabbarOptions: tabbarsOprions.MAIN,
             })
