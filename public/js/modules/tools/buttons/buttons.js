@@ -1,25 +1,20 @@
 'use strict';
 
 import utiles from '../../../components/utiles.js';
+import buttonsTypes from './buttonsTypes.js';
 
-class AbstractButton {
+class Button {
     constructor({
             text = '',
             events = [],
-            templateFunction = utiles.noop,
+            type = utiles.noop,
             wide = false,
-            tall = false,
     } = {}) {
         const elHtml = templateFunction({ text });
         this._el = utiles.htmlToElements(elHtml)[0];
 
         if (wide) {
             this._el.style.width = '100%';
-        }
-
-        if (tall) {
-            this._el.style.height = '100%';
-            this._el.style['line-height'] = '100%';
         }
 
         this._createListeners(events);
@@ -40,43 +35,40 @@ class AbstractButton {
     }
 }
 
-class ActiveButton extends AbstractButton {
-    constructor({text = '', events = [], wide = false, tall = false} = {}) {
+class PrimaryButton extends Button {
+    constructor({text = '', events = [], wide = false} = {}) {
         super({ 
             text, 
             events,
-            templateFunction: window.activebuttonTmplTemplate,
-            wide,
-            tall
+            templateFunction: window.primarybuttonTmplTemplate,
+            wide
         });
     }
 }
 
-class PLayButton extends AbstractButton {
-    constructor({text = '', events = [], wide = false, tall = false} = {}) {
+class PLayButton extends Button {
+    constructor({text = '', events = [], wide = false} = {}) {
         super({ 
             text, 
             events,
             templateFunction: window.playbuttonTmplTemplate,
-            wide,
-            tall
+            wide
         });
     }
 }
 
-class PassiveButton extends AbstractButton {
-    constructor({text = '', events = [], wide = false, tall = false} = {}) {
+class PassiveButton extends Button {
+    constructor({text = '', events = [], wide = false} = {}) {
         super({ 
             text, 
             events,
             templateFunction: window.passivebuttonTmplTemplate,
-            wide,
-            tall
+            wide
         });
     }
 }
 
-class SubmitInput extends AbstractButton {
+class SubmitInput extends Button {
     constructor ({text = 'Submit', events = [], wide = false}) {
         super({
             text,
@@ -87,7 +79,7 @@ class SubmitInput extends AbstractButton {
     }
 }
 
-class UnderliningButton extends AbstractButton {
+class UnderliningButton extends Button {
     constructor ({ text = 'Submit', events = [], wide = false, isActive = false } = {}) {
         super({
             text,
@@ -130,4 +122,28 @@ class UnderliningButton extends AbstractButton {
     }
 }
 
-export {ActiveButton, PassiveButton, SubmitInput, UnderliningButton, PLayButton};
+
+
+class Mixin {
+    constructor() {
+        this._a = false;
+    }  
+
+    get a() {
+        return a;
+    }
+
+    set a(val) {
+        this._a = val;
+    }
+}
+
+class B {
+    constructor(mixinClass) {
+        Object.assign(this, new mixinClass());
+    }
+}
+
+
+
+export {PrimaryButton, PassiveButton, SubmitInput, UnderliningButton, PLayButton};

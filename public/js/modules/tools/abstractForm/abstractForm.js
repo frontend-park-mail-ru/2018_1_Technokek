@@ -134,7 +134,7 @@ class AbstractForm {
         const template = templateFunction({ formTitle });
         this._el = utiles.htmlToElements(template)[0];
 
-        this._submitBtn = new Buttons.ActiveButton({
+        this._submitBtn = new Buttons.PrimaryButton({
             text: submitBtnText,
             events: [{
                 name: 'click',
@@ -208,7 +208,7 @@ class AbstractForm {
     }
 
     _outputErrors(errors) {
-        const errorContainer = this._el.querySelector('.js-common-errors');
+        const errorContainerS = this._el.querySelector('.js-common-errors');
         errorContainer.textContent = errors.global;
         
         for (let error of errors.fields) {

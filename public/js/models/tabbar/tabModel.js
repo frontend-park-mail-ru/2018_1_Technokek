@@ -1,12 +1,15 @@
 
 'use sctrict';
 
-import eventBus from "../../components/arcitectureElements/eventBus.js";
+import eventBus from "/js/components/arcitectureElements/eventBus.js";
 import tabbarEvents from "./eventsNames.js";
-import profileEvents from "../profile/eventsNames.js";
-import profileModel from "../profile/model.js";
+import profileEvents from "/js/models/profile/eventsNames.js";
+import profileModel from "/js/models/profile/model.js";
 
 class TabModel {
+// ---------------------------------------------------------------------------------
+// consctructor
+// ---------------------------------------------------------------------------------
     constructor ({
         title = '',
         active = false,
@@ -23,14 +26,13 @@ class TabModel {
 
         // call setters
         this.title = title;
-        this.active = active;
         if (this._dependsOnAuth) {
             this.avaliable = profileModel.authenticated;
         }
         else {
             this.avaliable = avaliable;
         }
-
+        this.active = active;
         this._connectToEventBus();        
     }
 
@@ -75,11 +77,18 @@ class TabModel {
 // --------------------------------------------------------------------------------- 
 
     set active(isActive) {
+        if (!this.isAvaliable) {
+            isActive = false;
+        }
+
         this._setProperty('_isActive', Boolean(isActive), tabbarEvents.ACTIVE_CHANGED);
     }
     
     set avaliable(isAvaliable) {
         this._setProperty('_isAvaliable', Boolean(isAvaliable), tabbarEvents.AVALIABLE_CHANGED);
+        if (!this._isAvaliable) {
+            this.active = false;
+        }
     }
 
     set title(newTitle) {

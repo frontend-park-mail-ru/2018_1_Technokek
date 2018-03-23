@@ -85,7 +85,7 @@ class Profile extends AbstractSection {
 
     _insertButtons() {
         this._buttons = {
-            editBtn: new Buttons.ActiveButton({
+            editBtn: new Buttons.PrimaryButton({
                 text: 'Edit Profile',
                 wide: true,
                 events: [{
@@ -96,7 +96,7 @@ class Profile extends AbstractSection {
                     }
                 }]
             }),
-            stopEditBtn: new Buttons.ActiveButton({
+            stopEditBtn: new Buttons.PrimaryButton({
                 text: 'To profile',
                 wide: true,
                 events: [{

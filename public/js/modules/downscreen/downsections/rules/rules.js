@@ -14,11 +14,11 @@ class Rules extends AbstractSection {
         this._contentBody = utiles.htmlToElements(template)[0];
         this._el.appendChild(this._contentBody);
 
-        this._primaryBtn = new Buttons.ActiveButton({
+        this._primaryBtn = new Buttons.PrimaryButton({
             text: 'Primary button'
         });
 
-        this._primaryButtonWide = new Buttons.ActiveButton({
+        this._primaryButtonWide = new Buttons.PrimaryButton({
             text: 'Primary buttin wide',
             wide: true
         });

@@ -6,7 +6,14 @@ import profileEvents from './profile/eventsNames.js';
 import eventBus from '/js/components/arcitectureElements/eventBus.js';
 
 class TabModel {
-    constructor ({ name = '', title = '', active = false, avaliable = true, sectionType = Object, authDepends = false } = {}) {
+    constructor ({ 
+        name = '', 
+        title = '', 
+        active = false, 
+        avaliable = true, 
+        sectionType = Object, 
+        authDepends = false 
+    } = {}) {
         this._name = name;
         this._title = title;
         this._active = active;
