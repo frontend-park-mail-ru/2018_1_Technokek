@@ -3,21 +3,30 @@
 import tabbarEvents from "../../../models/tabbar/eventsNames.js";
 import tabbarManager from "../../../models/tabbar/manager.js";
 import utiles from "../../../components/utiles.js";
-import TabDelegate from "./tabDelegate.js";
+import TabNewDelegate from "./tabNewDelegate.js";
 
 
-class Tabbar {
+class TabbarNew {
     constructor({
         tabbarOptions = {},
         tabbarTemplate = utiles.noop,
         tabTemplate = utiles.noop
     } = {}) {
         this._tabbarModel = tabbarManager.get(tabbarOptions);
-        this._el = window.tabbarTmplTemplate(this.tabs);
+
+        const template = window.tabbarnewTmplTemplate({
+            tabStyle: 'tabbar-item',
+            tabs: this._tabbarModel.tabs
+        });
+
+        this._el = utiles.htmlToElements(template)[0];
         this._tabs = this._tabbarModel.tabs.map((tabModel) => 
-            new TabDelegate({ parent: this, tabModel })
+            new TabNewDelegate({ parentEl: this._el, tabModel })
         );
-        
+    }
+
+    render() {
+
     }
 
     get element() {
@@ -25,4 +34,4 @@ class Tabbar {
     }
 }
 
-export default Tabbar;
+export default TabbarNew;

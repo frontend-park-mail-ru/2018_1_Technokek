@@ -13,7 +13,6 @@ class EventBus {
     }
 
     on(eventName, callback) {
-        console.log(eventName, callback);
 
         if (!this._events[eventName]) {
             this._events[eventName] = [];
@@ -46,7 +45,6 @@ class EventBus {
         console.log(`CALL: ${eventName}`);
 
         if (this._events[eventName]) {
-            console.log(this._events[eventName]);
             for (let callback of this._events[eventName]) {
                 callback(eventData);
             }

@@ -15,7 +15,7 @@ class TabModel {
         active = false,
         avaliable = true,
         name = '',
-        sctionType = Object,
+        sectionType = {},
         dependsOnAuth = false,
         parentName = ''
     } = {}) {
@@ -77,22 +77,34 @@ class TabModel {
 // --------------------------------------------------------------------------------- 
 
     set active(isActive) {
-        if (!this.isAvaliable) {
+        this.setActive(isActive);
+    }
+
+    set avaliable(isAvaliable) {
+        this.setAvaliable(isAvaliable);
+    }
+    
+    set title(newTitle) {
+        this.setTitle(newTitle);
+    }
+    
+    setActive(isActive) {
+        if (!this._isAvaliable) {
             isActive = false;
         }
 
         this._setProperty('_isActive', Boolean(isActive), tabbarEvents.ACTIVE_CHANGED);
     }
-    
-    set avaliable(isAvaliable) {
+
+    setAvaliable(isAvaliable) {
         this._setProperty('_isAvaliable', Boolean(isAvaliable), tabbarEvents.AVALIABLE_CHANGED);
         if (!this._isAvaliable) {
             this.active = false;
         }
     }
 
-    set title(newTitle) {
-        this._setProperty('_title', newTitle, tabbarEvents.TITLE_CHANGED);
+    setTitle(newTitle) {
+        this._setProperty('_title', newTitle, tabbarEvents.TITLE_CHANGED);        
     }
 
     _setProperty(propertyName, value, eventTemplate) {

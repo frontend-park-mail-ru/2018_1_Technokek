@@ -10,6 +10,9 @@ class TabbarModel {
     constructor(tabbarOptions) {
         this._name = tabbarOptions.name;
         this._createTabs(tabbarOptions.tabs);
+
+        this._curTab = this._getFirstAvaliable();
+        this._curTab.active = true;
     }
 
     get name() {
@@ -26,8 +29,8 @@ class TabbarModel {
                 name: tab.name,
                 title: tab.title,
                 active: tab.active,
-                avaliable: title.avaliable,
-                sctionType: tab.sectionType,
+                avaliable: tab.avaliable,
+                sectionType: tab.sectionType,
                 dependsOnAuth: tab.authDepends,
                 parentName: this._name
             })
@@ -44,41 +47,47 @@ class TabbarModel {
 
     _connectWithTab(tab) {
         eventBus.on(
-            tabbarEvents.ACTIVE_CHANGED(this._name, tab.name), 
+            tabbarEvents.ACTIVE_CHANGED({
+                tabbarName: this._name, 
+                tabName: tab.name
+            }), 
             (isActive) => this._changeActive(tab)
         );
 
         eventBus.on(
-            tabbarEvents.AVALIABLE_CHANGED(this.name, tab.name),
+            tabbarEvents.AVALIABLE_CHANGED({
+                tabbarName: this._name, 
+                tabName: tab.name
+            }),
             (isAvaliable) => this._changeAvaliable(tab)
         );
     }
 
     _changeActive(newCurTab) {
-        if (newCurTab.isActive) {
+        if (newCurTab.active) {
             this._curTab = newCurTab;
-            this._deactivateAll(this._curTab);
-        }
-        else {
-            if (!this._curTab || this._curTab === newCurTab) {
-                this._curTab = this._getFirstAvaliable(tab);
-                this._curTab.active = true;
-            }
+            this._deactivateNotCur();
         }
     }
 
     _changeAvaliable(newAvaliable) {
-        if (tab.isAvaliable) {
+        if (newAvaliable.avaliable) {
             const firstAvaliable = this._getFirstAvaliable();
             if (firstAvaliable === newAvaliable) {
                 newAvaliable.active = true;
             }
         }
+        else {
+            if (this._curTab === newAvaliable) {
+                this._curTab = this._getFirstAvaliable();
+                this._curTab.active = true;
+            }
+        }
     }
 
-    _deactivateAll(notEqToTab) {
+    _deactivateNotCur() {
         for (let tab of this._tabs) {
-            if (!notEqToTab || notEqToTab !== tab) {
+            if (!this._curTab || this._curTab !== tab) {
                 tab.active = false;
             }
         }
