@@ -20,8 +20,11 @@ const modes = {
 };
 
 class Profile extends AbstractSection {
-    constructor(parentEl, tabModel = {}) {
-        super(parentEl, tabModel);
+    constructor({
+        parentEl, 
+        tabModel = {}
+    } = {}) {
+        super({parentEl, tabModel});
 
         this._el.innerHTML = '';
         const template = window.profileTmplTemplate();

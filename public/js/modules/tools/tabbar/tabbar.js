@@ -4,18 +4,17 @@ import tabbarEvents from "../../../models/tabbar/eventsNames.js";
 import tabbarManager from "../../../models/tabbar/manager.js";
 import utiles from "../../../components/utiles.js";
 import TabDelegate from "./tabDelegate.js";
-
+import tabsStyles from "./tabsStyles.js";
 
 class Tabbar {
     constructor({
         tabbarOptions = {},
-        tabbarTemplate = utiles.noop,
-        tabTemplate = utiles.noop
+        tabStyle = tabsStyles.TAB_LG
     } = {}) {
         this._tabbarModel = tabbarManager.get(tabbarOptions);
 
         const template = window.tabbarTmplTemplate({
-            tabStyle: 'tabbar-item',
+            tabStyle,
             tabs: this._tabbarModel.tabs
         });
         this._el = utiles.htmlToElements(template)[0];

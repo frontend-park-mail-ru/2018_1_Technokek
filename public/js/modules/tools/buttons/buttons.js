@@ -68,48 +68,4 @@ class PassiveButton extends Button {
     }
 }
 
-
-class UnderliningButton extends Button {
-    constructor ({ text = 'Submit', events = [], wide = false, isActive = false } = {}) {
-        super({
-            text,
-            events,
-            style: buttonsStyles.UNDELINING,
-            wide
-        });
-
-        this._setIsActive(isActive);
-
-        this.addListeners([{
-            name: 'click',
-            handler: (evt) => {
-                evt.preventDefault();
-            }
-        }]);
-    }
-
-    get isActive() {
-        return this._isActive;
-    }
-
-    acitvate() {
-        this._setIsActive(true);
-    }
-
-    deactivate() {
-        this._setIsActive(false);
-    }
-
-    _setIsActive(isActive) {
-        this._isActive = isActive;
-        
-        if (this._isActive) {
-            this._el.classList.add('active');
-        }
-        else {
-            this._el.classList.remove('active');
-        }
-    }
-}
-
-export {PrimaryButton, PassiveButton, UnderliningButton, PLayButton};
+export {PrimaryButton, PassiveButton, PLayButton};

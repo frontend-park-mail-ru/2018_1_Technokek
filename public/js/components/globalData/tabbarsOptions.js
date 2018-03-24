@@ -14,24 +14,24 @@ const tabbarsOprions = {
                 title: 'Profile',
                 avaliable: false,
                 active: false,
-                sectionType: Profile,
-                authDepends: true
+                authDepends: true,
+                sectionType: Profile
             },
             {
                 name: 'rules',
                 title: 'Rules',
                 avaliable: true,
                 active: false,
-                sectionType: Rules,
-                authDepends: false
+                authDepends: false,
+                sectionType: Rules
             },
             {
                 name: 'scoreboard',
                 title: 'Scoreboard',
                 avaliable: true,
                 active: false,
-                sectionType: Scoreboard,
-                authDepends: false
+                authDepends: false,
+                sectionType: Scoreboard
             },
         ]
     },
@@ -47,7 +47,7 @@ const tabbarsOprions = {
             },
             {
                 name: 'multiplayer',
-                title: 'Multiplauer',
+                title: 'Multiplayer',
                 avaliable: true,
                 active: false,
                 authDepends: false
@@ -61,12 +61,12 @@ const tabbarsOprions = {
                 name: 'singleplayer',
                 title: 'Singleplayer',
                 avaliable: true,
-                active: true,
+                active: false,
                 authDepends: false
             },
             {
                 name: 'multiplayer',
-                title: 'Multiplauer',
+                title: 'Multiplayer',
                 avaliable: true,
                 active: false,
                 authDepends: false

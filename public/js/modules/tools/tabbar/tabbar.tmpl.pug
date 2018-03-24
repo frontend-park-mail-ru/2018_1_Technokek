@@ -1,5 +1,5 @@
 mixin tabMixin(tabStyle, tabModel)
-    li(class=tabStyle class=tabModel.active ? 'active' : '' class=tabModel.jsClass)
+    li(class='tabbar-item' class=tabStyle class=tabModel.active ? 'active' : '' class=tabModel.jsClass)
         a(href='#') #{tabModel.title}
 
 ul(class='js-tabbar tabbar row-flex-menu')

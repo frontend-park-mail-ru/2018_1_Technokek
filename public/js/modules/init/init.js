@@ -1,7 +1,8 @@
 'use strict';
 
 import Mainscreen from '../mainscreen/mainscreen.js';
-import Downscreen from '../downscreen/downscreen.js';
+import SectionsBar from '../tools/section/sectionsBar.js';
+import tabbarsOprions from '../../components/globalData/tabbarsOptions.js';
 
 class Init {
     constructor(selector = 'body') {
@@ -25,7 +26,10 @@ class Init {
     _createInners() {
         this._inners = [
             new Mainscreen(),
-            new Downscreen()
+            new SectionsBar({
+                templateFunction: window.downscreenTmplTemplate,
+                tabbarOptions: tabbarsOprions.MAIN
+            })
         ];
 
         for (let inner of this._inners) {

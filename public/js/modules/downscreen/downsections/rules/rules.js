@@ -32,51 +32,51 @@ class Rules extends AbstractSection {
             wide: true
         });
 
-        this._underliningButton = new Buttons.UnderliningButton({
-            text: 'Underlining button',
-        });
-        this._underliningButton.addListeners([{
-            name: 'click',
-            handler: () => {
-                if (!this._underliningButton.isActive) {
-                    this._underliningButton.acitvate();
-                }
-                else {
-                    this._underliningButton.deactivate();
-                }
-            }
-        }]);
+        // this._underliningButton = new Buttons.UnderliningButton({
+        //     text: 'Underlining button',
+        // });
+        // this._underliningButton.addListeners([{
+        //     name: 'click',
+        //     handler: () => {
+        //         if (!this._underliningButton.isActive) {
+        //             this._underliningButton.acitvate();
+        //         }
+        //         else {
+        //             this._underliningButton.deactivate();
+        //         }
+        //     }
+        // }]);
 
-        this._table = new Table({
-            columnsOptions: [
-                {
-                    title: 'Column1',
-                    name: 'col1',
-                    template: '150px'
-                },
-                {
-                    title: 'Column2',
-                    name: 'col2',
-                    template: 'auto'
-                },
-                {
-                    title: 'Column3',
-                    name: 'col3',
-                    template: '100px'
-                },
-            ]
-        }),
-        this._table.render();
-        this._table.appendRow({
-                'col1': 'Value1 row',
-                'col2': 'Value2 row',
-                'col3': 'Value3 row'
-        });
-        this._table.appendRow({
-            'col1': 'Value1 row',
-            'col2': 'Value2 row',
-            'col3': 'Value3 row'
-        });
+        // this._table = new Table({
+        //     columnsOptions: [
+        //         {
+        //             title: 'Column1',
+        //             name: 'col1',
+        //             template: '150px'
+        //         },
+        //         {
+        //             title: 'Column2',
+        //             name: 'col2',
+        //             template: 'auto'
+        //         },
+        //         {
+        //             title: 'Column3',
+        //             name: 'col3',
+        //             template: '100px'
+        //         },
+        //     ]
+        // }),
+        // this._table.render();
+        // this._table.appendRow({
+        //         'col1': 'Value1 row',
+        //         'col2': 'Value2 row',
+        //         'col3': 'Value3 row'
+        // });
+        // this._table.appendRow({
+        //     'col1': 'Value1 row',
+        //     'col2': 'Value2 row',
+        //     'col3': 'Value3 row'
+        // });
     
         this._form1 =  new AbstractForm({
             fields: globalValues.formsOptions.nicknameForm.fields,
@@ -95,8 +95,8 @@ class Rules extends AbstractSection {
         this._append(this._primaryButtonWide);
         this._append(this._passiveBtn);
         this._append(this._passiveButtonWide);
-        this._append(this._underliningButton);
-        this._append(this._table);
+        // this._append(this._underliningButton);
+        // this._append(this._table);
         this._append(this._form1);
         this._append(this._form2);
     }

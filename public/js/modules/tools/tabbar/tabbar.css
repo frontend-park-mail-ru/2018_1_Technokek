@@ -9,7 +9,6 @@
 }
 
 .tabbar-item a {
-    font-size: 30px;
     text-decoration: none;
     font-family: 'ProximaNovaLt';
     font-weight: 300;
@@ -17,7 +16,6 @@
 }
 
 .tabbar-item a:hover {
-    font-size: 30px;
     text-decoration: none;
     font-family: 'ProximaNovaLt';
     font-weight: 300;
@@ -37,4 +35,12 @@
     font-weight: 600;
     font-style: normal;
     text-decoration: underline;
+}
+
+.tabbar-tab-lg a {
+    font-size: 30px;
+}
+
+.tabbar-tab-sm a {
+    font-size: 20px;
 }

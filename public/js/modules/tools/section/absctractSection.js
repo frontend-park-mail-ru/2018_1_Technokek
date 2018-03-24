@@ -4,7 +4,10 @@ import tabbarEvents from "../../../models/tabbar/eventsNames.js";
 import eventBus from "../../../components/arcitectureElements/eventBus.js";
 
 class AbstractSection {
-    constructor(parentEl, tabModel) {
+    constructor({
+        parentEl, 
+        tabModel
+    }) {
         this._tabModel = tabModel;
         this._el = parentEl.querySelector(`.${this._tabModel.jsClass}`);
 

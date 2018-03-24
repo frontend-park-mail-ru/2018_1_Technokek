@@ -30,9 +30,10 @@ class TabbarModel {
                 title: tab.title,
                 active: tab.active,
                 avaliable: tab.avaliable,
-                sectionType: tab.sectionType,
                 dependsOnAuth: tab.authDepends,
-                parentName: this._name
+                parentName: this._name,
+                sectionType: tab.sectionType,
+                sectionData: tab.sectionData
             })
         );
 

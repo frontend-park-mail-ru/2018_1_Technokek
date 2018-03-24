@@ -15,14 +15,17 @@ class TabModel {
         active = false,
         avaliable = true,
         name = '',
-        sectionType = {},
         dependsOnAuth = false,
-        parentName = ''
+        parentName = '',
+        sectionType = {},
+        sectionData = {}
     } = {}) {
         this._name = name;
-        this._sectionType = sectionType;
         this._parentName = parentName;
         this._dependsOnAuth = dependsOnAuth;
+        
+        this._sectionType = sectionType;
+        this._sectionData = sectionData;
 
         // call setters
         this.title = title;
@@ -63,13 +66,17 @@ class TabModel {
     get dependsOnAuth() {
         return this._dependsOnAuth;
     }
-
+    
+    get jsClass() {
+        return `js-${this._parentName}-${this._name}-section`;
+    }
+    
     get sectionType() {
         return this._sectionType;
     }
 
-    get jsClass() {
-        return `js-${this._parentName}-${this._name}-section`;
+    get sectionData() {
+        return this._sectionData;
     }
 
 // ---------------------------------------------------------------------------------

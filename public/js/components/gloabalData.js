@@ -10,8 +10,8 @@ class GlobalValues {
         this._apiUrls = {
             GET: {
                 USER: '/user',
-                HISTORY: '/history',
-                SCOREBOARD: ({mode, pageNumber}) => `/scoreboard/${mode}/page/${pageNumber}`,
+                HISTORY: ({mode, page}) => `/history/${mode}/page/${page}`,
+                SCOREBOARD: ({mode, page}) => `/scoreboard/${mode}/page/${page}`,
                 ABOUT: '/about',
                 RULES: '/rules',
                 ME: '/me'
@@ -24,35 +24,6 @@ class GlobalValues {
                 EDIT_USER: '/edit'
             }
         };
-    }
-
-    get tabsOptions() {
-        return [
-            {
-                name: 'profile',
-                title: 'Profile',
-                avaliable: false,
-                active: false,
-                sectionType: Profile,
-                authDepends: true
-            },
-            {
-                name: 'rules',
-                title: 'Rules',
-                avaliable: true,
-                active: false,
-                sectionType: Rules,
-                authDepends: false
-            },
-            {
-                name: 'scoreboard',
-                title: 'Scoreboard',
-                avaliable: true,
-                active: false,
-                sectionType: Scoreboard,
-                authDepends: false
-            },
-        ]
     }
 
     get inputTypes() {

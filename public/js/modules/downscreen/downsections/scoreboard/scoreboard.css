@@ -4,19 +4,14 @@
     margin: 0 auto;
 }
 
-.scoreboard-buttons {
+.scoreboard-tabbar {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin: 10px;
 }
 
-.scoreboard-buttons > a {
-    margin-right: 10px;
-}
-
-.load-more-container {
+.scoreboard-subsections {
     width: 100%;
     align-self: center;
     margin: 10px 0;
