@@ -4,8 +4,15 @@
 import Rules from "../../modules/downscreen/downsections/rules/rules.js";
 import Profile from "../../modules/downscreen/downsections/profile/profile.js";
 import Scoreboard from "../../modules/downscreen/downsections/scoreboard/scoreboard.js";
+import SMTablesModule from "../../modules/tools/smTablesModule/smTablesModule.js";
+import SMSubsection from "../../modules/tools/smTablesModule/subsection.js";
 
-const tabbarsOprions = {
+import tablesNames from "./tablesNames.js";
+import tablesOptions from "./tablesOptions.js";
+import modes from "./modes.js";
+
+
+const tabbarsOptions = {
     MAIN: {
         name: 'main',
         tabs: [
@@ -43,14 +50,22 @@ const tabbarsOprions = {
                 title: 'Singleplayer',
                 avaliable: true,
                 active: true,
-                authDepends: false
+                authDepends: false,
+                sectionType: SMSubsection,
+                sectionData: {
+                    table: tablesOptions[tablesNames.HISTORY][modes.SP]
+                }
             },
             {
                 name: 'multiplayer',
                 title: 'Multiplayer',
                 avaliable: true,
                 active: false,
-                authDepends: false
+                authDepends: false,
+                sectionType: SMSubsection,
+                sectionData: {
+                    table: tablesOptions[tablesNames.HISTORY][modes.MP]
+                }
             }
         ]
     },
@@ -62,17 +77,25 @@ const tabbarsOprions = {
                 title: 'Singleplayer',
                 avaliable: true,
                 active: false,
-                authDepends: false
+                authDepends: false,
+                sectionType: SMSubsection,
+                sectionData: {
+                    table: tablesOptions[tablesNames.SCOREBOARD][modes.SP]
+                }
             },
             {
                 name: 'multiplayer',
                 title: 'Multiplayer',
                 avaliable: true,
                 active: false,
-                authDepends: false
+                authDepends: false,
+                sectionType: SMSubsection,
+                sectionData: {
+                    table: tablesOptions[tablesNames.SCOREBOARD][modes.MP]
+                }
             }
         ]
     }
 };
 
-export default tabbarsOprions;
+export default tabbarsOptions;

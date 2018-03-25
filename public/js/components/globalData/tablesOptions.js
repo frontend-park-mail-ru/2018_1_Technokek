@@ -2,9 +2,10 @@
 
 import modes from "./modes.js";
 import globalValues from "../gloabalData.js";
+import tablesNames from "./tablesNames.js";
 
 const tablesOptions = {
-    SCOREBOARD: {
+    [tablesNames.SCOREBOARD]: {
         [modes.SP]: {
             name: `scoreboard/${modes.SP}`,
             urlFunc: ({page = 1} = {}) => globalValues.apiUrls.GET.SCOREBOARD({
@@ -59,7 +60,7 @@ const tablesOptions = {
             ]
         }
     },
-    HISTORY: {
+    [tablesNames.HISTORY]: {
         [modes.SP]: {
             name: `history/${modes.SP}`,
             urlFunc: ({page = 1} = {}) => globalValues.apiUrls.GET.HISTORY({

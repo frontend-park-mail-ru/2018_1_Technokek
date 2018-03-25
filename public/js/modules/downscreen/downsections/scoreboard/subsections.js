@@ -5,8 +5,6 @@ import AbstractSection from '../../../tools/section/absctractSection.js';
 import tableManager from '../../../../models/table/manager.js';
 import Table from '../../../tools/table/table.js';
 import { PassiveButton } from '../../../tools/buttons/buttons.js';
-import eventBus from '../../../../components/arcitectureElements/eventBus.js';
-import tableEvents from '../../../../models/table/eventsNames.js';
 
 class ScoreboardSubsection extends AbstractSection {
     render() {

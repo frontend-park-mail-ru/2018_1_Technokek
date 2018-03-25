@@ -2,7 +2,7 @@
 
 import Mainscreen from '../mainscreen/mainscreen.js';
 import SectionsBar from '../tools/section/sectionsBar.js';
-import tabbarsOprions from '../../components/globalData/tabbarsOptions.js';
+import tabbarsOptions from '../../components/globalData/tabbarsOptions.js';
 
 class Init {
     constructor(selector = 'body') {
@@ -28,7 +28,7 @@ class Init {
             new Mainscreen(),
             new SectionsBar({
                 templateFunction: window.downscreenTmplTemplate,
-                tabbarOptions: tabbarsOprions.MAIN
+                tabbarOptions: tabbarsOptions.MAIN
             })
         ];
 
