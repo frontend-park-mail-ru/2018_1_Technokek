@@ -15,7 +15,6 @@ class AbstractSection {
             tabbarName: this._tabModel.parentName,
             tabName: this._tabModel.name
         }), (isActive) => {
-            console.log('changeHidden');
             this._changeHidden(isActive);
         });
 

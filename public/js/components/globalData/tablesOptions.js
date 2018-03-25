@@ -67,7 +67,7 @@ const tablesOptions = {
                 mode: modes.SP,
                 page
             }),
-            fields: [
+            columns: [
                 {
                     title: '#',
                     name: 'index',
@@ -91,7 +91,7 @@ const tablesOptions = {
                 mode: modes.MP,
                 page
             }),
-            fields: [
+            columns: [
                 {
                     title: '#',
                     name: 'index',

@@ -49,7 +49,7 @@ const tabbarsOptions = {
                 name: 'singleplayer',
                 title: 'Singleplayer',
                 avaliable: true,
-                active: true,
+                active: false,
                 authDepends: false,
                 sectionType: SMSubsection,
                 sectionData: {
