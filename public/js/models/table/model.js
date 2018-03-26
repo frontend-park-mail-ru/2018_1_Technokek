@@ -42,9 +42,6 @@ class TableModel {
     }
 
     loadNextPage() {
-        console.log(this);
-        console.log('URL:', this._pageLoadUrlFunc({page: this._curPage + 1}));
-
         httpRequester.doGet({
             url: this._pageLoadUrlFunc({page: this._curPage + 1}),
             callback: (err, resp) => {
@@ -56,8 +53,6 @@ class TableModel {
     }
 
     _addRows(rows) {
-        console.log(rows);
-
         // Явно отсеивается возможный мусор
         // и отфильтровываются только настоящие поля
 
@@ -70,9 +65,6 @@ class TableModel {
         }
 
         this._curPage += 1;
-
-        console.log(`TABLE:${this._name}/rows: `, this._rows);
-
         eventBus.call(tableEvents.DATA_CHANGED(this._name), this._rows);
     }
 }

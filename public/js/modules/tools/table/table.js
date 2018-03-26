@@ -45,7 +45,6 @@ class Table {
     }
 
     _generateRowTemplate() {
-        console.log(this._tableModel.columns);
         this._rowTemplate = this._tableModel.columns.map( option => option.template ).join(' ');
     }
 

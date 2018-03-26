@@ -33,7 +33,6 @@ class SectionsBar {
 
     _createSections() {     
         this._sections = this._tabbarModel.tabs.map((section) => {
-            console.log(section);
             return new section.sectionType({
                 parentEl: this._el, 
                 tabModel: section

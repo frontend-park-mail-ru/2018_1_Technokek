@@ -3,6 +3,7 @@
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #E0E0E0;
+    margin: 10px 0;
 }
 
 .table-header, .table-row {

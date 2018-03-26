@@ -8,9 +8,8 @@ import SectionsBar from "../section/sectionsBar.js";
 
 class SMTablesModule {
     constructor(tabbarOptions) {
-        console.log('tabbarOptions: ', tabbarOptions);
-        
         this._tabbarOptions = tabbarOptions;
+        this._tabbarModel = tabbarManager.get(this._tabbarOptions);
         const template = window.smtablesmoduleTmplTemplate();
         this._el = utiles.htmlToElements(template)[0];
     }
@@ -22,6 +21,14 @@ class SMTablesModule {
     render() {
         this._renderTabbar();
         this._renderSections();
+    }
+
+    reset() {
+        this._tabbarModel.deactivateAll();
+    }
+
+    open() {
+        this._tabbarModel.activateFirst();
     }
 
     _renderTabbar() {

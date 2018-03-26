@@ -176,6 +176,7 @@ class Profile extends AbstractSection {
         this._showElementsHidden(true);
     }
 
+    // задать свойство hidden все элементам, отвечающим за редактирование профиля
     _editElementsHidden(val) {
         val = Boolean(val);
         
@@ -183,10 +184,10 @@ class Profile extends AbstractSection {
         this._buttons.stopEditBtn.element.hidden = val;
     }
 
+    // задать свойство hidden все элементам, отвечающим за отображение пользовательской информации
     _showElementsHidden(val) {
         val = Boolean(val);
-
-        this._historySection.element.hidden = val;
+        this._historySection.switch(val);
         this._buttons.editBtn.element.hidden = val;
         this._el.querySelector('.js-personal-info').hidden = val;
     }

@@ -23,6 +23,23 @@ class TabbarModel {
         return this._tabs;
     }
 
+    deactivateAll() {
+        for (let tab of this._tabs) {
+            tab.active = false;
+        }
+    }
+
+    activateFirst() {
+        this.deactivateAll();
+        for (let tab of this._tabs) {
+            if (tab.avaliable) {
+                tab.active = true;
+                this._curTab = tab;
+                break;
+            }
+        }
+    }
+
     _createTabs(tabs) {
         this._tabs = tabs.map(tab => 
             new TabModel({
@@ -68,6 +85,9 @@ class TabbarModel {
         if (newCurTab.active) {
             this._curTab = newCurTab;
             this._deactivateNotCur();
+        }
+        if (!newCurTab.active && this._curTab === newCurTab) {
+            this._curTab = null;
         }
     }
 

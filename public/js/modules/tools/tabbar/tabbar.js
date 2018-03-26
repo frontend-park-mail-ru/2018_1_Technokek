@@ -11,7 +11,6 @@ class Tabbar {
         tabbarOptions = {},
         tabStyle = tabsStyles.TAB_LG
     } = {}) {
-        console.log('in TabbarModule', tabbarOptions);
         this._tabbarModel = tabbarManager.get(tabbarOptions);
 
         const template = window.tabbarTmplTemplate({
