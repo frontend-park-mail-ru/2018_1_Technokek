@@ -81,7 +81,7 @@ app.use(function (req, res, next) {
 			headers.push([CORS_HEADERS.allowMethods, 'GET, POST, OPTIONS']);
 		}
 
-		// res.setHeader(CORS_HEADERS.allowOrigin, '*');
+		res.setHeader(CORS_HEADERS.allowOrigin, allowedOrigins[3]);
 
 		if (allowedOrigins.includes(requestOriginHostname)) {
 			headers.push([CORS_HEADERS.allowOrigin, requestOrigin]);
