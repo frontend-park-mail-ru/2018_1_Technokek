@@ -8,7 +8,6 @@ const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const debug = require('debug');
 const uuid = require('uuid/v4');
-const pug = require('pug');
 
 const logger = debug('mylogger');
 logger('Starting app');
@@ -62,7 +61,10 @@ const CORS_HEADERS = {
 app.use(function (req, res, next) {
 	const requestOrigin = req.headers['origin'];
 
+	console.log('AAAAAA', requestOrigin, req.headers);
+
 	if (typeof requestOrigin !== 'undefined') {
+		
 		const requestOriginHostname = url.parse(requestOrigin).hostname;
 
 
@@ -83,6 +85,8 @@ app.use(function (req, res, next) {
 
 		res.setHeader(CORS_HEADERS.allowOrigin, allowedOrigins[3]);
 
+
+		console.log('requestOriginHostname: ', requestOriginHostname);
 		if (allowedOrigins.includes(requestOriginHostname)) {
 			headers.push([CORS_HEADERS.allowOrigin, requestOrigin]);
 			headers.push([CORS_HEADERS.allowCredentials, 'true']);
