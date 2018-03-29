@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const url = require('url');
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
@@ -17,6 +18,83 @@ app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
+
+
+class ResponceData {
+	constructor () {
+		this._successful = true;
+		this._message = {
+			global: [],
+			fields: {}
+		};
+	}
+
+	get data() {
+		return {
+			successful: this._successful,
+			message: this._message
+		};
+	}
+
+	addFieldError() {
+
+	}
+}
+
+
+const allowedOrigins = [
+	'localhost:3000',
+	'localhost',
+	'technokek2018.herokuapp.com'
+];
+
+const CORS_HEADERS = {
+	requestedHeaders: 'Access-Control-Request-Headers'.toLowerCase(),
+	requestedMethod: 'Access-Control-Request-Method'.toLowerCase(),
+
+	allowOrigin: 'Access-Control-Allow-Origin'.toLowerCase(),
+	allowMethods: 'Access-Control-Allow-Methods'.toLowerCase(),
+	allowHeaders: 'Access-Control-Allow-Headers'.toLowerCase(),
+	allowCredentials: 'Access-Control-Allow-Credentials'.toLowerCase()
+};
+
+app.use(function (req, res, next) {
+	const requestOrigin = req.headers['origin'];
+
+	if (typeof requestOrigin !== 'undefined') {
+		const requestOriginHostname = url.parse(requestOrigin).hostname;
+
+
+		const requestedHeaders = req.headers[CORS_HEADERS.requestedHeaders];
+		const requestedMethod = req.headers[CORS_HEADERS.requestedMethod];
+		logger(`Requested ${req.method} ${req.path} with origin ${requestOrigin} (${requestOriginHostname})`, {
+			requestedHeaders,
+			requestedMethod
+		});
+
+		const headers = [];
+		if (requestedHeaders) {
+			headers.push([CORS_HEADERS.allowHeaders, requestedHeaders]);
+		}
+		if (requestedMethod) {
+			headers.push([CORS_HEADERS.allowMethods, 'GET, POST, OPTIONS']);
+		}
+
+		// res.setHeader(CORS_HEADERS.allowOrigin, '*');
+
+		if (allowedOrigins.includes(requestOriginHostname)) {
+			headers.push([CORS_HEADERS.allowOrigin, requestOrigin]);
+			headers.push([CORS_HEADERS.allowCredentials, 'true']);
+		}
+
+		const result = headers.map(pair => '\t' + pair.join(': ')).join('\n');
+		logger(`Response with headers:\n` + result);
+
+		headers.forEach(([name, value]) => res.setHeader(name, value));
+	}
+	next();
+});
+
 
 const users = {
 	'vv-ch@bk.ru': {
@@ -49,11 +127,24 @@ app.post('/signup', function (req, res) {
 	const passwordRepeat = req.body['repeat-password'];
 	const email = req.body.email;
 	const nickname = req.body.nickname;
+
+	const responceData = {
+		message: {
+			global: [],
+			fields: {}
+		},
+		successful: true
+	};
+
 	if (
 		!password || !email ||
 		!password.match(/^\S{4,}$/) ||
 		!email.match(/@/)
 	) {
+		//TODO:
+		responceData.message.global.push('Invalid data');
+		responceData.successful = false;
+
 		return res.status(400).json({
 			error: {
 				global: 'Не валидные данные пользователя',
@@ -62,6 +153,10 @@ app.post('/signup', function (req, res) {
 		});
 	}
 	if (users[email]) {
+		//TODO:
+		responceData.message.fields.email = ['Email already used'];
+		responceData.successful = false;
+
 		return res.status(400).json({
 			error: {
 				global: '',
@@ -75,6 +170,10 @@ app.post('/signup', function (req, res) {
 		});
 	}
 	if (password !== passwordRepeat) {
+		//TODO:
+		responceData.message.fields.password_repeat = ['Passwords do not match'];
+		responceData.successful = false;
+
 		return res.status(400).json({
 			error: {
 				global: '',
@@ -86,12 +185,16 @@ app.post('/signup', function (req, res) {
 		});
 	}
 	for (let user of Object.values(users)) {
+		//TODO:
+		responceData.message.fields.email = ['This nickname already used'];
+		responceData.successful = false;
+
 		if (user.nickname === nickname) {
 			return res.status(400).json({
 				error: {
 					global: '',
 					fields: [{
-						name: 'email',
+						name: 'nickname',
 						value: 'Такой никнейм уже занят'
 					}]
 				}
@@ -112,6 +215,7 @@ app.post('/login', function (req, res) {
 
 	const password = req.body.password;
 	const email = req.body.email;
+
 	if (!password || !email) {
 		return res.status(400).json({error: {
 			global: 'Не указан E-Mail или пароль',
