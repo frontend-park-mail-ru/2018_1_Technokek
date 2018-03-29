@@ -14,7 +14,7 @@ ________________________________________________________________________
 
 **_ url: _** `/user/me/`
 
-```json
+```javascript
 {
     message: {
         id: 1,
@@ -32,7 +32,7 @@ ________________________________________________________________________
 
 **_ url: _** `/user/<id>/`
 
-```json
+```javascript
 //   if your id attribute === user ID -> you can get this data
 {
     message: {
@@ -55,7 +55,7 @@ ________________________________________________________________________
 
 * `mode === 'singleplayer'`
 
-  ```json
+  ```javascript
     {
         message: [
             another: [
@@ -83,7 +83,7 @@ ________________________________________________________________________
 
 * `mode === 'multiplayer'`
 
-  ```json
+  ```javascript
     {
         message: [
             another: [
@@ -121,7 +121,7 @@ ________________________________________________________________________
 
 * `mode === 'singleplayer'`
 
-  ```json
+  ```javascript
     {
         message: [
             {
@@ -139,7 +139,7 @@ ________________________________________________________________________
 
 * `mode === 'multiplayer'`
 
-  ```json
+  ```javascript
     {
         message: [
             {
@@ -169,7 +169,7 @@ ________________________________________________________________________
 
 **_ url: _** `/about/`
 
-```json
+```javascript
 {
     message: [
         {
@@ -205,7 +205,7 @@ ________________________________________________________________________
 
 * **_ request: _**
 
-  ```json
+  ```javascript
     {
         'email': 'ema@il.com',
         'password': 'password'
@@ -214,7 +214,7 @@ ________________________________________________________________________
 
 * **_ responce успешный: _**
 
-  ```json
+  ```javascript
     {
         successful: true
     }
@@ -224,7 +224,7 @@ ________________________________________________________________________
 
 * **_ responce с ошибкой: _**
 
-  ```json
+  ```javascript
     {
         message: {
             global: [
@@ -258,7 +258,7 @@ ________________________________________________________________________
 
 * **_ request: _**
 
-  ```json
+  ```javascript
     {
         'nickname': 'Keker'
         'email': 'keker@lol.com',
@@ -269,7 +269,7 @@ ________________________________________________________________________
 
 * **_ responce успешный: _**
 
-  ```json
+  ```javascript
     {
         successful: true
     }
@@ -291,20 +291,20 @@ if your id attribute === user ID -> file uploads
 
 * Редактирование **_email_**
   * **_ request: _**
-    ```json
+    ```javascript
     {
         'email': 'new-email@ya.ru'
     }
     ```
   * **_ responce успешный: _**
-    ```json
+    ```javascript
     {
         successful: true
     }
     ```
     В случае успеха осуществляется запрос по `/user/me/`
   * **_ responce с ошибкой: _**
-    ```json
+    ```javascript
     {
         message: {
             global: [
@@ -322,7 +322,7 @@ if your id attribute === user ID -> file uploads
 
 * Редактирование **_password_**
   * **_ request: _**
-    ```json
+    ```javascript
     {
         'password': 'querty123',
         'new_password': 'password1',
@@ -330,7 +330,7 @@ if your id attribute === user ID -> file uploads
     }
     ```
   * **_ responce успешный: _**
-    ```json
+    ```javascript
     {
         successful: true
     }
@@ -344,7 +344,7 @@ if your id attribute === user ID -> file uploads
 * **_ request: _** пустой
 * **_ responce успешный: _**
 
-  ```json
+  ```javascript
     {
         successful: true
     }
@@ -352,7 +352,7 @@ if your id attribute === user ID -> file uploads
 
 * **_ responce с ошибкой: _**
 
-  ```json
+  ```javascript
     {
         message: 'Something went wrong'
         successful: false
