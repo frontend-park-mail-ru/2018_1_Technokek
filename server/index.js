@@ -45,6 +45,7 @@ class ResponceData {
 const allowedOrigins = [
 	'localhost:3000',
 	'localhost',
+	'teckokek-front.herokuapp.com',
 	'technokek2018.herokuapp.com'
 ];
 
