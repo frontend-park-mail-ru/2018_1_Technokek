@@ -18,7 +18,41 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 
+const NEW_BASE = '/new';
+const MODES = {
+	MULTIPLAYER: 'multiplayer',
+	SINGLEPLAYER: 'singleplayer'
+};
+class Urls {
+	constructor(base = '') {
+		this._get = {
+			ME: `${base}/user/me`,
+			USER: `${base}/user/:id`,
+			SCOREBOARD: `${base}/scoreboard/:mode/:page`,
+			HISTORY: `${base}/history/:mode/:page`,
+			//TODO: AVATAR,
+			//TODO: ABOUT,
+			//TODO: RULES,
+		};
+		this._post = {
+			LOGIN: `${base}/login`,
+			REGISTRATION: `${base}/signup`,
+			//TODO: AVATAR UPLOAD
+			USER_EDIT: `${base}/user/edit`,
+			LOGOUT: `${base}/logout`
+		};
+	}
 
+	get get() {
+		return this._get;
+	}
+
+	get post() {
+		return this._post;
+	}
+}
+
+const URLS = new Urls(NEW_BASE);
 class ResponceData {
 	constructor () {
 		this._successful = true;
@@ -35,8 +69,25 @@ class ResponceData {
 		};
 	}
 
-	addFieldError() {
+	addFieldError(fieldName, error) {
+		this._successful = false;
 
+		if (!this._message.fields[fieldName]) {
+			this._message.fields[fieldName] = [];
+		}
+
+		this._message.fields[fieldName].push(error);
+	}
+
+	addGlobalError(error) {
+		this._successful = false;
+
+		this._message.global.push(error);
+	}
+
+	setSuccessData(data = {}) {
+		this._successful = true;
+		this._message = data;
 	}
 }
 
@@ -103,243 +154,35 @@ app.use(function (req, res, next) {
 
 const users = {
 	'vv-ch@bk.ru': {
+		id: 1,
 		nickname: 'Vitaly Cherkov',
 		email: 'vv-ch@bk.ru',
 		password: 'password',
 		games: 20,
-		score: 72
+		score: 72,
+		avatar: null
 	},
 	'vv-ch1@bk.ru': {
+		id: 2,
 		nickname: 'Vitaly Cherkovv',
 		email: 'vv-ch1@bk.ru',
 		password: 'password',
 		games: 21,
-		score: 172
+		score: 172,
+		avatar: null
 	},
 	'vv-ch2@bk.ru': {
+		id: 3,
 		nickname: 'Vitaly Cherkovvv',
 		email: 'vv-ch2@bk.ru',
 		password: 'password',
 		games: 22,
-		score: 272
+		score: 272,
+		avatar: null
 	},
 };
 
 const ids = {};
-
-app.post('/signup', function (req, res) {
-	const password = req.body.password;
-	const passwordRepeat = req.body['repeat-password'];
-	const email = req.body.email;
-	const nickname = req.body.nickname;
-
-	const responceData = {
-		message: {
-			global: [],
-			fields: {}
-		},
-		successful: true
-	};
-
-	if (
-		!password || !email ||
-		!password.match(/^\S{4,}$/) ||
-		!email.match(/@/)
-	) {
-		//TODO:
-		responceData.message.global.push('Invalid data');
-		responceData.successful = false;
-
-		return res.status(400).json({
-			error: {
-				global: 'Не валидные данные пользователя',
-				fields: []
-			}
-		});
-	}
-	if (users[email]) {
-		//TODO:
-		responceData.message.fields.email = ['Email already used'];
-		responceData.successful = false;
-
-		return res.status(400).json({
-			error: {
-				global: '',
-				fields: [
-					{
-						name: 'email',
-						value: 'Пользователь уже существует'
-					}
-				]
-			}
-		});
-	}
-	if (password !== passwordRepeat) {
-		//TODO:
-		responceData.message.fields.password_repeat = ['Passwords do not match'];
-		responceData.successful = false;
-
-		return res.status(400).json({
-			error: {
-				global: '',
-				feidls:[{
-					name: 'repeat-password',
-					value: 'Введеные пароли не совпадают'
-				}]
-			}
-		});
-	}
-	for (let user of Object.values(users)) {
-		//TODO:
-		responceData.message.fields.email = ['This nickname already used'];
-		responceData.successful = false;
-
-		if (user.nickname === nickname) {
-			return res.status(400).json({
-				error: {
-					global: '',
-					fields: [{
-						name: 'nickname',
-						value: 'Такой никнейм уже занят'
-					}]
-				}
-			});
-		}
-	}
-
-	const id = uuid();
-	const user = {password, nickname, email, score: 0, games: 0};
-	ids[id] = email;
-	users[email] = user;
-
-	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
-});
-
-app.post('/login', function (req, res) {
-
-	const password = req.body.password;
-	const email = req.body.email;
-
-	if (!password || !email) {
-		return res.status(400).json({error: {
-			global: 'Не указан E-Mail или пароль',
-			fields: []
-		}});
-	}
-	if (!users[email] || users[email].password !== password) {
-		return res.status(400).json({error: {
-			global: 'Не верный E-Mail и/или пароль',
-			fields: []
-		}});
-	}
-
-	const id = uuid();
-	ids[id] = email;
-
-	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
-});
-
-app.post('/logout', function (req, res) {
-	const id = req.cookies['frontend'];
-	delete ids[id];
-
-	res.status(200).end();
-});
-
-app.post('/edit', function(req, res) {
-	const id = req.cookies['frontend'];
-	const email = ids[id];
-	const field = req.body.field;
-	const value = req.body.value;
-
-	if (!email || !users[email] || !users[email][field]) {
-		return res.status(401).end();
-	}
-
-	if (field !== 'password') {
-		if (users[email][field] === value) {
-			res.status(201).json({id});
-		}
-		for (let user of Object.values(users)) {
-			if (user[field] === value) {
-				return res.status(400).json({
-					error: {
-						global: '',
-						fields:[{
-							name: field,
-							value: `Такой ${field} уже занят`
-						}]
-					}
-				});
-			}
-		}
-		users[email][field] = value;
-		res.status(201).json({id});
-	}
-	else {
-		const newPassword = req.body['new-password'];
-		const repeatPassword = req.body['new-password-repeat'];
-
-		if (users[email].password !== value) {
-			return res.status(400).json({
-				error: {
-					global: '',
-					fields: [{
-						name: 'old-password',
-						value: 'Старый парль введен неверно'
-					}]
-				}
-			});
-		}
-		if (newPassword !== repeatPassword) {
-			return res.status(400).json({
-				error: {
-					global: '',
-					fields: [{
-						name: 'new-password-repeat',
-						value: 'Введенные пароли не совпадают'
-					}]
-				}
-			});
-		}
-
-		users[email].password = newPassword;
-		res.status(201).json({id});
-	}
-});
-
-app.get('/me', function (req, res) {
-
-	const id = req.cookies['frontend'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return res.status(401).end();
-	}
-
-	users[email].score += 1;
-
-	res.json(users[email]);
-});
-
-app.get('/users', function (req, res) {
-	const scorelist = Object.values(users)
-		.sort((l, r) => r.rating - l.rating)
-		.map(user => {
-			return {
-				email: user.email,
-				age: user.age,
-				rating: user.rating
-			};
-		});
-
-	res.json(scorelist);
-});
-
-// -------------------------------------------------------------------------------------
-// SCOREBOARD
-// -------------------------------------------------------------------------------------
 
 const sbSingleplayer = [
 	{
@@ -654,31 +497,6 @@ const scoreboardModes = {
 
 const PERPAGE = 10;
 
-app.get('/scoreboard/:mode/page/:pageNumber', function(req, res) {
-	
-	const mode = req.params.mode;
-	const pageNumber = req.params.pageNumber;
-	
-	if (mode === scoreboardModes.SINGLEPLAYER) {
-		const respData = sbSingleplayer.filter(item => 
-			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
-		);
-		res.json(respData);
-		return;
-	}
-
-	else if (mode === scoreboardModes.MULTIPLAYER) {
-		const respData = sbMultiplayer.filter(item => 
-			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
-		);
-		res.json(respData);
-	}
-
-	else {
-		res.json({ });
-	}
-});
-
 const hsSingleplayer = [
 	{
 		index: 1,
@@ -815,6 +633,260 @@ const hsMultiplayer = [
 	}
 ];
 
+
+// TODO: API refactor
+app.post('/signup', function (req, res) {
+	const password = req.body.password;
+	const passwordRepeat = req.body['repeat-password'];
+	const email = req.body.email;
+	const nickname = req.body.nickname;
+
+	const responceData = new ResponceData();
+
+	if (
+		!password || !email ||
+		!password.match(/^\S{4,}$/) ||
+		!email.match(/@/)
+	) {
+		//TODO:
+		responceData.addGlobalError('Invalid data');
+
+		return res.status(400).json({
+			error: {
+				global: 'Не валидные данные пользователя',
+				fields: []
+			}
+		});
+	}
+	if (users[email]) {
+		//TODO:
+		responceData.addFieldError('email', 'Email already used');
+
+		return res.status(400).json({
+			error: {
+				global: '',
+				fields: [
+					{
+						name: 'email',
+						value: 'Пользователь уже существует'
+					}
+				]
+			}
+		});
+	}
+	if (password !== passwordRepeat) {
+		//TODO:
+		responceData.addFieldError('password', 'Passwords do not match');
+
+		return res.status(400).json({
+			error: {
+				global: '',
+				feidls:[{
+					name: 'repeat-password',
+					value: 'Введеные пароли не совпадают'
+				}]
+			}
+		});
+	}
+	for (let user of Object.values(users)) {
+		//TODO:
+		responceData.addFieldError('nickname', 'This nickname already used');
+
+		if (user.nickname === nickname) {
+			return res.status(400).json({
+				error: {
+					global: '',
+					fields: [{
+						name: 'nickname',
+						value: 'Такой никнейм уже занят'
+					}]
+				}
+			});
+		}
+	}
+
+	const id = uuid();
+	const user = {password, nickname, email, score: 0, games: 0};
+	ids[id] = email;
+	users[email] = user;
+
+	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+	res.status(201).json({id});
+});
+
+// TODO: API refactor
+app.post('/login', function (req, res) {
+
+	const responceData = new ResponceData();
+
+	const password = req.body.password;
+	const email = req.body.email;
+
+	if (!password || !email) {
+		responceData.addGlobalError('not ');
+
+		return res.status(400).json({error: {
+			global: 'Не указан E-Mail или пароль',
+			fields: []
+		}});
+	}
+	if (!users[email] || users[email].password !== password) {
+		return res.status(400).json({error: {
+			global: 'Не верный E-Mail и/или пароль',
+			fields: []
+		}});
+	}
+
+	const id = uuid();
+	ids[id] = email;
+
+	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+	res.status(201).json({id});
+});
+
+// TODO: API refactor
+app.post('/logout', function (req, res) {
+	const id = req.cookies['frontend'];
+	delete ids[id];
+
+	res.status(200).end();
+});
+
+// TODO: API refactor
+app.post('/edit', function(req, res) {
+	const id = req.cookies['frontend'];
+	const email = ids[id];
+	const field = req.body.field;
+	const value = req.body.value;
+
+	if (!email || !users[email] || !users[email][field]) {
+		return res.status(401).end();
+	}
+
+	if (field !== 'password') {
+		if (users[email][field] === value) {
+			res.status(201).json({id});
+		}
+		for (let user of Object.values(users)) {
+			if (user[field] === value) {
+				return res.status(400).json({
+					error: {
+						global: '',
+						fields:[{
+							name: field,
+							value: `Такой ${field} уже занят`
+						}]
+					}
+				});
+			}
+		}
+		users[email][field] = value;
+		res.status(201).json({id});
+	}
+	else {
+		const newPassword = req.body['new-password'];
+		const repeatPassword = req.body['new-password-repeat'];
+
+		if (users[email].password !== value) {
+			return res.status(400).json({
+				error: {
+					global: '',
+					fields: [{
+						name: 'old-password',
+						value: 'Старый парль введен неверно'
+					}]
+				}
+			});
+		}
+		if (newPassword !== repeatPassword) {
+			return res.status(400).json({
+				error: {
+					global: '',
+					fields: [{
+						name: 'new-password-repeat',
+						value: 'Введенные пароли не совпадают'
+					}]
+				}
+			});
+		}
+
+		users[email].password = newPassword;
+		res.status(201).json({id});
+	}
+});
+
+// TODO: API refactor
+app.get('/me', function (req, res) {
+	// TODO: responceData
+	const responceData = new ResponceData();
+
+	const id = req.cookies['frontend'];
+	const email = ids[id];
+	if (!email || !users[email]) {
+		responceData.addGlobalError('You are unauthorized');
+		return res.status(401).end();
+	}
+
+	users[email].score += 1;
+	responceData.setSuccessData({
+		id: users[email].id,
+		nickname: users[email].nickname,
+		email: users[email].email,
+		score: users[email].score,
+		games_number: users[email].games,
+		avatar: users[email].avatar
+	});
+	res.json(users[email]);
+});
+
+// TODO: API refactor
+app.get('/users', function (req, res) {
+	const scorelist = Object.values(users)
+		.sort((l, r) => r.rating - l.rating)
+		.map(user => {
+			return {
+				email: user.email,
+				age: user.age,
+				rating: user.rating
+			};
+		});
+
+	res.json(scorelist);
+});
+
+// -------------------------------------------------------------------------------------
+// SCOREBOARD
+// -------------------------------------------------------------------------------------
+
+
+// TODO: API refactor
+app.get('/scoreboard/:mode/page/:pageNumber', function(req, res) {
+	
+	const mode = req.params.mode;
+	const pageNumber = req.params.pageNumber;
+	
+	if (mode === scoreboardModes.SINGLEPLAYER) {
+		const respData = sbSingleplayer.filter(item => 
+			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
+		);
+		res.json(respData);
+		return;
+	}
+
+	else if (mode === scoreboardModes.MULTIPLAYER) {
+		const respData = sbMultiplayer.filter(item => 
+			(item.index > PERPAGE * (pageNumber - 1)) && (item.index <= PERPAGE * pageNumber)
+		);
+		res.json(respData);
+	}
+
+	else {
+		res.json({ });
+	}
+});
+
+
+// TODO: API refactor
 app.get('/history/:mode/page/:pageNumber', function(req, res) {
 	
 	const mode = req.params.mode;
@@ -841,10 +913,58 @@ app.get('/history/:mode/page/:pageNumber', function(req, res) {
 	}
 });
 
+
+
+// -------------------------------------------------------------------------------------
+// NEW API
+// -------------------------------------------------------------------------------------
+
+app.get(URLS.get.ME, function(req, res) {
+	const responceData = new ResponceData();
+
+	const id = req.cookies['frontend'];
+	const email = ids[id];
+	
+	if (!email || !users[email]) {
+		responceData.addGlobalError('You are not authorized');
+	}
+
+	else {
+		users[email].score += 1;
+		responceData.setSuccessData({
+			id: users[email].id,
+			nickname: users[email].nickname,
+			email: users[email].email,
+			score: users[email].score,
+			games_number: users[email].games,
+			avatar: users[email].avatar
+		});
+	}
+
+	res.json(responceData.data);
+});
+
+app.get(URLS.get.USER, function(req, res) {
+	const responceData = new ResponceData();
+
+	const userId = req.params.id;
+	for (let user of users.values()) {
+		if (user.id === userId) {
+			res.json(responceData.data);
+		}
+	}
+
+	responceData.addGlobalError('Not found');
+	res.json(responceData.addGlobalError);
+	
+});
+
+// -------------------------------------------------------------------------------------
+// END NEW API
+// -------------------------------------------------------------------------------------
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
 	logger(`Server listening port ${port}`);
 });
-
-

@@ -4,9 +4,19 @@
 
 Игра про моделирование системы метрополитена и трамвайной сети. Аналогичная игра - Mini Metro.
 
-## API
+## Содержание
+
+* API
+  * GET
+  * POST
+* Сообщения и ошибки
+  * Пояснения
+  * Общие ошибки
+  * Websocket
 
 ________________________________________________________________________
+
+## API
 
 * ### GET
 
@@ -212,31 +222,47 @@ ________________________________________________________________________
     }
   ```
 
-* **responce успешный:**
+* **responce успешный (пример):**
 
   ```javascript
     {
+        message: {
+            // Здесь информация, которую можно получить по /me
+        }
         successful: true
     }
   ```
 
   В случае, если `successful === true`, осуществляется запрос по `/user/me/`
 
-* **responce с ошибкой:**
+* **responce с ошибкой (пример):**
 
   ```javascript
     {
         message: {
             global: [
-                'Incorrect email or password',
+                // Подробное описание ошибок ниже в readme.md
+                {
+                    code: 1021,
+                    text: 'Incorrect email or password',
+                }
             ],
             fields: {
                 'email': [
-                    'Incorrect fomat of email',
-                    'The second error for this field'
+                    {
+                        code: 1021,
+                        text: 'Incorrect email or password',
+                    },
+                    {
+                        code: 9999,
+                        text: 'The second error if it nesessary',
+                    }
                 ],
                 'password': [
-                    'This field is required'
+                    {
+                        code: 1001,
+                        text: 'This field is required',
+                    }
                 ]
             }
         },
@@ -244,13 +270,12 @@ ________________________________________________________________________
     }
   ```
 
-  Таким образом, об ошибках форм следует знать следующее:
+  Таким образом, об ошибках форм **необходимо** знать следующее:
   * Они бывают двух типов:
     * _Глобальные_ - те, которые относятся сразу ко всем полям
     * _Ошибки полей_ - относятся к конкретному полю
   * **Важно:** к каждому полю передается массив ошибок, т.е. учитывается случай, когда их  может быть несколько. Соответсвенно, если ошибок к конкретному полю нет, то массив пуст.
   * Корректные же значения передавать обратно не нужно, т.к. предполагается, что они сохранены на клиенте.
-
 
 #### POST REGISTRATION
 
@@ -263,7 +288,8 @@ ________________________________________________________________________
         'nickname': 'Keker'
         'email': 'keker@lol.com',
         'password': 'password'
-        'password_repeat': 'password'
+        // Внимание! убрано поле 'password_repeat'
+        // 'password_repeat': 'password'
     }
   ```
 
@@ -271,6 +297,9 @@ ________________________________________________________________________
 
   ```javascript
     {
+        message: {
+            // Здесь информация, которую можно получить по /me
+        }
         successful: true
     }
   ```
@@ -308,7 +337,10 @@ if your id attribute === user ID -> file uploads
     {
         message: {
             global: [
-                'This email is already used'
+                {
+                    code: 1011,
+                    text: 'This user already exists',
+                }
             ]
         }
         successful: false
@@ -325,8 +357,11 @@ if your id attribute === user ID -> file uploads
     ```javascript
     {
         'password': 'querty123',
-        'new_password': 'password1',
+        'new_password': 'password1'
+        /*
+        Внимание! Убрано поле 'new_password_repeat'
         'new_password_repeat': 'password1'
+        */
     }
     ```
   * **responce успешный:**
@@ -354,7 +389,112 @@ if your id attribute === user ID -> file uploads
 
   ```javascript
     {
-        message: 'Something went wrong'
+        message: {
+            global: [
+                {
+                    code: 1031,
+                    text: 'Logout faild',
+                }
+            ]
+        }
         successful: false
     }
   ```
+
+________________________________________________________________________
+
+## Сообщения и ошибки
+
+Каждая ошибка и сообщение представляет из себя не просто строку, а объект вида:
+
+```javascript
+{
+    code: 401,
+    text: 'Human readable text of error'
+}
+```
+
+### Пояснения
+
+В описании постфиксов и суффиксов используется символ **`?`** он означает одну цифру
+
+### Общие ошибки
+
+* **Ошбщие ошибки**
+  * Пользователь не авторизован
+    ```javascript
+    {
+        code: 401,
+        text: 'User not authorized'
+    }
+    ```
+  * Данные не найдены
+    ```javascript
+    {
+        code: 404,
+        text: 'Data not found'
+    }
+    ```
+
+* **Ошибки форм**
+
+  Начинаются с префикса `10`
+  * Данное поле обязательно для заполнения
+    ```javascript
+    {
+        code: 1001,
+        text: 'This field is required',
+    }
+    ```
+  _Ошибки, связанные с **регистрацией** и **изменением данных** имеют постфикс_ `1?`
+  * **email** уже занят
+    ```javascript
+    {
+        code: 1011,
+        text: 'This user already exists',
+    }
+    ```
+  * **email** не корректен
+    ```javascript
+    {
+        code: 1012,
+        text: 'Incorrect email address',
+    }
+    ```
+  * **nickname** уже занят
+    ```javascript
+    {
+        code: 1013,
+        text: 'This nickname is already taken',
+    }
+    ```
+  * **password** слишком короткий
+    ```javascript
+    {
+        code: 1014,
+        text: 'The minimum length is 8 characters',
+    }
+    ```
+  _Ошибки, связанные с **логином** имеют постфикс_ `2?`
+  * Неверные email или пароль
+    ```javascript
+    {
+        code: 1021,
+        text: 'Incorrect email or password',
+    }
+    ```
+  _Ошбибки, свзяанные с **логаутом** имеют постфикс `3?`_
+  * Ошибка **выхода** из системы. _Не у верен, что такая ситуация возможна, но все же..._
+    ```javascript
+    {
+        code: 1031,
+        text: 'Logout faild',
+    }
+    ```
+
+### Websocket сообщения и ошибки
+
+Здесь будут описаны ошибки и сообщения, передающиеся через **websocket**.
+
+* Префикс ошибок: **20**
+* Префикс сообщений: **21**
