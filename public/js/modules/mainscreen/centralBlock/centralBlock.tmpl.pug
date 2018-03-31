@@ -1,0 +1,18 @@
+mixin authorizedSection()
+    include ./authorizedSection/authorizedSection.tmpl.pug
+    
+mixin singleplayColumn()
+    include ./singleplayColumn/singleplayColumn.tmpl.pug    
+
+
+div(class='site-center')
+    h1(class='logo')
+        |TheGame
+
+    div(class='site-center-sections')
+        
+        +singleplayColumn()
+        div(class='site-center-column js-login-register-section')
+        +authorizedSection()
+
+        

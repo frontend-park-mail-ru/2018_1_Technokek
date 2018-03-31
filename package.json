@@ -3,19 +3,24 @@
   "version": "1.0.0",
   "description": "Frontend",
   "main": "server/index.js",
+  "engines": {
+    "node": "9.8.0",
+    "npm": "5.7.1"
+  },
   "dependencies": {
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
+    "jade": "^1.11.0",
     "morgan": "^1.9.0",
-    "pug": "^2.0.0-rc.4",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pug -c -w --name-after-file -o public/js/modules public/js/modules",
-    "start": "DEBUG=* node server/index.js"
-
+    "build": "pug -c --name-after-file -o public/js/modules public/js/modules",
+    "start": "npm run build && DEBUG=* node server"
   },
   "repository": {
     "type": "git",

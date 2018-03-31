@@ -1,12 +1,20 @@
 'use strict';
 
-import AuthSignup from '../authSignup/authSignup.js';
-import Tabbar from '../tabbar/tabbar.js';
 import globalValues from '../../components/gloabalData.js';
+import utiles from '../../components/utiles.js';
+
+import Header from './header/header.js';
+import CentralBlock from './centralBlock/centralBlock.js';
+import Tabbar from '../tools/tabbar/tabbar.js';
+import tabbarsOptions from '../../components/globalData/tabbarsOptions.js';
+import tabbarManager from '../../models/tabbar/manager.js';
+import eventBus from '../../components/arcitectureElements/eventBus.js';
+import tabbarEvents from '../../models/tabbar/eventsNames.js';
 
 class Mainscreen {
-    constructor(selector) {
-        this._el = document.querySelector(selector);
+    constructor() {
+        const template = window.mainscreenTmplTemplate();
+        this._el = utiles.htmlToElements(template)[0];
     }
 
     clear() {
@@ -14,8 +22,6 @@ class Mainscreen {
     }
 
     render() {
-        this._el.innerHTML = window.mainscreenTmplTemplate();
-        
         if (!this._inners) {
             this._createInners();
         }
@@ -23,16 +29,43 @@ class Mainscreen {
         for (let inner of this._inners) {
             inner.render();
         }
+
+        this._addMoveToTabbarEvent();
+    }
+
+    get element() {
+        return this._el;
     }
 
     _createInners() {
+        this._tabbar = new Tabbar({
+            tabbarOptions: tabbarsOptions.MAIN,
+        });
+        
         this._inners = [
-            new AuthSignup('.js-login-register-section'),
-            new Tabbar({
-                selector: '.js-tabbar',
-                tabs: globalValues.initialTabs
-            })
+            new Header(),
+            new CentralBlock(),
+            this._tabbar 
         ];
+
+        for(let inner of this._inners) {
+            this._el. appendChild(inner.element);
+        }
+    }
+
+    // при открытии вкладки экран съезжает к таббару
+    _addMoveToTabbarEvent() {
+        const tabbarModel = tabbarManager.get(tabbarsOptions.MAIN);
+        for (let tab of tabbarModel.tabs) {
+            eventBus.on(tabbarEvents.ACTIVE_CHANGED({
+                tabbarName: tabbarModel.name,
+                tabName: tab.name
+            }), (isActive) => {
+                if (isActive) {
+                    utiles.moveToElem(this._tabbar.element);
+                }
+            });
+        }
     }
 }
 

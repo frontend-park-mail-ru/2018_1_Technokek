@@ -1,11 +1,11 @@
 input, select {
-    width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+
+    width: 100%;
+    min-width: 200px;
 
     font-size: 18px;
     font-family: 'ProximaNovaRegular';
@@ -13,14 +13,28 @@ input, select {
     font-style: normal;
 }
 
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.default-form-el {
+    margin-bottom: 10px;
+    margin-top: 3px;
 }
 
-input[type=submit]:hover {
-    background-color: #45a049;
+
+.fields-section, .field-input {
+    width: 100%;
+}
+
+.form-message, .form-error {
+    font-size: 14px;
+}
+
+.form-error {
+    color: darkred;
+}
+
+.form-error:empty, .form-message:empty {
+    display: none;
+}
+
+.form-submit-subsection > a {
+    margin-right: 10px;
 }

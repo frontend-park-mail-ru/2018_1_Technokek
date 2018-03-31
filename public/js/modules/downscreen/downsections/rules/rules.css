@@ -1,0 +1,9 @@
+.rules-section-content > div,
+.rules-section-content > a,
+.rules-section-content > section,
+.rules-section-content > form,
+.rules-section-content > h1,
+.rules-section-content > h2
+{
+    margin-top: 10px;
+}

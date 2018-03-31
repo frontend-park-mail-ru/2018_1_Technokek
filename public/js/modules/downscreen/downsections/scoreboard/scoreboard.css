@@ -1,0 +1,18 @@
+
+.table-score-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.scoreboard-tabbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.scoreboard-subsections {
+    width: 100%;
+    align-self: center;
+    margin: 10px 0;
+}

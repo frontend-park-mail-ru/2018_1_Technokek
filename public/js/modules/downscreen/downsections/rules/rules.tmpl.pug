@@ -1,0 +1,18 @@
+mixin sectionTitle(text)
+     include ../../../tools/texts/sectionTitle.pug
+
+mixin subsectionTitle(text)
+    include ../../../tools/texts/subsectionTitle.pug
+
+mixin usualText(text)
+    include ../../../tools/texts/usualText.pug
+
+div(class='section-content rules-section-content')
+    +sectionTitle('Section Title')
+
+    +subsectionTitle('Subsection title')
+    
+    +usualText('Usual text')
+
+
+    

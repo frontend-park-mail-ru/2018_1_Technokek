@@ -1,10 +1,9 @@
-.active-button, .passive-button {
+.abstract-button {
     padding: 12px 20px;
-    margin: 8px 0;
     text-align: center;
     display: inline-block;
-    border-radius: 4px;
     box-sizing: border-box;
+    border-radius: 4px;
     cursor: pointer;
 
     font-size: 18px;
@@ -13,20 +12,47 @@
     font-style: normal;
 }
 
-.active-button {
+.primary-button {
     background-color: #4CAF50;
     color: white;
     border: 1px solid #ccc;
 }
 
-.active-button:hover {
+.primary-button:hover {
     background-color: #45a049;
+}
+
+.play-button {
+    background-color: #E53935;
+    color: white;
+    border: 1px solid #C62828;    
+}
+
+.play-button:hover {
+    background-color: #D32F2F;
 }
 
 .passive-button {
     color: black;
+    background-color: #F5F5F5;
+    border: 1px solid #EEEEEE;
 }
 
 .passive-button:hover {
     background-color: #E0E0E0;
+}
+
+.underlining-button {
+    color: black;
+    text-decoration: none;
+}
+
+.underlining-button.active {
+    color: black;
+    text-decoration: underline;
+}
+
+.underlining-button:hover {
+    color: #424242;
+    text-decoration: underline #424242;
 }

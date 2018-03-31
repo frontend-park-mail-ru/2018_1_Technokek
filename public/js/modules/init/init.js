@@ -1,7 +1,8 @@
 'use strict';
 
 import Mainscreen from '../mainscreen/mainscreen.js';
-import Downscreen from '../downscreen/downscreen.js';
+import SectionsBar from '../tools/section/sectionsBar.js';
+import tabbarsOptions from '../../components/globalData/tabbarsOptions.js';
 
 class Init {
     constructor(selector = 'body') {
@@ -13,13 +14,27 @@ class Init {
     }
 
     render() {
-        this._el.innerHTML = window.initTmplTemplate();
-        
-        this._downscreen = new Downscreen('.js-down-screen');
-        this._downscreen.render();
+        if (!this._inners) {
+            this._createInners();
+        }
 
-        this._mainscreen = new Mainscreen('.js-main-screen');
-        this._mainscreen.render();
+        for (let inner of this._inners) {
+            inner.render();
+        }
+    }
+
+    _createInners() {
+        this._inners = [
+            new Mainscreen(),
+            new SectionsBar({
+                templateFunction: window.downscreenTmplTemplate,
+                tabbarOptions: tabbarsOptions.MAIN
+            })
+        ];
+
+        for (let inner of this._inners) {
+            this._el.appendChild(inner.element);
+        }
     }
 }
 

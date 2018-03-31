@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,54 +8,121 @@
     <link rel="stylesheet" href="/css/main.css">
     <title>The game</title>
 </head>
+
 <body>
+  
 </body>
 
-
+<!-- Основные архитектурные элементы -->
+    <!-- Observer -->
+    <script type="module" src="/js/components/arcitectureElements/eventBus.js"></script>
 
 <!-- Компоненты -->
+<script type="module" src="/js/components/constraints.js"></script>
+<script type="module" src="/js/components/globalData/tabbarsOptions.js"></script>
+
 <script type="module" src="/js/components/gloabalData.js"></script>
 <script type="module" src="/js/components/utiles.js"></script>
 <script type="module" src="/js/components/http.js"></script>
+    <!-- События -->
+    <script type="module" src="/js/components/eventsTypes.js"></script>
 
 <!-- Модели -->
-<script type="module" src="/public/js/models/profileModel.js"></script>
+    <!-- Профиль -->
+    <script type="module" src="/js/models/profile/eventsNames.js"></script>
+    <script type="module" src="/js/models/profile/urls.js"></script>
+    <script type="module" src="/js/models/profile/model.js"></script>
+
+    <!-- Таббар -->
+    <script type="module" src="/js/models/tabbar/eventsNames.js"></script>
+    <script type="module" src="/js/models/tabbar/tabModel.js"></script>
+    <script type="module" src="/js/models/tabbar/tabbarModel.js"></script>
+    <script type="module" src="/js/models/tabbar/manager.js"></script>    
+
+    <!-- Таблица -->
+    <script type="module" src="/js/models/table/eventsNames.js"></script>
+    <script type="module" src="/js/models/table/model.js"></script>
+    <script type="module" src="/js/models/table/manager.js"></script>
 
 <!-- Инструменты -->
-<script src="/js/modules/tools/buttons/passiveButton.tmpl.js"></script>
-<script src="/js/modules/tools/buttons/activeButton.tmpl.js"></script>
-<script src="/js/modules/tools/buttons/submitInput.tmpl.js"></script>
-<script src="/js/modules/tools/abstractForm/abstractForm.tmpl.js"></script>
+    <!-- Форма -->
+    <script src="/js/modules/tools/abstractForm/field.tmpl.js"></script>
+    <script src="/js/modules/tools/abstractForm/abstractForm.tmpl.js"></script>
+    <script type="module" src="/js/modules/tools/abstractForm/abstractForm.js"></script>
 
-<script type="module" src="/js/modules/tools/buttons/buttons.js"></script>
-<script type="module" src="/js/modules/tools/abstractForm/abstractForm.js"></script>
-<script type="module" src="/js/modules/tools/toggling/toggling.js"></script>
+    <!-- Тогглер -->
+    <script type="module" src="/js/modules/tools/toggling/toggling.js"></script>
+
+    <!-- Таблица -->
+    <script src='/js/modules/tools/table/tableRow.tmpl.js'></script>
+    <script src='/js/modules/tools/table/headerCell.tmpl.js'></script>
+    <script src='/js/modules/tools/table/table.tmpl.js'></script>
+    <script type="module" src='/js/modules/tools/table/table.js'></script>
+
+    <!-- Кнопка -->
+    <script src="/js/modules/tools/buttons/button.tmpl.js"></script>
+    <script type="module" src="/js/modules/tools/buttons/buttonsStyles.js"></script>
+    <script type="module" src="/js/modules/tools/buttons/buttons.js"></script>
+
+    <!-- Таббар -->
+    <script src="/js/modules/tools/tabbar/tab.tmpl.js"></script>        
+    <script src="/js/modules/tools/tabbar/tabbar.tmpl.js"></script>        
+    <script type="module" src="/js/modules/tools/tabbar/tabDelegate.js"></script>    
+    <script type="module" src="/js/modules/tools/tabbar/tabbar.js"></script>
+
+    <!-- Абстрактная секция -->
+    <script type="module" src="/js/modules/tools/section/absctractSection.js"></script>
+    <script type="module" src="/js/modules/tools/section/sectionsBar.js"></script>    
+
+    <!-- Астракция для групп таблиц, разделенных по типу singleplayer / multiplayer -->
+    <script src="/js/modules/tools/smTablesModule/smSubsections.tmpl.js"></script>            
+    <script src="/js/modules/tools/smTablesModule/smTablesModule.tmpl.js"></script>        
+    <script type="module" src="/js/modules/tools/smTablesModule/subsection.js"></script>
+    <script type="module" src="/js/modules/tools/smTablesModule/smTablesModule.js"></script>    
 
 <!-- Секции -->
-<script src="/js/modules/downsections/profile/profile.tmpl.js"></script>
-<script src="/js/modules/downsections/rules/rules.tmpl.js"></script>
-<script src="/js/modules/downsections/scoreboard/scoreboard.tmpl.js"></script>
+    <!-- Секция редактирования профиля -->
+    <script src="/js/modules/downscreen/downsections/profile/editSection/editInput.tmpl.js"></script>
+    <script src="/js/modules/downscreen/downsections/profile/editSection/viewMode.tmpl.js"></script>
+    <script src="/js/modules/downscreen/downsections/profile/editSection/editMode.tmpl.js"></script>
+    <script src="/js/modules/downscreen/downsections/profile/editSection/fieldToggler.tmpl.js"></script>
+    <script src="/js/modules/downscreen/downsections/profile/editSection/editSection.tmpl.js"></script>
+    <script type="module" src="/js/modules/downscreen/downsections/profile/editSection/editSection.js"></script>
+    
+    <!-- Секция истории игр -->
+    <script src="/js/modules/downscreen/downsections/profile/historySection/historySection.tmpl.js"></script>
+    <script type="module" src="/js/modules/downscreen/downsections/profile/historySection/historySection.js"></script>
+    
+    <!-- Скорборд -->
+    <script src="/js/modules/downscreen/downsections/scoreboard/scoreboard.tmpl.js"></script>
+    <script type="module" src="/js/modules/downscreen/downsections/scoreboard/scoreboard.js"></script>
 
-<script type="module" src="js/modules/downsections/abstractSection.js"></script>
-<script type="module" src="js/modules/downsections/profile/profile.js"></script>
-<script type="module" src="/js/modules/downsections/rules/rules.js"></script>
-<script type="module" src="/js/modules/downsections/scoreboard/scoreboard.js"></script>
+<script src="/js/modules/downscreen/downsections/profile/profile.tmpl.js"></script>
+<script src="/js/modules/downscreen/downsections/rules/rules.tmpl.js"></script>
+
+<script type="module" src="/js/modules/downscreen/downsections/abstractSection.js"></script>
+<script type="module" src="/js/modules/downscreen/downsections/profile/profile.js"></script>
+<script type="module" src="/js/modules/downscreen/downsections/rules/rules.js"></script>
 
 <!-- Нижний экран -->
 <script src="/js/modules/downscreen/downscreen.tmpl.js"></script>
-<script type="module" src="/js/modules/downscreen/downscreen.js"></script>
-
-<!-- Таббар -->
-<script src="/js/modules/tabbar/tabbar.tmpl.js"></script>
-<script type="module" src="/js/modules/tabbar/tabbar.js"></script>
 
 <!-- Форма логина и регистрации -->
-<script src="/js/modules/authSignup/authSignup.tmpl.js"></script>
-<script type="module" src="/js/modules/authSignup/authSignup.js"></script>
+<script src="/js/modules/mainscreen/centralBlock/authSignup/authSignup.tmpl.js"></script>
+<script type="module" src="/js/modules/mainscreen/centralBlock/authSignup/authSignup.js"></script>
+
+<!-- Центральный блок главного экрана -->
+<script src="/js/modules/mainscreen/centralBlock/centralBlock.tmpl.js"></script>
+<script type="module" src="/js/modules/mainscreen/centralBlock/singleplayColumn/singleplayColumn.js"></script>
+<script type="module" src="/js/modules/mainscreen/centralBlock/centralBlock.js"></script>
+
+<script src="/js/modules/mainscreen/header/header.tmpl.js"> </script>
+<script type="module" src="/js/modules/mainscreen/header/header.js"> </script>
 
 <!-- Главный экран -->
 <script src="/js/modules/mainscreen/mainscreen.tmpl.js"></script>
 <script type="module" src="/js/modules/mainscreen/mainscreen.js"></script>
+
 
 <!-- Инициализатор -->
 <script src="/js/modules/init/init.tmpl.js"></script>

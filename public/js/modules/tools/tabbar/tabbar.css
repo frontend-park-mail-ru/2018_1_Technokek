@@ -1,0 +1,46 @@
+.tabbar {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.tabbar-item {
+    margin: 5px 20px 10px 20px;
+}
+
+.tabbar-item a {
+    text-decoration: none;
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+}
+
+.tabbar-item a:hover {
+    text-decoration: none;
+    font-family: 'ProximaNovaLt';
+    font-weight: 300;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+.active > a, .active {
+    font-family: 'ProximaNovaLt';
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+.active > a:hover, .active:hover {
+    font-family: 'ProximaNovaLt';
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+.tabbar-tab-lg a {
+    font-size: 30px;
+}
+
+.tabbar-tab-sm a {
+    font-size: 20px;
+}

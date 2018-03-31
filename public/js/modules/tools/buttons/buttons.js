@@ -1,16 +1,27 @@
 'use strict';
 
 import utiles from '../../../components/utiles.js';
+import buttonsStyles from './buttonsStyles.js';
 
-class AbstractButton {
+class Button {
     constructor({
             text = '',
             events = [],
-            templateFunction = utiles.noop
+            style = '',
+            wide = false,
     } = {}) {
-        const elHtml = templateFunction({ text });
+        const elHtml = window.buttonTmplTemplate({ text, style });
         this._el = utiles.htmlToElements(elHtml)[0];
-        this._createListeners(events);
+
+        if (wide) {
+            this._el.style.width = '100%';
+        }
+
+        this.addListeners(events);
+        this.addListeners([{
+            name: 'click',
+            event: (evt) => evt.preventDefault()
+        }]);
     }
 
     get element() {
@@ -18,44 +29,43 @@ class AbstractButton {
     }
 
     addListeners(events) {
-        this._createListeners(events);
-    }
-
-    _createListeners(events) {
         for (let event of events) {
             this._el.addEventListener(event.name, event.handler);
         }
     }
 }
 
-class ActiveButton extends AbstractButton {
-    constructor({text = '', events = []} = {}) {
+class PrimaryButton extends Button {
+    constructor({text = '', events = [], wide = false} = {}) {
         super({ 
             text, 
             events,
-            templateFunction: window.activebuttonTmplTemplate
+            style: buttonsStyles.PRIMARY,
+            wide
         });
     }
 }
 
-class PassiveButton extends AbstractButton {
-    constructor({text = '', events = []} = {}) {
+class PLayButton extends Button {
+    constructor({text = '', events = [], wide = false} = {}) {
         super({ 
             text, 
             events,
-            templateFunction: window.passivebuttonTmplTemplate
+            style: buttonsStyles.PLAY,
+            wide
         });
     }
 }
 
-class SubmitInput extends AbstractButton {
-    constructor({text = 'Submit', events = []}) {
-        super({
-            text,
-            events, 
-            templateFunction: window.submitinputTmplTemplate
+class PassiveButton extends Button {
+    constructor({text = '', events = [], wide = false} = {}) {
+        super({ 
+            text, 
+            events,
+            style: buttonsStyles.PASSIVE,
+            wide
         });
     }
 }
 
-export {ActiveButton, PassiveButton, SubmitInput};
+export {PrimaryButton, PassiveButton, PLayButton};
